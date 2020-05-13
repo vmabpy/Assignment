@@ -1,0 +1,20 @@
+import React from 'react';
+import {View, StyleSheet, ScrollView} from 'react-native'
+import SectionCourses from './SectionCourses/section-courses';
+
+const Home = (props) => {
+    return(
+        <ScrollView>
+            <SectionCourses title = "Continue Learning" />
+            <SectionCourses title = "Path" />
+            <SectionCourses title = "Channel" />
+            <SectionCourses title = "Bookmarks" />
+        </ScrollView>
+    )
+}
+
+const styles = StyleSheet.create({
+    
+})
+
+export default Home;
