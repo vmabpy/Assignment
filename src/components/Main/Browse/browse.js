@@ -5,6 +5,7 @@ import RadiusButton from '../../Common/radius-button'
 import ListLanguage from './ListLanguage/list-language'
 import LearningPath from './LearningPath/learning-path'
 import Trending from './Trending/trending'
+import Authors from './Authors/AuthorList/list-author'
 
 const Browse = (props) => {
     return (
@@ -15,6 +16,7 @@ const Browse = (props) => {
             <ListLanguage title = "Popular skills" />
             <Trending />
             <LearningPath title = "Path"/>
+            <Authors title = "Top Authors"/>
         </ScrollView>
     )
 }
