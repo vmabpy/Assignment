@@ -14,7 +14,6 @@ const Home = (props) => {
     return(
         
         <ScrollView>
-            {/* <ImageButton title = 'NEW RELEASES' onPress = {onPressNewReleases()}/> */}
             <SectionCourses title = "Continue Learning" />
             <SectionCourses title = "Path" />
             <SectionCourses title = "Channel" />
