@@ -6,12 +6,14 @@ import ImageButton from './src/components/Common/image-button';
 import ListCourses from './src/components/Courses/ListCourses/list-courses';
 import Download from './src/components/Main/Download/download';
 import Browse from './src/components/Main/Browse/browse';
+import SearchCourses from './src/components/Main/SearchCourses/search-courses';
 
 export default function App() {
   
   return (
     <View style={styles.container}>
-      <Browse />
+      <SearchCourses />
+      {/* <Browse /> */}
       {/* <Download /> */}
       {/* <ListCourses /> */}
       {/* <Home /> */}

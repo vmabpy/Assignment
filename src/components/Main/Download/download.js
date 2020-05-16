@@ -29,11 +29,15 @@ const Download = (props) => {
             duration: '25 hours',
         } 
     ]
+
+    
+
     return(
         <View>
             <FlatList 
                 data = {courses}
                 renderItem = {({item}) => <ListCoursesItem item = {item}/>}
+
             />
         </View>
     )
