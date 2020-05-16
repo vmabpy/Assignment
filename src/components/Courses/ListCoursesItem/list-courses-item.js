@@ -5,23 +5,7 @@ const ListCoursesItem = (props) => {
     return(
         <TouchableOpacity style = {styles.item}
                         onPress = {() => {
-                            Alert.alert('Info', 'FlatList is pressed',
-                            [
-                                {
-                                    text: 'Cancel',
-                                    onPress: () => {
-                                        console.log('Cancle')
-                                    }
-                                },
-                                {
-                                    text: 'Ok',
-                                    onPress: () => {
-                                        Share.share({
-                                            message: 'React Native with Hook',
-                                        })
-                                    }
-                                }
-                            ])
+                            props.navigation.navigate("CourseDetail", {item: props.item})
                         }}
         >
             <Image source = {require('../../../../assets/ic_course.jpg')} style = {styles.image}/>

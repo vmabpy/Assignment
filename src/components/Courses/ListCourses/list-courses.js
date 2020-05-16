@@ -122,7 +122,7 @@ const ListCourses = (props) => {
         
         <SectionList 
             sections = {courseSection}
-            renderItem = {({item}) => <ListCoursesItem item = {item}/>}
+            renderItem = {({item}) => <ListCoursesItem navigation={props.navigation} item = {item}/>}
             renderSectionHeader={({ section: { title } }) => (
                 <View style = {{backgroundColor: 'white'}}>
                     <Text>{title}</Text>
