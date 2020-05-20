@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, FlatList, TextInput, Button, StyleSheet, SectionList, Text} from 'react-native'
+import { View, FlatList, TextInput, Button, StyleSheet, SectionList, Text } from 'react-native'
 import ListCoursesItem from '../ListCoursesItem/list-courses-item'
 import { render } from 'react-dom'
 
@@ -20,7 +20,7 @@ const ListCourses = (props) => {
             level: 'Beginner',
             released: 'May 6, 2020',
             duration: '25 hours',
-        }, 
+        },
         {
             id: 3,
             title: 'android',
@@ -28,7 +28,7 @@ const ListCourses = (props) => {
             level: 'Beginner',
             released: 'May 6, 2020',
             duration: '25 hours',
-        } 
+        }
     ]
 
     const courseSection = [
@@ -50,7 +50,7 @@ const ListCourses = (props) => {
                     level: 'Beginner',
                     released: 'May 6, 2020',
                     duration: '25 hours',
-                }, 
+                },
                 {
                     id: 3,
                     title: 'android',
@@ -58,7 +58,7 @@ const ListCourses = (props) => {
                     level: 'Beginner',
                     released: 'May 6, 2020',
                     duration: '25 hours',
-                }  
+                }
             ]
         },
         {
@@ -79,7 +79,7 @@ const ListCourses = (props) => {
                     level: 'Beginner',
                     released: 'May 6, 2020',
                     duration: '25 hours',
-                }, 
+                },
                 {
                     id: 3,
                     title: 'Java',
@@ -87,22 +87,22 @@ const ListCourses = (props) => {
                     level: 'Beginner',
                     released: 'May 6, 2020',
                     duration: '25 hours',
-                }  
+                }
             ]
         }
     ]
 
     const searchView = () => {
         return (
-            <View style = {{flexDirection: 'row'}}>
-                <TextInput style = {styles.textinput} placeholder = "search Text">
+            <View style={{ flexDirection: 'row' }}>
+                <TextInput style={styles.textinput} placeholder="search Text">
 
                 </TextInput>
-                <Button onPress = {() => {
+                <Button onPress={() => {
                     console.log('Search')
-                }} 
-                title = 'Search'
-                style = {styles.button} />
+                }}
+                    title='Search'
+                    style={styles.button} />
             </View>
         )
     }
@@ -111,7 +111,11 @@ const ListCourses = (props) => {
 
     }
 
-    return(
+    const onPressListItem = (item) => {
+        props.navigation.navigate("CourseDetail", { item })
+    }
+
+    return (
         // <View>
         //     <FlatList 
         //       data = {courses} 
@@ -119,23 +123,23 @@ const ListCourses = (props) => {
         //       ListHeaderComponent = {() => searchView()}
         //     />
         // </View>
-        
-        <SectionList 
-            sections = {courseSection}
-            renderItem = {({item}) => <ListCoursesItem navigation={props.navigation} item = {item}/>}
+
+        <SectionList
+            sections={courseSection}
+            renderItem={({ item }) => <ListCoursesItem navigation={props.navigation} item={item} onPressListItem={onPressListItem} />}
             renderSectionHeader={({ section: { title } }) => (
-                <View style = {{backgroundColor: 'white'}}>
+                <View style={{ backgroundColor: 'white' }}>
                     <Text>{title}</Text>
                 </View>
-              )}        
-            
+            )}
+
         />
-        
+
     )
 }
 
 const styles = StyleSheet.create({
-    textinput:{
+    textinput: {
         flex: 1,
         borderColor: 'gray',
         borderWidth: 1,
