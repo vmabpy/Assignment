@@ -9,11 +9,6 @@ export const Register = (props) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [name, setName] = useState("")
-    const { signUp } = React.useContext(AuthContext);
-
-    const handleSignUp = () => {
-        signUp()
-    }
 
     return (
         <View>
@@ -48,10 +43,12 @@ export const Register = (props) => {
                         value={password} />
                 </View>
             </View>
-            <TouchableOpacity style={styles.button} onPress={handleSignUp}>
+            <TouchableOpacity style={styles.button} onPress={() => {
+
+            }}>
                 <Text style={styles.textLogin}>Sign Up</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.textSignUp} onPress={() => navigation.navigate('SignIn')}>
+            <TouchableOpacity style={styles.textSignUp} onPress={() => props.navigation.navigate('SignIn')}>
                 <Text style={{ color: "#414959", fontSize: 13 }}>
                     New to SocialApp? <Text style={{ fontWeight: '500', color: '#E9446A' }}>Login</Text>
                 </Text>

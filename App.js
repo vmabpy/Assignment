@@ -84,8 +84,8 @@ const TabBottomScreen = () => (
 const MainStack = createStackNavigator()
 const MainStackScreen = () => (
   <MainStack.Navigator>
-    <MainStack.Screen name="SignIn" component={Login} options={{ headerShown: false }} />
     <MainStack.Screen name="Splash" component={Splash} options={{ headerShown: false }} />
+    <MainStack.Screen name="MainAuth" component={AuthStackScreen} options={{ headerShown: false }} />
     <MainStack.Screen name="MainApp" component={TabBottomScreen} options={{ headerShown: false }} />
   </MainStack.Navigator>
 )

@@ -52,7 +52,7 @@ class Splash extends React.Component {
         console.log('componentDidUpdate')
         if (this.state.loading >= 100) {
             clearInterval(this.timer)
-            this.props.navigation.navigate('Login')
+            this.props.navigation.navigate('MainAuth')
         }
     }
 
