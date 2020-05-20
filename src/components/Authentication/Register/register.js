@@ -15,7 +15,7 @@ export const Register = (props) => {
             <StatusBar barStyle='light-content' />
             <View style={styles.viewBubble}></View>
             <View style={styles.viewBubbleYellow}></View>
-            <TouchableOpacity style={styles.buttonBack} onPress={() => navigation.goBack()}>
+            <TouchableOpacity style={styles.buttonBack} onPress={() => props.navigation.goBack()}>
                 <Ionicons name='ios-arrow-round-back' size="32" color="#FFF" />
             </TouchableOpacity>
             <Text style={styles.greeting}>{`Hello\n Sign up to get started`}</Text>
