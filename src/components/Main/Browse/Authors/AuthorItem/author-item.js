@@ -1,18 +1,24 @@
 import React from 'react'
-import {View, TouchableOpacity, StyleSheet, Image, Text} from 'react-native'
+import { View, TouchableOpacity, StyleSheet, Image, Text } from 'react-native'
 
 const AuthorItem = (props) => {
-    return(
-        <View style = {styles.contain}>
-            <TouchableOpacity>
-                <Image
-                    style={styles.button}
-                    source={props.item.imageRoute}
-                />
-            </TouchableOpacity>
-            <Text style = {styles.text} >{props.item.name}</Text>
-        </View>
-
+    return (
+        // <View style = {styles.contain}>
+        //     <TouchableOpacity>
+        //         <Image
+        //             style={styles.button}
+        //             source={props.item.imageRoute}
+        //         />
+        //     </TouchableOpacity>
+        //     <Text style = {styles.text} >{props.item.name}</Text>
+        // </View>
+        <TouchableOpacity style={styles.contain}>
+            <Image
+                style={styles.button}
+                source={props.item.imageRoute}
+            />
+            <Text style={styles.text} >{props.item.name}</Text>
+        </TouchableOpacity>
     )
 }
 
