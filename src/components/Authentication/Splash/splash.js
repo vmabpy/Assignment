@@ -1,5 +1,5 @@
 import React, { Component, useState, useEffect } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Image, ActivityIndicator } from 'react-native'
 /*
     const Splash = (props) => {
         const  [loading, setLoading] = useState(0)
@@ -40,7 +40,7 @@ class Splash extends React.Component {
             console.log('componentDidMount')
             const newLoadingValue = this.state.loading + 1
             this.setState({ loading: newLoadingValue })
-        }, 100);
+        }, 50);
     }
 
     // shouldComponentUpdate() {
@@ -50,7 +50,7 @@ class Splash extends React.Component {
     componentDidUpdate() {
         //preProps, preState
         console.log('componentDidUpdate')
-        if (this.state.loading >= 100) {
+        if (this.state.loading >= 50) {
             clearInterval(this.timer)
             this.props.navigation.navigate('MainAuth')
         }
@@ -64,7 +64,7 @@ class Splash extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>Loading...{`${this.state.loading}`}</Text>
+                <Image source={require('../../../../assets/ic_splash.png')} />
             </View>
         )
     }
@@ -76,6 +76,11 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#fff',
+    },
+    image: {
+        height: 200,
+        width: 200,
     }
 })
 
