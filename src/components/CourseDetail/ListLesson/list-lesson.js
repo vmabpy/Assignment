@@ -64,7 +64,7 @@ const ListLesson = (props) => {
                 renderSectionHeader={({ section: { title } }) => (
                     <View style={styles.header}>
                         <View style={styles.viewNumber}>
-                            <Text style={styles.titleNumber}>{keyExtractor.index}</Text>
+                            <Text style={styles.titleNumber}>{}</Text>
                         </View>
                         <View>
                             <Text style={styles.titleSection}>{title}</Text>

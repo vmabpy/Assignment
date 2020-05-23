@@ -1,13 +1,14 @@
 import React from 'react'
-import { View, Text, Button, StyleSheet, Dimensions } from 'react-native'
+import { View, Text, Button, StyleSheet, Dimensions, Image } from 'react-native'
 import VideoPlayer from './VideoPlayer/video-player'
-import { ScrollView } from 'react-native-gesture-handler'
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { padding } from '../../globals/constants'
 import ListOption from './ListOption/list-option'
 import AuthorCourse from './ListAuthorDetail/author-course'
 import ReviewItem from './ListReviewCourse/review-item'
 import ListLessonItem from './ListLessonItem/list-lesson-item'
 import ListLesson from './ListLesson/list-lesson'
+import { dimension } from '../../globals/dimension'
 
 const CourseDetail = (props) => {
     let item = props.route.params.item
@@ -28,6 +29,8 @@ const CourseDetail = (props) => {
     ]
     return (
         <View style={styles.container}>
+            <TouchableOpacity style={styles.buttonBack}>
+            </TouchableOpacity>
             <VideoPlayer />
             <ScrollView>
                 <Text style={styles.title}>{`${item.title}`}</Text>
@@ -76,6 +79,21 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#24221f',
+    },
+    imageIcon: {
+        height: 20,
+        width: 20,
+        borderRadius: 10,
+    },
+    buttonBack: {
+        position: 'absolute',
+        top: 50,
+        left: 50,
+        backgroundColor: 'red',
+        height: 20,
+        width: 20,
+        borderRadius: 10,
+
     },
     title: {
         marginTop: padding._10,

@@ -26,8 +26,11 @@ const Login = (props) => {
     useEffect(() => {
         if (status && status.status === 200) {
             props.navigation.navigate('MainApp', {
-                screen: 'Profile',
-                params: { status },
+                screen: 'HomeApp',
+                params: {
+                    screen: 'Home',
+                    params: { status }
+                },
             })
         }
     }, [status])

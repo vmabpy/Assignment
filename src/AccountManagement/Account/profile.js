@@ -3,10 +3,11 @@ import { Text, View, StyleSheet } from 'react-native'
 
 
 const Profile = (props) => {
+    const item = props.route.params.item
     return (
         <View style={styles.container}>
-            <Text>{props.route.params.status.user.username}</Text>
-            <Text>{props.route.params.status.user.fullName}</Text>
+            <Text>{item.username}</Text>
+            <Text>{item.fullName}</Text>
         </View>
     )
 }
