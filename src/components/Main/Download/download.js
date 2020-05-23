@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, FlatList} from 'react-native'
+import { View, Text, FlatList, StyleSheet } from 'react-native'
 import ListCoursesItem from '../../Courses/ListCoursesItem/list-courses-item'
 
 const Download = (props) => {
@@ -19,7 +19,7 @@ const Download = (props) => {
             level: 'Beginner',
             released: 'May 6, 2020',
             duration: '25 hours',
-        }, 
+        },
         {
             id: 3,
             title: 'android',
@@ -27,20 +27,36 @@ const Download = (props) => {
             level: 'Beginner',
             released: 'May 6, 2020',
             duration: '25 hours',
-        } 
+        }
     ]
 
-    
 
-    return(
-        <View>
-            <FlatList 
-                data = {courses}
-                renderItem = {({item}) => <ListCoursesItem item = {item}/>}
+    const onPressListItem = (item) => {
+        props.navigation.navigate("CourseDetail", { item })
+    }
 
-            />
-        </View>
+    const FlatListItemSeparator = () => {
+        return (
+            <View style={styles.separator}></View>
+        )
+    }
+
+    return (
+
+        <FlatList
+            data={courses}
+            renderItem={({ item }) => <ListCoursesItem item={item} navigation={props.navigation} onPressListItem={onPressListItem} />}
+            ItemSeparatorComponent={FlatListItemSeparator}
+        />
     )
 }
+
+const styles = StyleSheet.create({
+    separator: {
+        height: 0.5,
+        width: '100%',
+        backgroundColor: 'gray',
+    },
+})
 
 export default Download;

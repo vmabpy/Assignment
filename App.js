@@ -69,9 +69,17 @@ const HomeStackScreen = () => (
 const BrowseStack = createStackNavigator();
 const BrowseStackScreen = () => (
   <BrowseStack.Navigator>
-    <BrowseStack.Screen name="Browe" component={Browse} />
+    <BrowseStack.Screen name="Browse" component={Browse} />
     <BrowseStack.Screen name="CourseDetail" component={CourseDetail} />
   </BrowseStack.Navigator>
+)
+
+const DownloadStack = createStackNavigator();
+const DownloadStackScreen = () => (
+  <DownloadStack.Navigator>
+    <DownloadStack.Screen name="Download" component={Download} />
+    <DownloadStack.Screen name="CourseDetail" component={CourseDetail} />
+  </DownloadStack.Navigator>
 )
 
 const AuthStack = createStackNavigator();
@@ -94,7 +102,7 @@ const TabBottomScreen = () => (
           iconName = focused
             ? 'ios-information-circle'
             : 'ios-information-circle-outline';
-        } else if (route.name === "Download") {
+        } else if (route.name === "DownloadApp") {
           iconName = 'ios-download';
         } else if (route.name === "BrowseApp") {
           iconName = 'ios-browsers';
@@ -115,7 +123,7 @@ const TabBottomScreen = () => (
 
     <Tab.Screen name="HomeApp" component={HomeStackScreen} options={{ title: 'Home' }} />
     {/* <Tab.Screen name="ListCourses" component={ListCoursesStack} options={{ title: "Explorer" }} /> */}
-    <Tab.Screen name="Download" component={Download} />
+    <Tab.Screen name="DownloadApp" component={DownloadStackScreen} options={{ title: 'Download' }} />
     <Tab.Screen name="BrowseApp" component={BrowseStackScreen} options={{ title: 'Browse' }} />
     {/* <Tab.Screen name="Profile" component={Profile} /> */}
     <Tab.Screen name="Search" component={SearchCourses} options={{
