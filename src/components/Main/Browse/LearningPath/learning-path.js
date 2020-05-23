@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text, FlatList, ScrollView, StyleSheet} from 'react-native'
+import { View, Text, FlatList, ScrollView, StyleSheet } from 'react-native'
 import SectionCoursesItem from '../../Home/SectionCoursesItem/section-courses-item'
 
 const LearningPath = (props) => {
@@ -19,7 +19,7 @@ const LearningPath = (props) => {
             level: 'Beginner',
             released: 'May 6, 2020',
             duration: '25 hours',
-        }, 
+        },
         {
             id: 3,
             title: 'android',
@@ -27,19 +27,23 @@ const LearningPath = (props) => {
             level: 'Beginner',
             released: 'May 6, 2020',
             duration: '25 hours',
-        } 
+        }
     ]
 
-    const renderListItem = (courses) => {
-        return courses.map(item => <SectionCoursesItem item = {item}/>)
+    const onPressListItem = (item) => {
+        props.navigation.navigate('CourseDetail', { item })
     }
 
-    return(
+    const renderListItem = (courses) => {
+        return courses.map(item => <SectionCoursesItem item={item} navigation={props.navigation} onPressListItem={onPressListItem} />)
+    }
+
+    return (
         <View>
-            <View style = {{marginLeft: 5}}>
-                <Text style = {styles.text}>{props.title}</Text>
+            <View style={{ marginLeft: 5 }}>
+                <Text style={styles.text}>{props.title}</Text>
             </View>
-            <ScrollView horizontal = {true}>
+            <ScrollView horizontal={true}>
                 {renderListItem(courses)}
             </ScrollView>
         </View>
