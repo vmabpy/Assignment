@@ -3,9 +3,8 @@ import { View, Text, Button, StyleSheet, Dimensions } from 'react-native'
 import VideoPlayer from './VideoPlayer/video-player'
 import { ScrollView } from 'react-native-gesture-handler'
 import { padding } from '../../globals/constants'
-import LeftAuthorButton from '../Common/left-author-button'
-import OptionItem from './ListOption/option-item'
 import ListOption from './ListOption/list-option'
+import AuthorCourse from './ListAuthorDetail/author-course'
 const CourseDetail = (props) => {
     let item = props.route.params.item
     console.log(item)
@@ -15,7 +14,7 @@ const CourseDetail = (props) => {
             <VideoPlayer />
             <ScrollView>
                 <Text style={styles.title}>{`${item.title}`}</Text>
-                <LeftAuthorButton item={item} />
+                <AuthorCourse item={item} />
                 <Text style={styles.darkText}>{`${item.level} . ${item.released} . ${item.duration}`}</Text>
                 <ListOption />
             </ScrollView>

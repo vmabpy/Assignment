@@ -1,22 +1,26 @@
+
 import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
-import { padding } from '../../globals/constants'
-
-const LeftAuthorButton = (props) => {
+import { padding } from '../../../globals/constants'
+const AuthorCourse = (props) => {
     return (
-        <View style={{ flexDirection: 'row', justifyContent: 'start', marginLeft: padding._5 }}>
+        <View style={styles.containView}>
             <TouchableOpacity style={styles.container}>
                 <Image
                     style={styles.image}
                     source={props.item.imageRoute} />
                 <Text style={styles.titleAuthor}>{props.item.title} </Text>
             </TouchableOpacity>
-        </View>
+        </View >
     )
 }
 
 
 const styles = StyleSheet.create({
+    containView: {
+        flexDirection: 'row',
+        marginLeft: padding._5,
+    },
     container: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -37,4 +41,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default LeftAuthorButton;
+export default AuthorCourse;
