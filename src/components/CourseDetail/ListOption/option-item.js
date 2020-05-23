@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#444',
+        resizeMode: 'contain',
     },
     titleIcon: {
         color: '#888',
