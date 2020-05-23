@@ -1,7 +1,7 @@
 // '../../../assets/author.jpeg'
 
 import React from 'react'
-import {View, ScrollView, Text} from 'react-native'
+import { View, ScrollView, Text, StyleSheet } from 'react-native'
 import AuthorItem from '../AuthorItem/author-item'
 
 const Authors = (props) => {
@@ -41,20 +41,29 @@ const Authors = (props) => {
     ]
 
     const renderListItem = (authors) => {
-        return authors.map( item => <AuthorItem item = {item} />);
+        return authors.map(item => <AuthorItem item={item} />);
     }
 
 
-    return(
+    return (
         <View>
             <View>
-                <Text style = {{margin: 5}}>{props.title}</Text>
+                <Text style={styles.text}>{props.title}</Text>
             </View>
-            <ScrollView horizontal = {true}>
+            <ScrollView horizontal={true}>
                 {renderListItem(authors)}
             </ScrollView>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    text: {
+        color: 'darkgray',
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginLeft: 5,
+    }
+})
 
 export default Authors;
