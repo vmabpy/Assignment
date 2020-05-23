@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, Alert } from 'react-native';
-import 'react-native-gesture-handler';
 import Home from './src/components/Main/Home/home';
 import Login from './src/components/Authentication/Login/login';
 import ImageButton from './src/components/Common/image-button';
@@ -9,7 +8,7 @@ import Download from './src/components/Main/Download/download';
 import Browse from './src/components/Main/Browse/browse';
 import SearchCourses from './src/components/Main/SearchCourses/search-courses';
 import CourseDetail from './src/components/CourseDetail/course-detail';
-import NavigationContainer from '@react-navigation/native/src/NavigationContainer';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { navigationName } from './src/globals/constants'
@@ -18,6 +17,7 @@ import { colorConst } from './src/globals/constants'
 import Splash from './src/components/Authentication/Splash/splash';
 import Register from './src/components/Authentication/Register/register';
 import Profile from './src/AccountManagement/Account/profile';
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 const Stack = createStackNavigator()
 const ListCoursesStack = () => {
@@ -30,7 +30,8 @@ const ListCoursesStack = () => {
       headerTitleStyle: {
         fontWeight: 'bold',
       },
-    }} mode="modal"
+    }}
+    // mode="modal"
     >
       <Stack.Screen name={navigationName.ListCourse} component={ListCourses} options={{
         title: 'List Course',
@@ -56,6 +57,23 @@ const ListCoursesStack = () => {
   )
 }
 
+const HomeStack = createStackNavigator();
+const HomeStackScreen = () => (
+  <HomeStack.Navigator>
+    <HomeStack.Screen name="Home" component={Home} />
+    <HomeStack.Screen name="CourseDetail" component={CourseDetail} />
+    <HomeStack.Screen name="Profile" component={Profile} />
+  </HomeStack.Navigator>
+)
+
+const BrowseStack = createStackNavigator();
+const BrowseStackScreen = () => (
+  <BrowseStack.Navigator>
+    <BrowseStack.Screen name="Browe" component={Browse} />
+    <BrowseStack.Screen name="CourseDetail" component={CourseDetail} />
+  </BrowseStack.Navigator>
+)
+
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (
   <AuthStack.Navigator>
@@ -67,16 +85,42 @@ const AuthStackScreen = () => (
 
 const Tab = createBottomTabNavigator()
 const TabBottomScreen = () => (
-  <Tab.Navigator>
-    <Tab.Screen name="Home" component={Home} />
-    <Tab.Screen name="ListCourses" component={ListCoursesStack} options={{ title: "Explorer" }} />
-    <Tab.Screen name="Profile" component={Profile} />
+  <Tab.Navigator
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ focused, color, size }) => {
+        let iconName;
 
-    {/* <Tab.Screen name="Download" component={Download} />
-    <Tab.Screen name="Browse" component={Browse} />
+        if (route.name === 'HomeApp') {
+          iconName = focused
+            ? 'ios-information-circle'
+            : 'ios-information-circle-outline';
+        } else if (route.name === "Download") {
+          iconName = 'ios-download';
+        } else if (route.name === "BrowseApp") {
+          iconName = 'ios-browsers';
+        } else if (route.name === 'Search') {
+          iconName = 'ios-search';
+        }
+
+        // You can return any component that you like here!
+        return <Ionicons name={iconName} size={size} color={color} />;
+
+      },
+    })}
+    tabBarOptions={{
+      activeTintColor: 'tomato',
+      inactiveTintColor: 'gray',
+    }}
+  >
+
+    <Tab.Screen name="HomeApp" component={HomeStackScreen} options={{ title: 'Home' }} />
+    {/* <Tab.Screen name="ListCourses" component={ListCoursesStack} options={{ title: "Explorer" }} /> */}
+    <Tab.Screen name="Download" component={Download} />
+    <Tab.Screen name="BrowseApp" component={BrowseStackScreen} options={{ title: 'Browse' }} />
+    {/* <Tab.Screen name="Profile" component={Profile} /> */}
     <Tab.Screen name="Search" component={SearchCourses} options={{
       headerShown: false,
-    }} /> */}
+    }} />
 
   </Tab.Navigator>
 )
@@ -84,9 +128,9 @@ const TabBottomScreen = () => (
 const MainStack = createStackNavigator()
 const MainStackScreen = () => (
   <MainStack.Navigator>
-    <MainStack.Screen name="Splash" component={Splash} options={{ headerShown: false }} />
     <MainStack.Screen name="MainAuth" component={AuthStackScreen} options={{ headerShown: false }} />
     <MainStack.Screen name="MainApp" component={TabBottomScreen} options={{ headerShown: false }} />
+    <MainStack.Screen name="Splash" component={Splash} options={{ headerShown: false }} />
   </MainStack.Navigator>
 )
 
