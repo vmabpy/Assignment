@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Image, ActivityIndicator } from 'react-native'
+import { ThemeContext, themes } from '../../../../App'
 /*
     const Splash = (props) => {
         const  [loading, setLoading] = useState(0)
@@ -33,6 +34,7 @@ class Splash extends React.Component {
         super(props)
         this.state = { loading: 0 }
         console.log('constructor')
+        console.log('context data: ', this.context)
 
     }
     componentDidMount() {
@@ -70,6 +72,7 @@ class Splash extends React.Component {
     }
 
 }
+Splash.contextType = ThemeContext
 
 const styles = StyleSheet.create({
     container: {

@@ -3,8 +3,9 @@ import { View, Text, StyleSheet, Button, TextInput, TouchableOpacity, Alert, Ima
 import { Dimensions } from 'react-native';
 import { login } from '../../../core/service/authenticate-service';
 import { render } from 'react-dom';
+import { ThemeContext } from '../../../../App'
 import Profile from '../../../AccountManagement/Account/profile';
-import { cos } from 'react-native-reanimated';
+import { AuthenticationContext } from '../../../provider/authentication-provider';
 const screenHeight = Math.round(Dimensions.get('window').height);
 
 
@@ -35,49 +36,65 @@ const Login = (props) => {
         }
     }, [status])
 
-
     return (
-        <View style={styles.containerLogin}>
-            <StatusBar
-                barStyle='light-content'
-            />
-            <View style={styles.viewBubble}></View>
-            <View style={styles.viewBubbleYellow}></View>
-            <Text style={styles.greeting}>{`Hello again\n Welcome back`}</Text>
-            <View style={styles.form}>
-                <View>
-                    <Text style={styles.inputTitle}>Username</Text>
-                    <TextInput style={styles.input}
-                        autoCapitalize="none"
-                        onChangeText={text => setUserName(text)}
-                        defaultValue={userName} />
-                </View>
-                <View style={{ marginTop: 32 }}>
-                    <Text style={styles.inputTitle}>Password</Text>
-                    <TextInput
-                        style={styles.input}
-                        secureTextEntry autoCapitalize="none"
-                        onChangeText={text => setPassword(text)}
-                        defaultValue={password} />
-                </View>
-            </View>
-            {renderLoginStatus(status)}
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                    setStatus(login(userName, password))
-                    renderLoginStatus(status)
-                }}>
-                <Text style={styles.textLogin}>Sign In</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.textSignUp} onPress={() => props.navigation.push("Register")}>
-                <Text style={{ color: "#414959", fontSize: 13 }}>
-                    New to SocialApp? <Text style={{ fontWeight: '500', color: '#E9446A' }}>Sign Up</Text>
-                </Text>
-            </TouchableOpacity>
-            <View style={styles.viewBubbleBottom}></View>
-            <View style={styles.viewBubbleButtonLeft}></View>
-        </View>
+        <AuthenticationContext.Consumer>
+            {
+                ({ setAuthentication }) => {
+                    return (
+                        <ThemeContext.Consumer>
+                            {
+                                ({ theme, setTheme }) => {
+                                    return (
+                                        <View style={{ ...styles.containerLogin, backgroundColor: theme.background }}>
+                                            <StatusBar
+                                                barStyle='light-content'
+                                            />
+                                            <View style={styles.viewBubble}></View>
+                                            <View style={styles.viewBubbleYellow}></View>
+                                            <Text style={styles.greeting}>{`Hello again\n Welcome back`}</Text>
+                                            <View style={styles.form}>
+                                                <View>
+                                                    <Text style={styles.inputTitle}>Username</Text>
+                                                    <TextInput style={styles.input}
+                                                        autoCapitalize="none"
+                                                        onChangeText={text => setUserName(text)}
+                                                        defaultValue={userName} />
+                                                </View>
+                                                <View style={{ marginTop: 32 }}>
+                                                    <Text style={styles.inputTitle}>Password</Text>
+                                                    <TextInput
+                                                        style={styles.input}
+                                                        secureTextEntry autoCapitalize="none"
+                                                        onChangeText={text => setPassword(text)}
+                                                        defaultValue={password} />
+                                                </View>
+                                            </View>
+                                            {renderLoginStatus(status)}
+                                            <TouchableOpacity
+                                                style={styles.button}
+                                                onPress={() => {
+                                                    setStatus(login(userName, password))
+                                                    // renderLoginStatus(status)
+                                                    setAuthentication(login(userName, password))
+                                                }}>
+                                                <Text style={styles.textLogin}>Sign In</Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity style={styles.textSignUp} onPress={() => props.navigation.push("Register")}>
+                                                <Text style={{ color: "#414959", fontSize: 13 }}>
+                                                    New to SocialApp? <Text style={{ fontWeight: '500', color: '#E9446A' }}>Sign Up</Text>
+                                                </Text>
+                                            </TouchableOpacity>
+                                            <View style={styles.viewBubbleBottom}></View>
+                                            <View style={styles.viewBubbleButtonLeft}></View>
+                                        </View>
+                                    )
+                                }
+                            }
+                        </ThemeContext.Consumer >
+                    )
+                }
+            }
+        </AuthenticationContext.Consumer>
     )
 }
 

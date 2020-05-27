@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import Home from './src/components/Main/Home/home';
 import Login from './src/components/Authentication/Login/login';
@@ -18,6 +18,7 @@ import Splash from './src/components/Authentication/Splash/splash';
 import Register from './src/components/Authentication/Register/register';
 import Profile from './src/AccountManagement/Account/profile';
 import Ionicons from '@expo/vector-icons/Ionicons'
+import { AuthenticationProvider } from './src/provider/authentication-provider';
 
 const Stack = createStackNavigator()
 const ListCoursesStack = () => {
@@ -50,7 +51,6 @@ const ListCoursesStack = () => {
         // }
         {
           title: "Course Detail",
-          headerShown: false,
         }
       } />
     </Stack.Navigator>
@@ -122,7 +122,7 @@ const TabBottomScreen = () => (
   >
 
     <Tab.Screen name="HomeApp" component={HomeStackScreen} options={{ title: 'Home' }} />
-    {/* <Tab.Screen name="ListCourses" component={ListCoursesStack} options={{ title: "Explorer" }} /> */}
+    <Tab.Screen name="ListCourses" component={ListCoursesStack} options={{ title: "Explorer" }} />
     <Tab.Screen name="DownloadApp" component={DownloadStackScreen} options={{ title: 'Download' }} />
     <Tab.Screen name="BrowseApp" component={BrowseStackScreen} options={{ title: 'Browse' }} />
     {/* <Tab.Screen name="Profile" component={Profile} /> */}
@@ -136,17 +136,73 @@ const TabBottomScreen = () => (
 const MainStack = createStackNavigator()
 const MainStackScreen = () => (
   <MainStack.Navigator>
-    <MainStack.Screen name="MainAuth" component={AuthStackScreen} options={{ headerShown: false }} />
-    <MainStack.Screen name="MainApp" component={TabBottomScreen} options={{ headerShown: false }} />
-    <MainStack.Screen name="Splash" component={Splash} options={{ headerShown: false }} />
+    <MainStack.Screen
+      value={{ theme, setTheme }}
+      name="Splash"
+      component={Splash}
+      options={{ headerShown: false }} />
+    <MainStack.Screen
+      value={{ theme, setTheme }}
+      name="MainAuth"
+      component={AuthStackScreen}
+      options={{ headerShown: false }} />
+    <MainStack.Screen
+      value={{ theme, setTheme }}
+      name="MainApp"
+      component={TabBottomScreen}
+      options={{ headerShown: false }} />
   </MainStack.Navigator>
 )
 
+
+export const themes = {
+  light: {
+    foreground: '#000000',
+    background: '#eeeeee',
+  },
+  dark: {
+    foreground: '#ffffff',
+    background: '#222222',
+  }
+}
+
+export const ThemeContext = React.createContext(
+  themes.light
+);
+
+
 export default function App() {
+  const [theme, setTheme] = useState(themes.light);
+  const [authenticated, setAuthencticated] = useState()
+
+
+
   return (
-    <NavigationContainer>
-      <MainStackScreen />
-    </NavigationContainer>
+    <ThemeContext.Provider value={{ theme, setTheme }} >
+      <AuthenticationProvider>
+        <NavigationContainer>
+          {/* <MainStackScreen /> */}
+          <MainStack.Navigator>
+            <MainStack.Screen
+              value={{ theme, setTheme }}
+              name="Splash"
+              component={Splash}
+              options={{ headerShown: false }} />
+            <MainStack.Screen
+              value={{ theme, setTheme }}
+              name="MainAuth"
+              component={AuthStackScreen}
+              options={{ headerShown: false }} />
+            <MainStack.Screen
+              value={{ theme, setTheme }}
+              name="MainApp"
+              component={TabBottomScreen}
+              options={{ headerShown: false }} />
+          </MainStack.Navigator>
+        </NavigationContainer>
+      </AuthenticationProvider>
+    </ThemeContext.Provider>
+
 
   );
 }
