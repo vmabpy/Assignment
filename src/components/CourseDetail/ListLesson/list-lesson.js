@@ -12,6 +12,7 @@ const ListLesson = (props) => {
 
     const courseSectionDeatail = [
         {
+            index: 0,
             title: 'Course Overview',
             data: [
                 {
@@ -22,6 +23,7 @@ const ListLesson = (props) => {
             ]
         },
         {
+            index: 1,
             title: 'Course Introduction',
             data: [
                 {
@@ -33,6 +35,7 @@ const ListLesson = (props) => {
 
         },
         {
+            index: 2,
             title: 'Key Concepts and Core Service',
             data: [
                 {
@@ -61,10 +64,10 @@ const ListLesson = (props) => {
                 SectionSeparatorComponent={FlatListItemSeparator}
                 sections={courseSectionDeatail}
                 renderItem={({ item }) => <ListLessonItem item={item} />}
-                renderSectionHeader={({ section: { title } }) => (
+                renderSectionHeader={({ section: { title, index } }) => (
                     <View style={styles.header}>
                         <View style={styles.viewNumber}>
-                            <Text style={styles.titleNumber}>{}</Text>
+                            <Text style={styles.titleNumber}>{index}</Text>
                         </View>
                         <View>
                             <Text style={styles.titleSection}>{title}</Text>
@@ -95,16 +98,15 @@ const styles = StyleSheet.create({
     viewNumber: {
         height: 50,
         width: 100,
-        backgroundColor: 'gray',
+        backgroundColor: 'darkgray',
         alignItems: 'center',
         justifyContent: 'center',
     },
     titleNumber: {
-        color: 'white',
         alignSelf: 'center',
+        color: 'white',
     },
     titleSection: {
-        color: 'white',
         margin: 5,
     }
 })

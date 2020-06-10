@@ -19,12 +19,12 @@ const ReviewItem = (props) => {
 const styles = StyleSheet.create({
     containerView: {
         flexDirection: 'row',
-        margin: padding._10,
+        margin: padding._5,
         justifyContent: 'center',
         alignItems: 'center',
         height: 30,
         borderRadius: 5,
-        backgroundColor: 'gray',
+        backgroundColor: 'darkgray',
 
     },
     image: {

@@ -6,17 +6,17 @@ const ListOption = (props) => {
     const options = [
         {
             id: 1,
-            imageRoute: require('../../../../assets/author.jpeg'),
+            imageRoute: require('../../../../assets/ic_bookmark.png'),
             title: 'Bookmark',
         },
         {
             id: 2,
-            imageRoute: require('../../../../assets/author.jpeg'),
+            imageRoute: require('../../../../assets/ic_channel.png'),
             title: 'Add to Channel',
         },
         {
             id: 3,
-            imageRoute: require('../../../../assets/author.jpeg'),
+            imageRoute: require('../../../../assets/ic_download.png'),
             title: 'Download',
         }
 

@@ -6,8 +6,8 @@ const OptionItem = (props) => {
     return (
 
         <TouchableOpacity style={styles.conatiner}>
-            <View>
-                <Image source={props.item.imageRoute} style={styles.viewIcon} />
+            <View style={styles.viewIcon}>
+                <Image source={props.item.imageRoute} style={styles.image} />
             </View>
             <Text style={styles.titleIcon}>{props.item.title}</Text>
         </TouchableOpacity>
@@ -26,8 +26,12 @@ const styles = StyleSheet.create({
         borderRadius: 24,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#444',
+        backgroundColor: 'darkgray',
         resizeMode: 'contain',
+    },
+    image: {
+        width: 24,
+        height: 24,
     },
     titleIcon: {
         color: '#888',
