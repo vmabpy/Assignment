@@ -124,13 +124,13 @@
 // });
 
 
-import React, { Component, useState } from 'react'
-import {View, FlatList, ActivityIndicator, StyleSheet, TextInput} from 'react-native'
-import {ListItem, SearchBar} from 'react-native-elements'
+import React, { useEffect, useState } from 'react'
+import { View, FlatList, ActivityIndicator, StyleSheet, TextInput } from 'react-native'
+import { ListItem, SearchBar } from 'react-native-elements'
 import _ from 'lodash'
 
-export default class SearchCourses extends React.Component{
-  
+export default class SearchCourses extends React.Component {
+
   state = {
     data: [],
     fullData: [],
@@ -144,26 +144,26 @@ export default class SearchCourses extends React.Component{
   }
 
   requestAPIPhotos = _.debounce(() => {
-    this.setState({loading: true})
+    this.setState({ loading: true })
     const apiURL = "https://jsonplaceholder.typicode.com/photos?"
     fetch(apiURL).then((res) => res.json())
-    .then((resJson) => {
-      this.setState({
-        loading: false,
-        data: resJson,
-        fullData: resJson
+      .then((resJson) => {
+        this.setState({
+          loading: false,
+          data: resJson,
+          fullData: resJson
+        })
+      }).catch(error => {
+        this.setState({ error, loading: false })
       })
-    }).catch(error => {
-      this.setState({error, loading: false})
-    })
 
   }, 250)
 
-  _renderItem = ({item, index}) => {
+  _renderItem = ({ item, index }) => {
     return (
       <ListItem
-        title = {item.albumId}
-        subtitle = {item.title}
+        title={item.albumId}
+        subtitle={item.title}
         bottomDivider
       />
     )
@@ -177,24 +177,24 @@ export default class SearchCourses extends React.Component{
       }
       return false
     })
-    this.setState({data, query: text})
+    this.setState({ data, query: text })
   }
 
   render() {
     if (this.state.loading) {
       return (
-        <View style = {styles.loading}>
-          <ActivityIndicator animating  size = "large"/>
+        <View style={styles.loading}>
+          <ActivityIndicator animating size="large" />
         </View>
       )
     }
     return (
       <View>
-        <SearchBar 
-          round 
+        <SearchBar
+          round
           lightTheme
-          placeholder = "Search"
-          onChangeText = {this.handleSearch}
+          placeholder="Search"
+          onChangeText={this.handleSearch}
         />
         <FlatList
           data={this.state.data}
@@ -220,3 +220,76 @@ const styles = StyleSheet.create({
   },
 })
 
+
+// const SearchCourses = (props) => {
+//   const [data, setData] = useState([]);
+//   const [fullData, setFullData] = useState([]);
+//   const [loading, setLoading] = useState(false);
+//   const [error, setError] = useState(null);
+//   const [query, setQuery] = useState("");
+
+
+//   useEffect(() => {
+//     setLoading(true)
+//     const apiURL = "https://jsonplaceholder.typicode.com/photos?"
+//     fetch(apiURL)
+//       .then(res => res.json())
+//       .then(resJson => {
+//         setLoading(false);
+//         setData(resJson);
+//         setFullData(resJson);
+//       }).catch(error => {
+//         setError(error);
+//         setLoading(false);
+//       })
+//   }, []);
+
+//   const renderItem = ({ item, index }) => {
+//     return (
+//       <ListItem
+//         title={item.albumId}
+//         subtitle={item.title}
+//         bottomDivider
+//       />
+//     )
+//   }
+
+//   const handleSearch = (text) => {
+//     const formattedQuerry = text.toLowerCase()
+//     const data = _.filter(fullData, item => {
+//       if (item.title.includes(formattedQuerry)) {
+//         return true
+//       }
+//       return false
+//     })
+//     setData(data);
+//     setQuery(text);
+//   }
+
+//   if (loading) {
+//     return (
+//       <View style={styles.loading}>
+//         <ActivityIndicator animating size="large" />
+//       </View>
+//     )
+//   }
+//   return (
+//     <View>
+//       <SearchBar
+//         round
+//         lightTheme
+//         placeholder="Search"
+//         onChangeText={handleSearch}
+//       />
+//       <FlatList
+//         data={data}
+//         renderItem={renderItem}
+//         keyExtractor={(item, index) => index.toString()}
+//       />
+//     </View>
+//   )
+// }
+
+
+
+// export default SearchCourses;

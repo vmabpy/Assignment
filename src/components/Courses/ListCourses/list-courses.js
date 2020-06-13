@@ -2,7 +2,7 @@ import React from 'react'
 import { View, FlatList, TextInput, Button, StyleSheet, SectionList, Text } from 'react-native'
 import ListCoursesItem from '../ListCoursesItem/list-courses-item'
 import { render } from 'react-dom'
-import { ThemeContext, themes } from '../../../../App'
+import { ThemeContext, themes } from '../../../../src/provider/theme-provider'
 
 const ListCourses = (props) => {
     const courses = [
@@ -131,36 +131,34 @@ const ListCourses = (props) => {
         //     />
         // </View>
 
-        <ThemeContext.Consumer>
-            {
-                ({ theme, setTheme }) => {
-                    return (
-                        <View style={{ flex: 1 }}>
-                            <SectionList
-                                style={{ backgroundColor: theme.background }}
-                                sections={courseSection}
-                                renderItem={({ item }) => <ListCoursesItem navigation={props.navigation} item={item} onPressListItem={onPressListItem} />}
-                                renderSectionHeader={({ section: { title } }) => (
-                                    <View style={{ backgroundColor: 'white' }}>
-                                        <Text>{title}</Text>
-                                    </View>
-                                )}
-                            />
-                            <Button
-                                title="Change Themes"
-                                onPress={() => {
-                                    theme === themes.light ? setTheme(themes.dark) : setTheme(themes.light);
-                                }}
-                            />
-                        </View>
-                    )
-                }
-            }
-        </ThemeContext.Consumer>
-
-
-
+        // <ThemeContext.Consumer>
+        //     {
+        //         ({ theme, setTheme }) => {
+        // return (
+        <View style={{ flex: 1 }}>
+            <SectionList
+                style={{ backgroundColor: themes.background }}
+                sections={courseSection}
+                renderItem={({ item }) => <ListCoursesItem navigation={props.navigation} item={item} onPressListItem={onPressListItem} />}
+                renderSectionHeader={({ section: { title } }) => (
+                    <View style={{ backgroundColor: 'white' }}>
+                        <Text>{title}</Text>
+                    </View>
+                )}
+            />
+            {/* <Button
+                title="Change Themes"
+                onPress={() => {
+                    theme === themes.light ? setTheme(themes.dark) : setTheme(themes.light);
+                }}
+            /> */}
+        </View>
     )
+    //         }
+    //     }
+    // </ThemeContext.Consumer>
+
+    // )
 }
 
 const styles = StyleSheet.create({

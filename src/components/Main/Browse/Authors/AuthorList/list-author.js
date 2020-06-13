@@ -59,7 +59,7 @@ const Authors = (props) => {
 
 const styles = StyleSheet.create({
     text: {
-        color: 'darkgray',
+        color: 'black',
         fontSize: 18,
         fontWeight: 'bold',
         marginLeft: 5,

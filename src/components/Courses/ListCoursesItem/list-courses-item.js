@@ -8,7 +8,7 @@ const ListCoursesItem = (props) => {
                 props.onPressListItem(props.item)
             }}
         >
-            <Image source={require('../../../../assets/ic_course.jpg')} style={styles.image} />
+            <Image source={props.item.imageUri} style={styles.image} />
             <View style={{ margin: 5 }}>
                 <Text>{props.item.title}</Text>
                 <Text style={styles.darkText}>{props.item.author}</Text>

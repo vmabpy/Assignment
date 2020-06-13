@@ -19,6 +19,10 @@ import Register from './src/components/Authentication/Register/register';
 import Profile from './src/AccountManagement/Account/profile';
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { AuthenticationProvider } from './src/provider/authentication-provider';
+import NewRealease from './src/components/Main/Browse/NewRealses/new-releases';
+import Recommendation from './src/components/Main/Browse/Recommendation/recommendation';
+import ListLanguageDetail from './src/components/Main/Browse/ListLanguageDetail/list-languague-detail';
+import LearningPathDetail from './src/components/Main/Browse/LearningPath/learning-path-detail';
 
 const Stack = createStackNavigator()
 const ListCoursesStack = () => {
@@ -70,6 +74,10 @@ const BrowseStack = createStackNavigator();
 const BrowseStackScreen = () => (
   <BrowseStack.Navigator>
     <BrowseStack.Screen name="Browse" component={Browse} />
+    <BrowseStack.Screen name="NewRealse" component={NewRealease} options={{ title: "New" }} />
+    <BrowseStack.Screen name="Recommendation" component={Recommendation} />
+    <BrowseStack.Screen name="CourseLanguageDetail" component={ListLanguageDetail} />
+    <BrowseStack.Screen name="PathDetail" component={LearningPathDetail} />
     <BrowseStack.Screen name="CourseDetail" component={CourseDetail} />
   </BrowseStack.Navigator>
 )
@@ -137,17 +145,14 @@ const MainStack = createStackNavigator()
 const MainStackScreen = () => (
   <MainStack.Navigator>
     <MainStack.Screen
-      value={{ theme, setTheme }}
       name="Splash"
       component={Splash}
       options={{ headerShown: false }} />
     <MainStack.Screen
-      value={{ theme, setTheme }}
       name="MainAuth"
       component={AuthStackScreen}
       options={{ headerShown: false }} />
     <MainStack.Screen
-      value={{ theme, setTheme }}
       name="MainApp"
       component={TabBottomScreen}
       options={{ headerShown: false }} />
@@ -155,53 +160,55 @@ const MainStackScreen = () => (
 )
 
 
-export const themes = {
-  light: {
-    foreground: '#000000',
-    background: '#eeeeee',
-  },
-  dark: {
-    foreground: '#ffffff',
-    background: '#222222',
-  }
-}
+// export const themes = {
+//   light: {
+//     foreground: '#000000',
+//     background: '#eeeeee',
+//   },
+//   dark: {
+//     foreground: '#ffffff',
+//     background: '#222222',
+//   }
+// }
 
-export const ThemeContext = React.createContext(
-  themes.light
-);
+// export const ThemeContext = React.createContext(
+//   themes.light
+// );
 
 
 export default function App() {
-  const [theme, setTheme] = useState(themes.light);
+  // const [theme, setTheme] = useState(themes.light);
   const [authenticated, setAuthencticated] = useState()
 
 
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }} >
-      <AuthenticationProvider>
-        <NavigationContainer>
-          {/* <MainStackScreen /> */}
-          <MainStack.Navigator>
-            <MainStack.Screen
-              value={{ theme, setTheme }}
-              name="Splash"
-              component={Splash}
-              options={{ headerShown: false }} />
-            <MainStack.Screen
-              value={{ theme, setTheme }}
-              name="MainAuth"
-              component={AuthStackScreen}
-              options={{ headerShown: false }} />
-            <MainStack.Screen
-              value={{ theme, setTheme }}
-              name="MainApp"
-              component={TabBottomScreen}
-              options={{ headerShown: false }} />
-          </MainStack.Navigator>
-        </NavigationContainer>
-      </AuthenticationProvider>
-    </ThemeContext.Provider>
+    // <ThemeContext.Provider value={{ theme, setTheme }} >
+    <AuthenticationProvider>
+      <NavigationContainer>
+        {/* <MainStackScreen /> */}
+        <MainStack.Navigator>
+          <MainStack.Screen
+            // value={{ theme, setTheme }}
+            name="MainAuth"
+            component={AuthStackScreen}
+            options={{ headerShown: false }} />
+          <MainStack.Screen
+            // value={{ theme, setTheme }}
+            name="MainApp"
+            component={TabBottomScreen}
+            options={{ headerShown: false }} />
+          <MainStack.Screen
+            // value={{ theme, setTheme }}
+            name="Splash"
+            component={Splash}
+            options={{ headerShown: false }} />
+
+
+        </MainStack.Navigator>
+      </NavigationContainer>
+    </AuthenticationProvider>
+    // </ThemeContext.Provider>
 
 
   );

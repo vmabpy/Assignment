@@ -3,11 +3,10 @@ import { View, StyleSheet, ScrollView, Image } from 'react-native'
 import SectionCourses from './SectionCourses/section-courses';
 import ImageButton from '../../Common/image-button';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
-
-
-
+import { coursesSoftware, courseData, courseSecurity, coursesOperations } from '../../../globals/courses'
 const Home = (props) => {
+
+
     const item = props.route.params.status.user
 
     props.navigation.setOptions({
@@ -24,10 +23,10 @@ const Home = (props) => {
 
     return (
         <ScrollView>
-            <SectionCourses title="Continue Learning" navigation={props.navigation} />
-            <SectionCourses title="Path" navigation={props.navigation} />
-            <SectionCourses title="Channel" navigation={props.navigation} />
-            <SectionCourses title="Bookmarks" navigation={props.navigation} />
+            <SectionCourses title="Software development" courses={coursesSoftware} navigation={props.navigation} />
+            <SectionCourses title="IT Operations" courses={coursesOperations} navigation={props.navigation} />
+            <SectionCourses title="Data professional" courses={courseData} navigation={props.navigation} />
+            <SectionCourses title="Security professional" courses={courseSecurity} navigation={props.navigation} />
         </ScrollView>
     )
 }
