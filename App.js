@@ -25,6 +25,7 @@ import ListLanguageDetail from './src/components/Main/Browse/ListLanguageDetail/
 import LearningPathDetail from './src/components/Main/Browse/LearningPath/learning-path-detail';
 import ListAuthorDetail from './src/components/Main/Browse/Authors/AuthorList/author-detail';
 import SearchCourse from './src/components/Main/SearchCourses/search-courses';
+import { DownloadProvider } from './src/provider/download-provider';
 
 const Stack = createStackNavigator()
 const ListCoursesStack = () => {
@@ -143,7 +144,7 @@ const TabBottomScreen = () => (
   >
 
     <Tab.Screen name="HomeApp" component={HomeStackScreen} options={{ title: 'Home' }} />
-    <Tab.Screen name="DownloadApp" component={DownloadStackScreen} options={{ title: 'Download' }} />
+    <Tab.Screen name="DownloadApp" component={DownloadStackScreen} options={{ title: 'Favorite' }} />
     <Tab.Screen name="BrowseApp" component={BrowseStackScreen} options={{ title: 'Browse' }} />
     {/* <Tab.Screen name="Praofile" component={Profile} /> */}
     <Tab.Screen name="SearchApp" component={SearchStackScreen} options={{
@@ -197,28 +198,30 @@ export default function App() {
   return (
     // <ThemeContext.Provider value={{ theme, setTheme }} >
     <AuthenticationProvider>
-      <NavigationContainer>
-        {/* <MainStackScreen /> */}
-        <MainStack.Navigator>
-          <MainStack.Screen
-            // value={{ theme, setTheme }}
-            name="MainAuth"
-            component={AuthStackScreen}
-            options={{ headerShown: false }} />
-          <MainStack.Screen
-            // value={{ theme, setTheme }}
-            name="MainApp"
-            component={TabBottomScreen}
-            options={{ headerShown: false }} />
-          <MainStack.Screen
-            // value={{ theme, setTheme }}
-            name="Splash"
-            component={Splash}
-            options={{ headerShown: false }} />
+      <DownloadProvider>
+        <NavigationContainer>
+          {/* <MainStackScreen /> */}
+          <MainStack.Navigator>
+            <MainStack.Screen
+              // value={{ theme, setTheme }}
+              name="MainAuth"
+              component={AuthStackScreen}
+              options={{ headerShown: false }} />
+            <MainStack.Screen
+              // value={{ theme, setTheme }}
+              name="MainApp"
+              component={TabBottomScreen}
+              options={{ headerShown: false }} />
+            <MainStack.Screen
+              // value={{ theme, setTheme }}
+              name="Splash"
+              component={Splash}
+              options={{ headerShown: false }} />
 
 
-        </MainStack.Navigator>
-      </NavigationContainer>
+          </MainStack.Navigator>
+        </NavigationContainer>
+      </DownloadProvider>
     </AuthenticationProvider>
     // </ThemeContext.Provider>
 

@@ -9,7 +9,7 @@ const AuthorCourse = (props) => {
                 <Image
                     style={styles.image}
                     source={props.item.imageRoute} />
-                <Text style={styles.titleAuthor}>{props.item.title} </Text>
+                <Text style={styles.titleAuthor}>{props.item.author} </Text>
             </TouchableOpacity>
         </View >
     )

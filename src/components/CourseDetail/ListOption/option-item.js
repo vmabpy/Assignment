@@ -5,7 +5,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 const OptionItem = (props) => {
     return (
 
-        <TouchableOpacity style={styles.conatiner}>
+        <TouchableOpacity style={styles.conatiner} onPress={() => {
+            props.onPressListItem(props.item)
+        }}>
             <View style={styles.viewIcon}>
                 <Image source={props.item.imageRoute} style={styles.image} />
             </View>

@@ -36,7 +36,7 @@ const CourseDetail = (props) => {
                 <Text style={styles.title}>{`${item.title}`}</Text>
                 <AuthorCourse item={item} />
                 <Text style={styles.darkText}>{`${item.level} . ${item.released} . ${item.duration}`}</Text>
-                <ListOption />
+                <ListOption item={item} />
                 <ReviewItem item={review[0]} />
                 <ReviewItem item={review[1]} />
 
