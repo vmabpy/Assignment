@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     },
     image: {
         height: 100,
-        width: 200,
+        width: 180,
     },
     darkText: {
         color: 'darkgray',
