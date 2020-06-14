@@ -4,6 +4,7 @@ import ListCourses from '../../../Courses/ListCourses/list-courses'
 import { ScrollView } from 'react-native-gesture-handler'
 import SectionCourses from '../../Home/SectionCourses/section-courses'
 import { courseData } from '../../../../globals/courses'
+import Authors from '../Authors/AuthorList/list-author'
 
 const ListLanguageDetail = (props) => {
     let item = props.route.params.item
@@ -13,6 +14,7 @@ const ListLanguageDetail = (props) => {
         <ScrollView>
             <SectionCourses title="New" courses={item.newCourse} navigation={props.navigation} />
             <SectionCourses title="Trending" courses={item.trendingCourse} navigation={props.navigation} />
+            <Authors title="Top authors in Software Engineer" navigation={props.navigation} />
         </ScrollView>
     )
 }

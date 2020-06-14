@@ -23,6 +23,7 @@ import NewRealease from './src/components/Main/Browse/NewRealses/new-releases';
 import Recommendation from './src/components/Main/Browse/Recommendation/recommendation';
 import ListLanguageDetail from './src/components/Main/Browse/ListLanguageDetail/list-languague-detail';
 import LearningPathDetail from './src/components/Main/Browse/LearningPath/learning-path-detail';
+import ListAuthorDetail from './src/components/Main/Browse/Authors/AuthorList/author-detail';
 
 const Stack = createStackNavigator()
 const ListCoursesStack = () => {
@@ -78,6 +79,7 @@ const BrowseStackScreen = () => (
     <BrowseStack.Screen name="Recommendation" component={Recommendation} />
     <BrowseStack.Screen name="CourseLanguageDetail" component={ListLanguageDetail} />
     <BrowseStack.Screen name="PathDetail" component={LearningPathDetail} />
+    <BrowseStack.Screen name="AuthorDetail" component={ListAuthorDetail} />
     <BrowseStack.Screen name="CourseDetail" component={CourseDetail} />
   </BrowseStack.Navigator>
 )

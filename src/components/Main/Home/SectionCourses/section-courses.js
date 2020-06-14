@@ -14,7 +14,7 @@ const SectionCourses = (props) => {
 
     return (
         <View>
-            <View>
+            <View style={{ marginVertical: 10 }}>
                 <Text style={styles.title}>{props.title}</Text>
             </View>
             <ScrollView horizontal={true}>

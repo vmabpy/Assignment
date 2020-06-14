@@ -27,7 +27,7 @@ const Browse = (props) => {
             <ListLanguage title="Popular skills" navigation={props.navigation} />
             {/* <Trending /> */}
             <LearningPath title="Path" navigation={props.navigation} />
-            <Authors title="Top Authors" />
+            <Authors title="Top Authors" navigation={props.navigation} />
         </ScrollView>
     )
 }
