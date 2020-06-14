@@ -24,6 +24,7 @@ import Recommendation from './src/components/Main/Browse/Recommendation/recommen
 import ListLanguageDetail from './src/components/Main/Browse/ListLanguageDetail/list-languague-detail';
 import LearningPathDetail from './src/components/Main/Browse/LearningPath/learning-path-detail';
 import ListAuthorDetail from './src/components/Main/Browse/Authors/AuthorList/author-detail';
+import SearchCourse from './src/components/Main/SearchCourses/search-courses';
 
 const Stack = createStackNavigator()
 const ListCoursesStack = () => {
@@ -84,6 +85,16 @@ const BrowseStackScreen = () => (
   </BrowseStack.Navigator>
 )
 
+const SearchStack = createStackNavigator();
+const SearchStackScreen = () => (
+  <SearchStack.Navigator>
+    <SearchStack.Screen name="Search" component={SearchCourse} options={{
+      headerShown: false,
+    }} />
+    <SearchStack.Screen name="CourseDetail" component={CourseDetail} />
+  </SearchStack.Navigator>
+)
+
 const DownloadStack = createStackNavigator();
 const DownloadStackScreen = () => (
   <DownloadStack.Navigator>
@@ -116,7 +127,7 @@ const TabBottomScreen = () => (
           iconName = 'ios-download';
         } else if (route.name === "BrowseApp") {
           iconName = 'ios-browsers';
-        } else if (route.name === 'Search') {
+        } else if (route.name === 'SearchApp') {
           iconName = 'ios-search';
         }
 
@@ -132,12 +143,11 @@ const TabBottomScreen = () => (
   >
 
     <Tab.Screen name="HomeApp" component={HomeStackScreen} options={{ title: 'Home' }} />
-    <Tab.Screen name="ListCourses" component={ListCoursesStack} options={{ title: "Explorer" }} />
     <Tab.Screen name="DownloadApp" component={DownloadStackScreen} options={{ title: 'Download' }} />
     <Tab.Screen name="BrowseApp" component={BrowseStackScreen} options={{ title: 'Browse' }} />
-    {/* <Tab.Screen name="Profile" component={Profile} /> */}
-    <Tab.Screen name="Search" component={SearchCourses} options={{
-      headerShown: false,
+    {/* <Tab.Screen name="Praofile" component={Profile} /> */}
+    <Tab.Screen name="SearchApp" component={SearchStackScreen} options={{
+      title: 'Search'
     }} />
 
   </Tab.Navigator>
