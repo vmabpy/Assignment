@@ -3,55 +3,27 @@
 import React from 'react'
 import { View, ScrollView, Text, StyleSheet } from 'react-native'
 import AuthorItem from '../AuthorItem/author-item'
+import { authorCourses } from '../../../../../globals/courses'
 
 const Authors = (props) => {
 
-    const authors = [
-        {
-            id: 1,
-            name: 'John',
-            imageRoute: require('../../../../../../assets/author.jpeg'),
-        },
-        {
-            id: 2,
-            name: 'Chris',
-            imageRoute: require('../../../../../../assets/author.jpeg'),
-        },
-        {
-            id: 3,
-            name: 'Ven',
-            imageRoute: require('../../../../../../assets/author.jpeg'),
-        },
-        {
-            id: 4,
-            name: 'Ken',
-            imageRoute: require('../../../../../../assets/author.jpeg'),
-        },
-        {
-            id: 5,
-            name: 'Tu',
-            imageRoute: require('../../../../../../assets/author.jpeg'),
-        },
-        {
-            id: 6,
-            name: 'Nghia',
-            imageRoute: require('../../../../../../assets/author.jpeg'),
-        },
+    const onPressListItem = (item) => {
+        props.navigation.navigate('AuthorDetail', { item })
+    }
 
-    ]
 
     const renderListItem = (authors) => {
-        return authors.map(item => <AuthorItem item={item} />);
+        return authors.map(item => <AuthorItem item={item} navigation={props.navigation} onPressListItem={onPressListItem} />);
     }
 
 
     return (
         <View>
-            <View>
+            <View style={{ marginVertical: 10 }}>
                 <Text style={styles.text}>{props.title}</Text>
             </View>
             <ScrollView horizontal={true}>
-                {renderListItem(authors)}
+                {renderListItem(authorCourses)}
             </ScrollView>
         </View>
     )
@@ -59,8 +31,8 @@ const Authors = (props) => {
 
 const styles = StyleSheet.create({
     text: {
-        color: 'darkgray',
-        fontSize: 18,
+        color: 'black',
+        fontSize: 15,
         fontWeight: 'bold',
         marginLeft: 5,
     }

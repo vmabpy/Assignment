@@ -28,10 +28,8 @@ const styles = StyleSheet.create({
     },
     titleItem: {
         marginLeft: 20,
-        color: 'white',
     },
     titleTime: {
-        color: 'white',
         position: 'absolute',
         right: 0,
     }

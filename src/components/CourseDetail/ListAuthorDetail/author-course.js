@@ -9,7 +9,7 @@ const AuthorCourse = (props) => {
                 <Image
                     style={styles.image}
                     source={props.item.imageRoute} />
-                <Text style={styles.titleAuthor}>{props.item.title} </Text>
+                <Text style={styles.titleAuthor}>{props.item.author} </Text>
             </TouchableOpacity>
         </View >
     )
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: 'gray',
+        backgroundColor: 'darkgray',
         height: 30,
         borderRadius: 10,
         padding: 5,

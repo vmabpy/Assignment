@@ -1,43 +1,24 @@
 import React from 'react'
-import {View, ScrollView, Text, StyleSheet} from 'react-native'
+import { View, ScrollView, Text, StyleSheet, FlatList } from 'react-native'
 import RadiusButton from '../../../Common/radius-button'
+import { courseLanguage } from '../../../../globals/courses'
 
 const ListLanguage = (props) => {
-    const courseLanguage = [
-        {
-            id: 1,
-            title: 'React',
-        },
-        {
-            id: 2,
-            title: 'Swift',
-        },
-        {
-            id: 3,
-            title: 'Android',
-        },
-        { 
-            id: 4,
-            title: '.Net',
-        }, 
-        {
-            id: 5,
-            title: 'ReactJS',
-        }, 
-        {
-            id: 6,
-            title: 'C#',
-        }
-    ]
 
-    const renderListItem = (courseLanguage) => {
-        return courseLanguage.map(item => <RadiusButton item = {item}/>)
+
+    const onPressListItem = (item) => {
+        props.navigation.navigate('CourseLanguageDetail', { item })
     }
 
-    return(
-        <View>
-            <Text style = {styles.text}>{props.title}</Text>
-            <ScrollView horizontal = {true} style = {{marginTop: 5}}>
+    const renderListItem = (courseLanguage) => {
+        return courseLanguage.map(item => <RadiusButton item={item} navigation={props.navigation} onPressListItem={onPressListItem} />)
+    }
+
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.text}>{props.title}</Text>
+            <ScrollView horizontal={true} style={{ marginTop: 5 }}>
                 {renderListItem(courseLanguage)}
             </ScrollView>
         </View>
@@ -45,9 +26,12 @@ const ListLanguage = (props) => {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        marginTop: 10,
+    },
     text: {
-        color: 'darkgray',
-        fontSize: 18,
+        color: 'black',
+        fontSize: 15,
         fontWeight: 'bold',
         marginLeft: 5,
     }

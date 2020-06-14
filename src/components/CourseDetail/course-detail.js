@@ -18,12 +18,12 @@ const CourseDetail = (props) => {
     const review = [
         {
             id: 0,
-            imageRoute: require('../../../assets/author.jpeg'),
+            imageRoute: require('../../../assets/ic_purpose.png'),
             title: 'Take a learning check'
         },
         {
             id: 1,
-            imageRoute: require('../../../assets/author.jpeg'),
+            imageRoute: require('../../../assets/ic_related_path.png'),
             title: 'View related path and course'
         }
     ]
@@ -36,7 +36,7 @@ const CourseDetail = (props) => {
                 <Text style={styles.title}>{`${item.title}`}</Text>
                 <AuthorCourse item={item} />
                 <Text style={styles.darkText}>{`${item.level} . ${item.released} . ${item.duration}`}</Text>
-                <ListOption />
+                <ListOption item={item} />
                 <ReviewItem item={review[0]} />
                 <ReviewItem item={review[1]} />
 
@@ -78,7 +78,6 @@ const CourseDetail = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#24221f',
     },
     imageIcon: {
         height: 20,
@@ -100,7 +99,6 @@ const styles = StyleSheet.create({
         marginLeft: padding._10,
         fontSize: padding._20,
         fontWeight: 'bold',
-        color: 'white',
     },
     darkText: {
         marginTop: padding._5,

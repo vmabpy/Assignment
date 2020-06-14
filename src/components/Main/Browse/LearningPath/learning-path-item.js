@@ -1,8 +1,7 @@
-import React from 'react';
-import { View, StyleSheet, Image, Text } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import React from 'react'
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 
-const SectionCoursesItem = (props) => {
+const LearningPathItem = (props) => {
     return (
         <TouchableOpacity
             style={styles.item}
@@ -12,8 +11,9 @@ const SectionCoursesItem = (props) => {
             <Image source={props.item.imageUri} style={styles.image} />
             <View style={{ margin: 5 }}>
                 <Text>{props.item.title}</Text>
-                <Text style={styles.darkText}>{props.item.author}</Text>
-                <Text style={styles.darkText}>{`${props.item.level} . ${props.item.released} . ${props.item.duration}`}</Text>
+                <Text style={styles.darkText}>{`${props.item.total}`} courses</Text>
+                <Text style={styles.darkText}>{`${props.item.duration}`}</Text>
+
             </View>
         </TouchableOpacity>
     )
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default SectionCoursesItem;
+export default LearningPathItem;

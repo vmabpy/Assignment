@@ -1,4 +1,3 @@
-// /*This is an Example of SearchBar in React Native*/
 // import * as React from 'react';
 // import {
 //   Text,
@@ -13,7 +12,6 @@
 // export default class SearchCourses extends React.Component {
 //   constructor(props) {
 //     super(props);
-//     //setting default state
 //     this.state = { isLoading: true, search: '' };
 //     this.arrayholder = [];
 //   }
@@ -26,7 +24,7 @@
 //             isLoading: false,
 //             dataSource: responseJson,
 //           },
-//           function() {
+//           function () {
 //             this.arrayholder = responseJson;
 //           }
 //         );
@@ -45,7 +43,7 @@
 
 //   SearchFilterFunction(text) {
 //     //passing the inserted text in textinput
-//     const newData = this.arrayholder.filter(function(item) {
+//     const newData = this.arrayholder.filter(function (item) {
 //       //applying filter for the inserted text in search bar
 //       const itemData = item.title ? item.title.toUpperCase() : ''.toUpperCase();
 //       const textData = text.toUpperCase();
@@ -65,9 +63,8 @@
 //     return (
 //       <View
 //         style={{
-//           marginLeft: 5,
 //           height: 0.3,
-//           width: '95%',
+//           width: '90%',
 //           backgroundColor: '#080808',
 //         }}
 //       />
@@ -88,6 +85,7 @@
 //       <View style={styles.viewStyle}>
 //         <SearchBar
 //           round
+//           lightTheme
 //           searchIcon={{ size: 24 }}
 //           onChangeText={text => this.SearchFilterFunction(text)}
 //           onClear={text => this.SearchFilterFunction('')}
@@ -116,107 +114,100 @@
 //     justifyContent: 'center',
 //     flex: 1,
 //     backgroundColor: 'white',
-//     marginTop: Platform.OS == 'ios' ? 30 : 0,
+//     marginTop: Platform.OS == 'ios' ? 50 : 0,
 //   },
 //   textStyle: {
 //     padding: 10,
 //   },
 // });
 
+import React, { useState } from 'react';
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  ActivityIndicator,
+  Platform,
+} from 'react-native';
+import { SearchBar } from 'react-native-elements';
+import { searchCourses } from '../../../globals/courses'
+import ListCoursesItem from '../../Courses/ListCoursesItem/list-courses-item';
 
-import React, { Component, useState } from 'react'
-import {View, FlatList, ActivityIndicator, StyleSheet, TextInput} from 'react-native'
-import {ListItem, SearchBar} from 'react-native-elements'
-import _ from 'lodash'
+const SearchCourse = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [search, setSearch] = useState('');
+  const [arrayholder, setArrayHolder] = useState(searchCourses);
+  const [dataSource, setDataSource] = useState([]);
 
-export default class SearchCourses extends React.Component{
-  
-  state = {
-    data: [],
-    fullData: [],
-    loading: false,
-    error: null,
-    query: "",
+  const onPressListItem = (item) => {
+    props.navigation.navigate("CourseDetail", { item })
   }
 
-  componentDidMount() {
-    this.requestAPIPhotos()
-  }
-
-  requestAPIPhotos = _.debounce(() => {
-    this.setState({loading: true})
-    const apiURL = "https://jsonplaceholder.typicode.com/photos?"
-    fetch(apiURL).then((res) => res.json())
-    .then((resJson) => {
-      this.setState({
-        loading: false,
-        data: resJson,
-        fullData: resJson
-      })
-    }).catch(error => {
-      this.setState({error, loading: false})
-    })
-
-  }, 250)
-
-  _renderItem = ({item, index}) => {
+  const FlatListItemSeparator = () => {
     return (
-      <ListItem
-        title = {item.albumId}
-        subtitle = {item.title}
-        bottomDivider
-      />
+      <View style={styles.separator}></View>
     )
   }
 
-  handleSearch = (text) => {
-    const formattedQuerry = text.toLowerCase()
-    const data = _.filter(this.state.fullData, item => {
-      if (item.title.includes(formattedQuerry)) {
-        return true
-      }
-      return false
-    })
-    this.setState({data, query: text})
+  const searchFilter = (text) => {
+    const newData = arrayholder.filter(function (item) {
+      const itemData = item.title ? item.title.toUpperCase() : ''.toUpperCase();
+      const textData = text.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
+
+    setDataSource(newData);
+    setSearch(text);
+
   }
 
-  render() {
-    if (this.state.loading) {
-      return (
-        <View style = {styles.loading}>
-          <ActivityIndicator animating  size = "large"/>
-        </View>
-      )
-    }
+  if (isLoading) {
     return (
-      <View>
-        <SearchBar 
-          round 
-          lightTheme
-          placeholder = "Search"
-          onChangeText = {this.handleSearch}
-        />
-        <FlatList
-          data={this.state.data}
-          renderItem={this._renderItem}
-          keyExtractor={(item, index) => index.toString()}
-        />
+      <View style={{ flex: 1, paddingTop: 20 }}>
+        <ActivityIndicator />
       </View>
     )
   }
-}
+  return (
+    <View style={styles.viewStyle}>
+      <SearchBar
+        round
+        lightTheme
+        searchIcon={{ size: 24 }}
+        onChangeText={text => searchFilter(text)}
+        onClear={text => searchFilter('')}
+        placeholder="Type Here..."
+        value={search}
+      />
+      <FlatList
+        data={dataSource}
+        renderItem={({ item }) => <ListCoursesItem item={item} navigation={props.navigation} onPressListItem={onPressListItem} />}
+        ItemSeparatorComponent={FlatListItemSeparator}
+        enableEmptySections={true}
+        style={{ marginTop: 10 }}
+        keyExtractor={(item, index) => index.toString()}
+      />
 
+    </View>
+  )
+}
 const styles = StyleSheet.create({
   viewStyle: {
     justifyContent: 'center',
     flex: 1,
     backgroundColor: 'white',
-    marginTop: Platform.OS == 'ios' ? 30 : 0,
+    marginTop: Platform.OS == 'ios' ? 50 : 0,
   },
-  loading: {
-    paddingVertical: 20,
-    borderTopWidth: 1,
-    borderColor: '#CED0CE',
+  textStyle: {
+    padding: 10,
   },
-})
+  separator: {
+    height: 0.5,
+    width: '100%',
+    backgroundColor: 'gray',
+  },
+});
+
+export default SearchCourse;
 

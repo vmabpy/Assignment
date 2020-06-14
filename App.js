@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import Home from './src/components/Main/Home/home';
 import Login from './src/components/Authentication/Login/login';
@@ -18,6 +18,14 @@ import Splash from './src/components/Authentication/Splash/splash';
 import Register from './src/components/Authentication/Register/register';
 import Profile from './src/AccountManagement/Account/profile';
 import Ionicons from '@expo/vector-icons/Ionicons'
+import { AuthenticationProvider } from './src/provider/authentication-provider';
+import NewRealease from './src/components/Main/Browse/NewRealses/new-releases';
+import Recommendation from './src/components/Main/Browse/Recommendation/recommendation';
+import ListLanguageDetail from './src/components/Main/Browse/ListLanguageDetail/list-languague-detail';
+import LearningPathDetail from './src/components/Main/Browse/LearningPath/learning-path-detail';
+import ListAuthorDetail from './src/components/Main/Browse/Authors/AuthorList/author-detail';
+import SearchCourse from './src/components/Main/SearchCourses/search-courses';
+import { DownloadProvider } from './src/provider/download-provider';
 
 const Stack = createStackNavigator()
 const ListCoursesStack = () => {
@@ -50,7 +58,6 @@ const ListCoursesStack = () => {
         // }
         {
           title: "Course Detail",
-          headerShown: false,
         }
       } />
     </Stack.Navigator>
@@ -70,8 +77,23 @@ const BrowseStack = createStackNavigator();
 const BrowseStackScreen = () => (
   <BrowseStack.Navigator>
     <BrowseStack.Screen name="Browse" component={Browse} />
+    <BrowseStack.Screen name="NewRealse" component={NewRealease} options={{ title: "New" }} />
+    <BrowseStack.Screen name="Recommendation" component={Recommendation} />
+    <BrowseStack.Screen name="CourseLanguageDetail" component={ListLanguageDetail} />
+    <BrowseStack.Screen name="PathDetail" component={LearningPathDetail} />
+    <BrowseStack.Screen name="AuthorDetail" component={ListAuthorDetail} />
     <BrowseStack.Screen name="CourseDetail" component={CourseDetail} />
   </BrowseStack.Navigator>
+)
+
+const SearchStack = createStackNavigator();
+const SearchStackScreen = () => (
+  <SearchStack.Navigator>
+    <SearchStack.Screen name="Search" component={SearchCourse} options={{
+      headerShown: false,
+    }} />
+    <SearchStack.Screen name="CourseDetail" component={CourseDetail} />
+  </SearchStack.Navigator>
 )
 
 const DownloadStack = createStackNavigator();
@@ -106,7 +128,7 @@ const TabBottomScreen = () => (
           iconName = 'ios-download';
         } else if (route.name === "BrowseApp") {
           iconName = 'ios-browsers';
-        } else if (route.name === 'Search') {
+        } else if (route.name === 'SearchApp') {
           iconName = 'ios-search';
         }
 
@@ -122,12 +144,11 @@ const TabBottomScreen = () => (
   >
 
     <Tab.Screen name="HomeApp" component={HomeStackScreen} options={{ title: 'Home' }} />
-    {/* <Tab.Screen name="ListCourses" component={ListCoursesStack} options={{ title: "Explorer" }} /> */}
-    <Tab.Screen name="DownloadApp" component={DownloadStackScreen} options={{ title: 'Download' }} />
+    <Tab.Screen name="DownloadApp" component={DownloadStackScreen} options={{ title: 'Favorite' }} />
     <Tab.Screen name="BrowseApp" component={BrowseStackScreen} options={{ title: 'Browse' }} />
-    {/* <Tab.Screen name="Profile" component={Profile} /> */}
-    <Tab.Screen name="Search" component={SearchCourses} options={{
-      headerShown: false,
+    {/* <Tab.Screen name="Praofile" component={Profile} /> */}
+    <Tab.Screen name="SearchApp" component={SearchStackScreen} options={{
+      title: 'Search'
     }} />
 
   </Tab.Navigator>
@@ -136,17 +157,72 @@ const TabBottomScreen = () => (
 const MainStack = createStackNavigator()
 const MainStackScreen = () => (
   <MainStack.Navigator>
-    <MainStack.Screen name="MainAuth" component={AuthStackScreen} options={{ headerShown: false }} />
-    <MainStack.Screen name="MainApp" component={TabBottomScreen} options={{ headerShown: false }} />
-    <MainStack.Screen name="Splash" component={Splash} options={{ headerShown: false }} />
+    <MainStack.Screen
+      name="Splash"
+      component={Splash}
+      options={{ headerShown: false }} />
+    <MainStack.Screen
+      name="MainAuth"
+      component={AuthStackScreen}
+      options={{ headerShown: false }} />
+    <MainStack.Screen
+      name="MainApp"
+      component={TabBottomScreen}
+      options={{ headerShown: false }} />
   </MainStack.Navigator>
 )
 
+
+// export const themes = {
+//   light: {
+//     foreground: '#000000',
+//     background: '#eeeeee',
+//   },
+//   dark: {
+//     foreground: '#ffffff',
+//     background: '#222222',
+//   }
+// }
+
+// export const ThemeContext = React.createContext(
+//   themes.light
+// );
+
+
 export default function App() {
+  // const [theme, setTheme] = useState(themes.light);
+  const [authenticated, setAuthencticated] = useState()
+
+
+
   return (
-    <NavigationContainer>
-      <MainStackScreen />
-    </NavigationContainer>
+    // <ThemeContext.Provider value={{ theme, setTheme }} >
+    <AuthenticationProvider>
+      <DownloadProvider>
+        <NavigationContainer>
+          {/* <MainStackScreen /> */}
+          <MainStack.Navigator>
+            <MainStack.Screen
+              // value={{ theme, setTheme }}
+              name="Splash"
+              component={Splash}
+              options={{ headerShown: false }} />
+            <MainStack.Screen
+              // value={{ theme, setTheme }}
+              name="MainAuth"
+              component={AuthStackScreen}
+              options={{ headerShown: false }} />
+            <MainStack.Screen
+              // value={{ theme, setTheme }}
+              name="MainApp"
+              component={TabBottomScreen}
+              options={{ headerShown: false }} />
+          </MainStack.Navigator>
+        </NavigationContainer>
+      </DownloadProvider>
+    </AuthenticationProvider>
+    // </ThemeContext.Provider>
+
 
   );
 }

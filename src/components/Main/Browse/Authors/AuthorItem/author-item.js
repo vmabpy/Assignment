@@ -12,7 +12,7 @@ const AuthorItem = (props) => {
         //     </TouchableOpacity>
         //     <Text style = {styles.text} >{props.item.name}</Text>
         // </View>
-        <TouchableOpacity style={styles.contain}>
+        <TouchableOpacity style={styles.contain} onPress={() => { props.onPressListItem(props.item) }}>
             <Image
                 style={styles.button}
                 source={props.item.imageRoute}

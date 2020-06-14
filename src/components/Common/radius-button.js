@@ -1,10 +1,10 @@
 import React from 'react'
-import {View, StyleSheet, TouchableOpacity, Text} from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 
 const RadiusButton = (props) => {
     return (
-        <TouchableOpacity style = {styles.button}>
-            <Text style = {styles.text}>{props.item.title}</Text>
+        <TouchableOpacity style={styles.button} onPress={() => { props.onPressListItem(props.item) }}>
+            <Text style={styles.text}>{props.item.title}</Text>
         </TouchableOpacity>
     )
 }

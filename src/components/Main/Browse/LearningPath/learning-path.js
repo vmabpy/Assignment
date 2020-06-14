@@ -1,59 +1,41 @@
 import React from 'react'
 import { View, Text, FlatList, ScrollView, StyleSheet } from 'react-native'
 import SectionCoursesItem from '../../Home/SectionCoursesItem/section-courses-item'
+import { coureseLearningPath } from '../../../../globals/courses'
+import LearningPathItem from './learning-path-item'
 
 const LearningPath = (props) => {
-    const courses = [
-        {
-            id: 1,
-            title: 'React Native',
-            author: 'Mai Pham',
-            level: 'Advance',
-            released: 'May 6, 2020',
-            duration: '30 hours',
-        },
-        {
-            id: 2,
-            title: 'iOS',
-            author: 'Huy Nguyen',
-            level: 'Beginner',
-            released: 'May 6, 2020',
-            duration: '25 hours',
-        },
-        {
-            id: 3,
-            title: 'android',
-            author: 'Huy Nguyen',
-            level: 'Beginner',
-            released: 'May 6, 2020',
-            duration: '25 hours',
-        }
-    ]
-
     const onPressListItem = (item) => {
-        props.navigation.navigate('CourseDetail', { item })
+        props.navigation.navigate('PathDetail', { item })
     }
 
     const renderListItem = (courses) => {
-        return courses.map(item => <SectionCoursesItem item={item} navigation={props.navigation} onPressListItem={onPressListItem} />)
+        return courses.map(item => <LearningPathItem item={item} navigation={props.navigation} onPressListItem={onPressListItem} />)
     }
 
     return (
-        <View>
-            <View style={{ marginLeft: 5 }}>
+        <View style={styles.container}>
+            <View style={styles.title}>
                 <Text style={styles.text}>{props.title}</Text>
             </View>
             <ScrollView horizontal={true}>
-                {renderListItem(courses)}
+                {renderListItem(coureseLearningPath)}
             </ScrollView>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        marginTop: 5,
+    },
+    title: {
+        marginLeft: 5,
+        marginBottom: 5,
+    },
     text: {
-        color: 'darkgray',
-        fontSize: 18,
+        color: 'black',
+        fontSize: 15,
         fontWeight: 'bold',
     }
 })

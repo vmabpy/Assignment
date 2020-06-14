@@ -5,9 +5,11 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 const OptionItem = (props) => {
     return (
 
-        <TouchableOpacity style={styles.conatiner}>
-            <View>
-                <Image source={props.item.imageRoute} style={styles.viewIcon} />
+        <TouchableOpacity style={styles.conatiner} onPress={() => {
+            props.onPressListItem(props.item)
+        }}>
+            <View style={styles.viewIcon}>
+                <Image source={props.item.imageRoute} style={styles.image} />
             </View>
             <Text style={styles.titleIcon}>{props.item.title}</Text>
         </TouchableOpacity>
@@ -26,8 +28,12 @@ const styles = StyleSheet.create({
         borderRadius: 24,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#444',
+        backgroundColor: 'darkgray',
         resizeMode: 'contain',
+    },
+    image: {
+        width: 24,
+        height: 24,
     },
     titleIcon: {
         color: '#888',
