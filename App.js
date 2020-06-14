@@ -204,6 +204,11 @@ export default function App() {
           <MainStack.Navigator>
             <MainStack.Screen
               // value={{ theme, setTheme }}
+              name="Splash"
+              component={Splash}
+              options={{ headerShown: false }} />
+            <MainStack.Screen
+              // value={{ theme, setTheme }}
               name="MainAuth"
               component={AuthStackScreen}
               options={{ headerShown: false }} />
@@ -212,13 +217,6 @@ export default function App() {
               name="MainApp"
               component={TabBottomScreen}
               options={{ headerShown: false }} />
-            <MainStack.Screen
-              // value={{ theme, setTheme }}
-              name="Splash"
-              component={Splash}
-              options={{ headerShown: false }} />
-
-
           </MainStack.Navigator>
         </NavigationContainer>
       </DownloadProvider>
