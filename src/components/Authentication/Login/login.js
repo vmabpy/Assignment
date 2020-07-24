@@ -9,9 +9,9 @@ import {
   Alert,
   Image,
   StatusBar,
-  LayoutAnimation,
   ScrollView,
   ActivityIndicator,
+  SafeAreaView,
 } from "react-native";
 import { Dimensions } from "react-native";
 import { login } from "../../../core/service/authenticate-service";
@@ -61,14 +61,15 @@ const Login = (props) => {
     //         ({ theme, setTheme }) => {
     //             return (
     // <View style={{ ...styles.containerLogin , backgroundColor: theme.background }}>
-    <View style={{ ...styles.containerLogin }}>
+    // <View style={{ ...styles.containerLogin }}>
+    <View>
       <StatusBar barStyle="light-content" />
       <View style={styles.viewBubble}></View>
       <View style={styles.viewBubbleYellow}></View>
       <Text style={styles.greeting}>{`Hello again\n Welcome back`}</Text>
       <View style={styles.form}>
         <View>
-          <Text style={styles.inputTitle}>Username</Text>
+          <Text style={styles.inputTitle}>Email</Text>
           <TextInput
             style={styles.input}
             autoCapitalize="none"
@@ -103,12 +104,10 @@ const Login = (props) => {
         onPress={() => props.navigation.push("Register")}
       >
         <Text style={{ color: "#414959", fontSize: 13 }}>
-          New to SocialApp?{" "}
+          New to App?{" "}
           <Text style={{ fontWeight: "500", color: "#E9446A" }}>Sign Up</Text>
         </Text>
       </TouchableOpacity>
-      <View style={styles.viewBubbleBottom}></View>
-      <View style={styles.viewBubbleButtonLeft}></View>
     </View>
     //             )
     //         }
@@ -207,7 +206,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   viewBubble: {
-    backgroundColor: "#ED587E",
+    backgroundColor: "#FCE3EB",
     height: 0.5 * screenHeight,
     width: 0.5 * screenHeight,
     marginLeft: "40%",
