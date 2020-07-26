@@ -10,13 +10,14 @@ import {
   coursesOperations,
 } from "../../../globals/courses";
 const Home = (props) => {
-  const item = props.route.params.status;
+  // const item = props.route.params.status;
   console.log(props, "Home");
   props.navigation.setOptions({
     headerRight: () => (
       <TouchableOpacity
         onPress={() => {
-          props.navigation.navigate("Profile", { item });
+          // props.navigation.navigate("Profile", { item });
+          props.navigation.navigate("Profile");
         }}
       >
         <View style={{ marginRight: 10 }}>

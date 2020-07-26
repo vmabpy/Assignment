@@ -3,17 +3,14 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   TextInput,
   TouchableOpacity,
-  Alert,
-  Image,
   StatusBar,
-  ScrollView,
-  ActivityIndicator,
-  SafeAreaView,
 } from "react-native";
 import { Dimensions } from "react-native";
+import { connect } from "react-redux";
+import loGet from "lodash/get";
+import UserActions from "../../../redux/userRedux";
 import { login } from "../../../core/service/authenticate-service";
 import { render } from "react-dom";
 import Profile from "../../../AccountManagement/Account/profile";
@@ -23,34 +20,43 @@ const screenHeight = Math.round(Dimensions.get("window").height);
 const Login = (props) => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  // const [status, setStatus] = useState(null)
-  const authContext = useContext(AuthenticationContext);
+  const { login } = props;
 
-  const renderLoginStatus = (status) => {
-    if (!status) {
-      return <View />;
-    } else if (status.status === 200) {
-      return <View />;
-    } else {
-      return <Text style={{ alignSelf: "center" }}>{status.errorString}</Text>;
-    }
+  const handleLogin = () => {
+    const params = {
+      email: username,
+      password: password,
+    };
+    login(params, () => {});
   };
+  // const [status, setStatus] = useState(null)
+  // const authContext = useContext(AuthenticationContext);
 
-  useEffect(() => {
-    if (authContext.state.isAuthenticated) {
-      props.navigation.navigate("MainApp", {
-        screen: "HomeApp",
-        params: {
-          screen: "Home",
-          params: authContext.state.userInfo,
-        },
-      });
-    }
-  }, [authContext.state.isAuthenticated]);
+  // const renderLoginStatus = (status) => {
+  //   if (!status) {
+  //     return <View />;
+  //   } else if (status.status === 200) {
+  //     return <View />;
+  //   } else {
+  //     return <Text style={{ alignSelf: "center" }}>{status.errorString}</Text>;
+  //   }
+  // };
 
-  if (authContext.state.isAuthenticating) {
-    return <ActivityIndicator size="small" color="#0000ff" />;
-  }
+  // useEffect(() => {
+  //   if (authContext.state.isAuthenticated) {
+  //     props.navigation.navigate("MainApp", {
+  //       screen: "HomeApp",
+  //       params: {
+  //         screen: "Home",
+  //         params: authContext.state.userInfo,
+  //       },
+  //     });
+  //   }
+  // }, [authContext.state.isAuthenticated]);
+
+  // if (authContext.state.isAuthenticating) {
+  //   return <ActivityIndicator size="small" color="#0000ff" />;
+  // }
 
   //   return (
   //     <AuthenticationContext.Consumer>
@@ -88,14 +94,15 @@ const Login = (props) => {
           />
         </View>
       </View>
-      {renderLoginStatus(authContext.state.isAuthenticated)}
+      {/* {renderLoginStatus(authContext.state.isAuthenticated)} */}
       <TouchableOpacity
         style={styles.button}
-        onPress={() => {
-          //   setStatus(login(userName, password));
-          //   setAuthentication(login(userName, password));
-          authContext.login(username, password);
-        }}
+        // onPress={() => {
+        //   setStatus(login(userName, password));
+        //   setAuthentication(login(userName, password));
+        // authContext.login(username, password);
+        // }}
+        onPress={handleLogin}
       >
         <Text style={styles.textLogin}>Sign In</Text>
       </TouchableOpacity>
@@ -251,4 +258,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+const mapStateToProps = (state) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  login: (params, actionSuccess) =>
+    dispatch(UserActions.loginRequest(params, actionSuccess)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -4,8 +4,8 @@ import { AuthenticationContext } from "../../provider/authentication-provider";
 import { ScrollView } from "react-native-gesture-handler";
 
 const Profile = (props) => {
-  const item = props.route.params.item;
-  const { state } = useContext(AuthenticationContext);
+  // const item = props.route.params.item;
+  // const { state } = useContext(AuthenticationContext);
 
   return (
     // <View style={styles.container}>
@@ -22,8 +22,8 @@ const Profile = (props) => {
             source={require("../../../assets/ic_profile.png")}
             style={styles.image}
           />
-          <Text style={styles.name}>{state.userInfo.name}</Text>
-          {/* <Text style={styles.name}>Hieu Tong</Text> */}
+          {/* <Text style={styles.name}>{state.userInfo.name}</Text> */}
+          <Text style={styles.name}>Hieu Tong</Text>
         </View>
 
         {/* <Text>{authentication.user.fullName}</Text> */}
