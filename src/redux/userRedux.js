@@ -3,6 +3,10 @@ import Immutable from "seamless-immutable";
 /* ------------- Types and Action Creators ------------- */
 
 const { Types, Creators } = createActions({
+  registerRequest: ["params", "actionSuccess"],
+  registerFailure: null,
+  registerSuccess: null,
+
   loginRequest: ["params", "actionSuccess"],
   loginFailure: null,
   loginSuccess: ["userInfo", "token"],
@@ -21,6 +25,19 @@ export const INITIAL_STATE = Immutable({
 });
 
 /* ------------- Reducers ------------- */
+
+const registerRequest = (state) => {
+  return state.merge({});
+};
+
+const registerSuccess = (state) => {
+  return state.merge({});
+};
+
+const registerFailure = (state) => {
+  return state.merge({});
+};
+
 const loginRequest = (state) => {
   return state.merge({});
 };
@@ -39,6 +56,10 @@ const logout = (state) => {
 
 /* ------------- Hookup Reducers To Types ------------- */
 export const reducer = createReducer(INITIAL_STATE, {
+  [Types.REGISTER_REQUEST]: registerRequest,
+  [Types.REGISTER_SUCCESS]: registerSuccess,
+  [Types.REGISTER_FAILURE]: registerFailure,
+
   [Types.LOGIN_REQUEST]: loginRequest,
   [Types.LOGIN_SUCCESS]: loginSuccess,
   [Types.LOGIN_FAILURE]: loginFailure,

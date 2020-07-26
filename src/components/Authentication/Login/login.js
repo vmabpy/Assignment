@@ -11,10 +11,6 @@ import { Dimensions } from "react-native";
 import { connect } from "react-redux";
 import loGet from "lodash/get";
 import UserActions from "../../../redux/userRedux";
-import { login } from "../../../core/service/authenticate-service";
-import { render } from "react-dom";
-import Profile from "../../../AccountManagement/Account/profile";
-import { AuthenticationContext } from "../../../provider/authentication-provider";
 const screenHeight = Math.round(Dimensions.get("window").height);
 
 const Login = (props) => {
@@ -29,45 +25,8 @@ const Login = (props) => {
     };
     login(params, () => {});
   };
-  // const [status, setStatus] = useState(null)
-  // const authContext = useContext(AuthenticationContext);
 
-  // const renderLoginStatus = (status) => {
-  //   if (!status) {
-  //     return <View />;
-  //   } else if (status.status === 200) {
-  //     return <View />;
-  //   } else {
-  //     return <Text style={{ alignSelf: "center" }}>{status.errorString}</Text>;
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (authContext.state.isAuthenticated) {
-  //     props.navigation.navigate("MainApp", {
-  //       screen: "HomeApp",
-  //       params: {
-  //         screen: "Home",
-  //         params: authContext.state.userInfo,
-  //       },
-  //     });
-  //   }
-  // }, [authContext.state.isAuthenticated]);
-
-  // if (authContext.state.isAuthenticating) {
-  //   return <ActivityIndicator size="small" color="#0000ff" />;
-  // }
-
-  //   return (
-  //     <AuthenticationContext.Consumer>
-  //       {({ setAuthentication }) => {
   return (
-    // <ThemeContext.Consumer>
-    //     {
-    //         ({ theme, setTheme }) => {
-    //             return (
-    // <View style={{ ...styles.containerLogin , backgroundColor: theme.background }}>
-    // <View style={{ ...styles.containerLogin }}>
     <View>
       <StatusBar barStyle="light-content" />
       <View style={styles.viewBubble}></View>
@@ -94,16 +53,7 @@ const Login = (props) => {
           />
         </View>
       </View>
-      {/* {renderLoginStatus(authContext.state.isAuthenticated)} */}
-      <TouchableOpacity
-        style={styles.button}
-        // onPress={() => {
-        //   setStatus(login(userName, password));
-        //   setAuthentication(login(userName, password));
-        // authContext.login(username, password);
-        // }}
-        onPress={handleLogin}
-      >
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.textLogin}>Sign In</Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -116,14 +66,7 @@ const Login = (props) => {
         </Text>
       </TouchableOpacity>
     </View>
-    //             )
-    //         }
-    //     }
-    // </ThemeContext.Consumer >
   );
-  //       }}
-  //     </AuthenticationContext.Consumer>
-  //   );
 };
 
 const styles = StyleSheet.create({

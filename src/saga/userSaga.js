@@ -9,8 +9,26 @@ import AppActions from "../redux/appRedux";
 function* userRootSagas() {
   yield all([
     yield takeLatest(UserTypes.LOGIN_REQUEST, login),
+    yield takeLatest(UserTypes.REGISTER_REQUEST, register),
     yield takeLatest(UserTypes.LOGOUT, logout),
   ]);
+}
+
+function* register({ params, actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const response = yield call(api.register, params);
+    yield put(UserActions.registerSuccess(response));
+    if (actionSuccess) {
+      actionSuccess(response);
+    }
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showSuccess("Đăng kí thành công"));
+  } catch (error) {
+    yield put(UserActions.registerFailure(error));
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
 }
 
 function* login({ params, actionSuccess }) {
@@ -24,7 +42,7 @@ function* login({ params, actionSuccess }) {
     }
     setToken(token);
     yield put(AppActions.hideIndicator());
-    yield put(AppActions.showSuccess("You are successfully logged in"));
+    yield put(AppActions.showSuccess("Đăng nhập thành công"));
     yield put(AppActions.startupSuccess());
   } catch (error) {
     yield put(UserActions.loginFailure(error));

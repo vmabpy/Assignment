@@ -3,25 +3,34 @@ import {
   View,
   Text,
   StyleSheet,
-  Button,
   TextInput,
   TouchableOpacity,
-  Image,
   StatusBar,
-  LayoutAnimation,
-  ScrollView,
 } from "react-native";
+import { connect } from "react-redux";
+import loGet from "lodash/get";
+import UserActions from "../../../redux/userRedux";
 import { Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { SafeAreaView } from "react-native-safe-area-context";
 const screenHeight = Math.round(Dimensions.get("window").height);
 
 export const Register = (props) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
 
+  const { register } = props;
+
+  const handleRegister = () => {
+    const params = {
+      username: name,
+      email: email,
+      phone: phone,
+      password: password,
+    };
+    register(params, () => {});
+  };
   return (
     <View>
       <StatusBar barStyle="light-content" />
@@ -87,8 +96,6 @@ export const Register = (props) => {
       </TouchableOpacity>
       <View style={styles.viewBubbleBottom}></View>
       <View style={styles.viewBubbleButtonLeft}></View>
-      {/* <Text>Create Account Screen</Text>
-            <Button title="Sign Up" onPress={() => signUp()} /> */}
     </View>
   );
 };
@@ -189,4 +196,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Register;
+const mapStateToProps = (state) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  register: (params, actionSuccess) =>
+    dispatch(UserActions.registerRequest(params, actionSuccess)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
