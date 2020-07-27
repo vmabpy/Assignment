@@ -2,7 +2,7 @@ import React from "react";
 import { View, Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import moment from "moment";
 
-const ListCoursesItem = (props) => {
+const ListCourseItemFavorite = (props) => {
   const { item } = props;
   return (
     <TouchableOpacity
@@ -11,13 +11,13 @@ const ListCoursesItem = (props) => {
         props.onPressListItem(props.item);
       }}
     >
-      <Image source={{ uri: item.imageUrl }} style={styles.image} />
+      <Image source={{ uri: item.courseImage }} style={styles.image} />
       <View style={{ margin: 5 }}>
-        <Text>{item.title}</Text>
-        <Text style={styles.darkText}>{item.name}</Text>
-        <Text style={styles.darkText}>{`${moment(item.updatedAt).format(
+        <Text>{item.courseTitle}</Text>
+        <Text style={styles.darkText}>{item.instructorName}</Text>
+        {/* <Text style={styles.darkText}>{`${moment(item.updatedAt).format(
           "hh:mm DD/MM/YYYY "
-        )} . ${item.totalHours} hours`}</Text>
+        )} . ${item.totalHours} hours`}</Text> */}
       </View>
     </TouchableOpacity>
   );
@@ -39,4 +39,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListCoursesItem;
+export default ListCourseItemFavorite;

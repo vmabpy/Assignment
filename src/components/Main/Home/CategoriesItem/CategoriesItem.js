@@ -1,15 +1,19 @@
 import React from "react";
-import { View, TouchableHighlight, Image, StyleSheet } from "react-native";
-import { takeLeading } from "redux-saga/effects";
+import {
+  View,
+  TouchableHighlight,
+  Image,
+  StyleSheet,
+  Text,
+} from "react-native";
 
-const Categories = (props) => {
-  const { thumbnail, title, handlePress } = props;
+const CategoriesItem = (props) => {
+  const { title, handlePress } = props;
   return (
     <View style={categoryStyle.wrapper}>
       <TouchableHighlight style={categoryStyle.touchable} onPress={handlePress}>
         <View style={categoryStyle.contentWrapper}>
-          <Image style={categoryStyle.thumbnail} source={thumbnail} />
-          <Text style={categoryStyle.title}>{title.toUpperCase()}</Text>
+          <Text style={categoryStyle.title}>{title}</Text>
         </View>
       </TouchableHighlight>
     </View>
@@ -18,11 +22,10 @@ const Categories = (props) => {
 
 const categoryStyle = StyleSheet.create({
   wrapper: {
-    aspectRatio: 5 / 2,
-    width: "100%",
-    height: undefined,
-    position: "relative",
-    padding: 0,
+    margin: 20,
+    height: 100,
+    width: "auto",
+    borderRadius: 50,
   },
   touchable: {
     width: "100%",
@@ -33,23 +36,16 @@ const categoryStyle = StyleSheet.create({
     height: "100%",
     position: "relative",
     justifyContent: "center",
+    backgroundColor: "#FFAC84",
   },
   title: {
     position: "absolute",
     alignSelf: "center",
-    fontSize: 24,
+    fontSize: 16,
     color: "white",
     letterSpacing: 3,
     fontWeight: "bold",
   },
-  thumbnail: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    top: 0,
-    left: 0,
-    resizeMode: "contain",
-  },
 });
 
-export default Categories;
+export default CategoriesItem;

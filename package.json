@@ -17,6 +17,7 @@
     "expo-av": "^8.1.0",
     "immutable": "^4.0.0-rc.12",
     "lodash": "^4.17.19",
+    "moment": "^2.27.0",
     "querystring": "^0.2.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",

@@ -1,6 +1,10 @@
 import React, { useEffect, useState, useReducer } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
-import ListCoursesItem from "../ListCoursesItem/list-courses-item";
+import CourseActions from "../../../../redux/courseRedux";
+import { connect } from "react-redux";
+import loGet from "lodash/get";
+import ListCoursesItem from "../../../Courses/ListCoursesItem/list-courses-item";
+
 const Data = [
   {
     id: "9f3d46fa-61d2-4d4c-a392-a8e79ca7f335",
@@ -32,8 +36,32 @@ const Data = [
   },
 ];
 
-const ListCourses = (props) => {
-  useEffect(() => {}, []);
+const CoursesInCategory = (props) => {
+  const {
+    route: { params },
+    getCoursesInCategory,
+  } = props;
+  const category = params ? params.item : undefined;
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const categoryId = category ? category.id : undefined;
+    if (categoryId) {
+      var arrayId = [categoryId];
+      var stringEmpty = "";
+      const _params = {
+        keyword: stringEmpty,
+        opt: {
+          category: arrayId,
+        },
+        limit: 12,
+        offset: 0,
+      };
+      getCoursesInCategory(_params, (res) => {
+        setData(res.payload.rows);
+      });
+    }
+  }, [category, getCoursesInCategory]);
 
   const onPressListItem = (item) => {
     props.navigation.navigate("CourseDetail", { item });
@@ -50,22 +78,15 @@ const ListCourses = (props) => {
             onPressListItem={onPressListItem}
           />
         )}
+        keyExtractor={(item) => item.id}
       />
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  textinput: {
-    flex: 1,
-    borderColor: "gray",
-    borderWidth: 1,
-    margin: 5,
-  },
-  button: {
-    height: 40,
-    width: 40,
-  },
+const mapStateToProps = (state) => ({});
+const mapDispatchTopProps = (dispatch) => ({
+  getCoursesInCategory: (params, actionSuccess) =>
+    dispatch(CourseActions.getCoursesRequest(params, actionSuccess)),
 });
-
-export default ListCourses;
+export default connect(mapStateToProps, mapDispatchTopProps)(CoursesInCategory);

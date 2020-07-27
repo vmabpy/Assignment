@@ -11,6 +11,14 @@ const { Types, Creators } = createActions({
   loginFailure: null,
   loginSuccess: ["userInfo", "token"],
 
+  likeCourseRequest: ["params", "actionSuccess"],
+  likeCourseFailure: null,
+  likeCourseSuccess: null,
+
+  getFavoriteRequest: ["actionSuccess"],
+  getFavoriteFailure: null,
+  getFavoriteSuccess: ["favorite"],
+
   logout: ["actionSuccess"],
 });
 
@@ -19,6 +27,7 @@ export default Creators;
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
+  favorite: [],
   token: undefined,
   userInfo: undefined,
   error: undefined,
@@ -50,6 +59,30 @@ const loginFailure = (state, { error }) => {
   return state.merge({ error });
 };
 
+const likeCourseRequest = (state) => {
+  return state.merge({});
+};
+
+const likeCourseSuccess = (state) => {
+  return state.merge({});
+};
+
+const likeCourseFailure = (state) => {
+  return state.merge({});
+};
+
+const getFavoriteRequest = (state) => {
+  return state.merge({});
+};
+
+const getFavoriteSuccess = (state, { favorite }) => {
+  return state.merge({ favorite });
+};
+
+const getFavoriteFailure = (state) => {
+  return state.merge({});
+};
+
 const logout = (state) => {
   return INITIAL_STATE;
 };
@@ -63,6 +96,14 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.LOGIN_REQUEST]: loginRequest,
   [Types.LOGIN_SUCCESS]: loginSuccess,
   [Types.LOGIN_FAILURE]: loginFailure,
+
+  [Types.LIKE_COURSE_REQUEST]: likeCourseRequest,
+  [Types.LIKE_COURSE_SUCCESS]: likeCourseSuccess,
+  [Types.LIKE_COURSE_FAILURE]: likeCourseFailure,
+
+  [Types.GET_FAVORITE_REQUEST]: getFavoriteRequest,
+  [Types.GET_FAVORITE_SUCCESS]: getFavoriteSuccess,
+  [Types.GET_FAVORITE_FAILURE]: getFavoriteFailure,
 
   [Types.LOGOUT]: logout,
 });

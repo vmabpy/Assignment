@@ -8,6 +8,7 @@ import ReduxPersist from "../config/ReduxPersist";
 export const reducers = combineReducers({
   app: require("./appRedux").reducer,
   user: require("./userRedux").reducer,
+  course: require("./courseRedux").reducer,
 });
 
 export default () => {

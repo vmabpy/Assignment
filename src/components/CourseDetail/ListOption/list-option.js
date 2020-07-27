@@ -1,10 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import OptionItem from "./option-item";
-import { DownLoadContext } from "../../../provider/download-provider";
-
+import { connect } from "react-redux";
+import loGet from "lodash/get";
+import UserActions from "../../../redux/userRedux";
 const ListOption = (props) => {
-  let value = props.item;
+  let { item = {}, likeCourse } = props;
   const options = [
     {
       id: 1,
@@ -45,9 +46,17 @@ const ListOption = (props) => {
     //     }
     // </DownLoadContext.Consumer>
     <View style={styles.container}>
-      <OptionItem item={options[0]} onPressListItem={(item) => {}} />
-      <OptionItem item={options[1]} onPressListItem={(item) => {}} />
-      <OptionItem item={options[2]} onPressListItem={(item) => {}} />
+      <OptionItem item={options[0]} onPressListItem={() => {}} />
+      <OptionItem item={options[1]} onPressListItem={() => {}} />
+      <OptionItem
+        item={options[2]}
+        onPressListItem={() => {
+          const params = {
+            courseId: item.id,
+          };
+          likeCourse(params);
+        }}
+      />
     </View>
   );
 };
@@ -60,4 +69,9 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ListOption;
+const mapStateToProps = (state) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  likeCourse: (params, actionSuccess) =>
+    dispatch(UserActions.likeCourseRequest(params, actionSuccess)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(ListOption);

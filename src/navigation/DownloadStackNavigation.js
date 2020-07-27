@@ -1,12 +1,12 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Download, CourseDetail } from "../components/Main/Download/index";
+import { Favorite, CourseDetail } from "../components/Main/Favorite/index";
 const Stack = createStackNavigator();
 
 const DownloadStackNavigation = () => {
   return (
-    <Stack.Navigator initialRouteName="Download">
-      <Stack.Screen name="Download" component={Download} />
+    <Stack.Navigator initialRouteName="Favorite">
+      <Stack.Screen name="Favorite" component={Favorite} />
       <Stack.Screen name="CourseDetail" component={CourseDetail} />
     </Stack.Navigator>
   );

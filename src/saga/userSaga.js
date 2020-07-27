@@ -10,6 +10,8 @@ function* userRootSagas() {
   yield all([
     yield takeLatest(UserTypes.LOGIN_REQUEST, login),
     yield takeLatest(UserTypes.REGISTER_REQUEST, register),
+    yield takeLatest(UserTypes.LIKE_COURSE_REQUEST, likeCourse),
+    yield takeLatest(UserTypes.GET_FAVORITE_REQUEST, getCoursesFavorite),
     yield takeLatest(UserTypes.LOGOUT, logout),
   ]);
 }
@@ -46,6 +48,39 @@ function* login({ params, actionSuccess }) {
     yield put(AppActions.startupSuccess());
   } catch (error) {
     yield put(UserActions.loginFailure(error));
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
+}
+
+function* likeCourse({ params, actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const response = yield call(api.likeCourse, params);
+    yield put(UserActions.likeCourseSuccess(response));
+    if (actionSuccess) {
+      actionSuccess(response);
+    }
+    yield put(AppActions.showSuccess("Course is added in favorite course"));
+    yield put(AppActions.hideIndicator());
+  } catch (error) {
+    yield put(UserActions.likeCourseFailure());
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
+}
+
+function* getCoursesFavorite({ actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const { payload } = yield call(api.getFavoriteCourses);
+    yield put(UserActions.getFavoriteSuccess(payload));
+    if (actionSuccess) {
+      actionSuccess(payload);
+    }
+    yield put(AppActions.hideIndicator());
+  } catch (error) {
+    yield put(UserActions.getFavoriteFailure());
     yield put(AppActions.hideIndicator());
     yield put(AppActions.showError(error.message));
   }
