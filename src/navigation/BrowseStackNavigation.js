@@ -8,6 +8,7 @@ import {
   LearningPathDetail,
   ListAuthorDetail,
   CourseDetail,
+  RelatedCourses,
 } from "../components/Main/Browse";
 const Stack = createStackNavigator();
 const BrowseStackNavigation = () => {
@@ -27,6 +28,7 @@ const BrowseStackNavigation = () => {
       <Stack.Screen name="PathDetail" component={LearningPathDetail} />
       <Stack.Screen name="AuthorDetail" component={ListAuthorDetail} />
       <Stack.Screen name="CourseDetail" component={CourseDetail} />
+      <Stack.Screen name="RelatedCourses" component={RelatedCourses} />
     </Stack.Navigator>
   );
 };

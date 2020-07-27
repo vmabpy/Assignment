@@ -3,6 +3,7 @@ import { NavigationContainer, StackActions } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { connect } from "react-redux";
 import AppActions from "../redux/appRedux";
+import CourseDetail from "../components/CourseDetail/course-detail";
 
 import AppNavigation from "./AppNavigation";
 import AuthNavigation from "./AuthNavigation";
@@ -32,6 +33,7 @@ const MainStackNavigator = (props) => {
         {logedIn === true && (
           <>
             <Stack.Screen name="mainApp" component={AppNavigation} />
+            <Stack.Screen name="CourseDetail" component={CourseDetail} />
           </>
         )}
       </Stack.Navigator>

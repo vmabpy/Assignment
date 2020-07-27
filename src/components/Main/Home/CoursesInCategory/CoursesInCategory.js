@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useState } from "react";
 import { View, FlatList, StyleSheet } from "react-native";
 import CourseActions from "../../../../redux/courseRedux";
 import { connect } from "react-redux";

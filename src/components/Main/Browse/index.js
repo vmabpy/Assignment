@@ -5,6 +5,7 @@ import ListLanguageDetail from "./ListLanguageDetail/list-languague-detail";
 import LearningPathDetail from "./LearningPath/learning-path-detail";
 import ListAuthorDetail from "./Authors/AuthorList/author-detail";
 import CourseDetail from "../../CourseDetail/course-detail";
+import RelatedCourses from "../../Courses/RelatedCourses/RelatedCourses";
 
 export {
   Browse,
@@ -14,4 +15,5 @@ export {
   LearningPathDetail,
   ListAuthorDetail,
   CourseDetail,
+  RelatedCourses,
 };

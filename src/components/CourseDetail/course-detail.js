@@ -56,6 +56,10 @@ const CourseDetail = (props) => {
       title: "View related path and course",
     },
   ];
+
+  const handleRelatedCourse = (relatedCourses) => {
+    props.navigation.navigate("RelatedCourses", { relatedCourses });
+  };
   return dataDetail ? (
     <View style={styles.container}>
       <TouchableOpacity style={styles.buttonBack}></TouchableOpacity>
@@ -67,8 +71,12 @@ const CourseDetail = (props) => {
           "hh:mm DD/MM/YYYY "
         )} . ${dataDetail.totalHours} hours`}</Text>
         <ListOption item={dataDetail} />
-        <ReviewItem item={review[0]} />
-        <ReviewItem item={review[1]} />
+        <ReviewItem itemTitle={review[0]} item={{}} onPress={() => {}} />
+        <ReviewItem
+          itemTitle={review[1]}
+          item={dataDetail.coursesLikeCategory}
+          onPress={handleRelatedCourse}
+        />
         <ListLesson />
       </ScrollView>
     </View>
