@@ -51,7 +51,7 @@ const Categories = (props) => {
     props.navigation.navigate("Courses", { item });
   };
 
-  return (
+  return data.length > 0 ? (
     <View style={{ flex: 1 }}>
       <FlatList
         data={data}
@@ -67,6 +67,8 @@ const Categories = (props) => {
         }
       />
     </View>
+  ) : (
+    <View />
   );
 };
 const styles = StyleSheet.create({

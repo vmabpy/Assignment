@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     margin: 5,
+    alignItems: "center",
   },
   viewNumber: {
     height: 50,

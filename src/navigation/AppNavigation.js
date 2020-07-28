@@ -15,9 +15,8 @@ const AppNavigation = () => {
           let iconName;
 
           if (route.name === "HomeApp") {
-            iconName = focused
-              ? "ios-information-circle"
-              : "ios-information-circle-outline";
+            // iconName = focused ? "ios-home" : "ios-home-outline";
+            iconName = "ios-home";
           } else if (route.name === "DownloadApp") {
             iconName = "ios-download";
           } else if (route.name === "BrowseApp") {
