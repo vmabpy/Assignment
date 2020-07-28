@@ -1,5 +1,6 @@
 import { createReducer, createActions } from "reduxsauce";
 import Immutable from "seamless-immutable";
+import { getStoredState } from "redux-persist";
 /* ------------- Types and Action Creators ------------- */
 const { Types, Creators } = createActions({
   getCategoriesRequest: ["actionSuccess"],
@@ -13,6 +14,14 @@ const { Types, Creators } = createActions({
   getCourseDetailRequest: ["params", "actionSuccess"],
   getCourseDetailFailure: null,
   getCourseDetailSuccess: null,
+
+  getNewRequest: ["params", "actionSuccess"],
+  getNewSuccess: null,
+  getNewFailure: null,
+
+  getRateRequest: ["params", "actionSuccess"],
+  getRateSuccess: null,
+  getRateFailure: null,
 });
 
 export const CourseTypes = Types;
@@ -61,6 +70,30 @@ const getCourseDetailFailure = (state) => {
   return state.merge({});
 };
 
+const getNewRequest = (state) => {
+  return state.merge({});
+};
+
+const getNewSuccess = (state) => {
+  return state.merge({});
+};
+
+const getNewFailure = (state) => {
+  return state.merge({});
+};
+
+const getRateRequest = (state) => {
+  return state.merge({});
+};
+
+const getRateSuccess = (state) => {
+  return state.merge({});
+};
+
+const getRateFailure = (state) => {
+  return state.merge({});
+};
+
 /* ------------- Hookup Reducers To Types ------------- */
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_CATEGORIES_REQUEST]: getCategoriesRequest,
@@ -74,4 +107,12 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_COURSE_DETAIL_REQUEST]: getCourseDetailRequest,
   [Types.GET_COURSE_DETAIL_SUCCESS]: getCourseDetailSuccess,
   [Types.GET_COURSE_DETAIL_FAILURE]: getCourseDetailFailure,
+
+  [Types.GET_NEW_REQUEST]: getNewRequest,
+  [Types.GET_NEW_SUCCESS]: getNewSuccess,
+  [Types.GET_NEW_FAILURE]: getNewFailure,
+
+  [Types.GET_RATE_REQUEST]: getRateRequest,
+  [Types.GET_RATE_SUCCESS]: getRateSuccess,
+  [Types.GET_RATE_FAILURE]: getRateFailure,
 });

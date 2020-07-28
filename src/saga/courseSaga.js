@@ -9,6 +9,8 @@ function* courseRootSaga() {
     yield takeLatest(CourseTypes.GET_CATEGORIES_REQUEST, getCategories),
     yield takeLatest(CourseTypes.GET_COURSES_REQUEST, getCourses),
     yield takeLatest(CourseTypes.GET_COURSE_DETAIL_REQUEST, getCourseDetail),
+    yield takeLatest(CourseTypes.GET_NEW_REQUEST, getNew),
+    yield takeLatest(CourseTypes.GET_RATE_REQUEST, getRate),
   ]);
 }
 
@@ -60,4 +62,35 @@ function* getCourseDetail({ params, actionSuccess }) {
   }
 }
 
+function* getNew({ params, actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const { payload } = yield call(api.getNewCourses, params);
+    yield put(CourseActions.getNewSuccess(payload));
+    if (actionSuccess) {
+      actionSuccess(payload);
+    }
+    yield put(AppActions.hideIndicator());
+  } catch (error) {
+    yield put(CourseActions.getNewFailure());
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
+}
+
+function* getRate({ params, actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const { payload } = yield call(api.getRateCourses, params);
+    yield put(CourseActions.getRateSuccess(payload));
+    if (actionSuccess) {
+      actionSuccess(payload);
+    }
+    yield put(AppActions.hideIndicator());
+  } catch (error) {
+    yield put(CourseActions.getRateFailure());
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
+}
 export default courseRootSaga;

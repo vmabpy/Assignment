@@ -13,8 +13,6 @@ const Favorite = (props) => {
     props.navigation.navigate("CourseDetail", { item });
   };
 
-  console.log(data);
-
   useEffect(() => {
     props.getFavorite((favorite) => {
       setData(favorite);
