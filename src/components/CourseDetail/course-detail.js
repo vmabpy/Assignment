@@ -27,23 +27,22 @@ const CourseDetail = (props) => {
     getCourseDetail,
   } = props;
   const item = params ? params.item : undefined;
+  const id = item ? item.id : undefined;
+
   props.navigation.setOptions({
     title: item.title ? item.title : item.courseTitle,
   });
 
-  console.log(item);
-
   const [dataDetail, setDataDetail] = useState(undefined);
 
   useEffect(() => {
-    const id = item ? item.id : undefined;
     if (id) {
       const params = { id };
       getCourseDetail(params, (res) => {
         setDataDetail(res);
       });
     }
-  }, []);
+  }, [id, getCourseDetail]);
   const review = [
     {
       id: 0,
@@ -63,7 +62,7 @@ const CourseDetail = (props) => {
   return dataDetail ? (
     <View style={styles.container}>
       <TouchableOpacity style={styles.buttonBack}></TouchableOpacity>
-      <VideoPlayer />
+      {/* <VideoPlayer /> */}
       <ScrollView>
         <Text style={styles.title}>{`${dataDetail.title}`}</Text>
         <AuthorCourse item={dataDetail} />
@@ -77,7 +76,7 @@ const CourseDetail = (props) => {
           item={dataDetail.coursesLikeCategory}
           onPress={handleRelatedCourse}
         />
-        <ListLesson />
+        <ListLesson data={dataDetail.section} />
       </ScrollView>
     </View>
   ) : (

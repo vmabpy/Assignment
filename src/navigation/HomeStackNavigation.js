@@ -16,7 +16,11 @@ const HomeStackNavigation = () => {
       <Stack.Screen name="Courses" component={CoursesInCategory} />
       <Stack.Screen name="CourseDetail" component={CourseDetail} />
       <Stack.Screen name="Profile" component={Profile} />
-      <Stack.Screen name="RelatedCourses" component={RelatedCourses} />
+      <Stack.Screen
+        name="RelatedCourses"
+        component={RelatedCourses}
+        options={{ title: "Related Courses" }}
+      />
     </Stack.Navigator>
   );
 };

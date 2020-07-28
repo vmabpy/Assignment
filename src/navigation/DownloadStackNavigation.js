@@ -12,7 +12,11 @@ const DownloadStackNavigation = () => {
     <Stack.Navigator initialRouteName="Favorite">
       <Stack.Screen name="Favorite" component={Favorite} />
       <Stack.Screen name="CourseDetail" component={CourseDetail} />
-      <Stack.Screen name="RelatedCourses" component={RelatedCourses} />
+      <Stack.Screen
+        name="RelatedCourses"
+        component={RelatedCourses}
+        options={{ title: "Related Courses" }}
+      />
     </Stack.Navigator>
   );
 };

@@ -67,6 +67,10 @@ const CoursesInCategory = (props) => {
     props.navigation.navigate("CourseDetail", { item });
   };
 
+  const FlatListItemSeparator = () => {
+    return <View style={styles.separator}></View>;
+  };
+
   return (
     <View style={{ flex: 1 }}>
       <FlatList
@@ -79,10 +83,19 @@ const CoursesInCategory = (props) => {
           />
         )}
         keyExtractor={(item) => item.id}
+        ItemSeparatorComponent={FlatListItemSeparator}
       />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  separator: {
+    height: 1,
+    width: "100%",
+    backgroundColor: "#E7E8E8",
+  },
+});
 
 const mapStateToProps = (state) => ({});
 const mapDispatchTopProps = (dispatch) => ({

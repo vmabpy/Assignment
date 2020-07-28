@@ -12,9 +12,9 @@ const ListCoursesItem = (props) => {
       }}
     >
       <Image source={{ uri: item.imageUrl }} style={styles.image} />
-      <View style={{ margin: 5 }}>
-        <Text>{item.title}</Text>
-        <Text style={styles.darkText}>{item.name}</Text>
+      <View style={styles.viewMain}>
+        <Text style={styles.name}>{item.title}</Text>
+        <Text>{item.name ? item.name : item.instructorName}</Text>
         <Text style={styles.darkText}>{`${moment(item.updatedAt).format(
           "hh:mm DD/MM/YYYY "
         )} . ${item.totalHours} hours`}</Text>
@@ -27,12 +27,19 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: "row",
     margin: 5,
-    borderBottomColor: "gray",
-    borderBottomWidth: 1,
+    marginVertical: 20,
+    marginLeft: 20,
   },
   image: {
     height: 70,
     width: 80,
+  },
+  viewMain: {
+    margin: 10,
+  },
+  name: {
+    fontWeight: "bold",
+    fontSize: 14,
   },
   darkText: {
     color: "darkgray",

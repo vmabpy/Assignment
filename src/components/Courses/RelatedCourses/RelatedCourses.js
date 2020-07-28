@@ -6,11 +6,16 @@ const RelatedCourses = (props) => {
   const {
     route: { params },
   } = props;
+
   const relatedCourses = params ? params.relatedCourses : undefined;
 
   console.log(relatedCourses, "Related");
   const onPressListItem = (item) => {
     props.navigation.navigate("CourseDetail", { item });
+  };
+
+  const FlatListItemSeparator = () => {
+    return <View style={styles.separator}></View>;
   };
   return (
     <View style={{ flex: 1 }}>
@@ -24,9 +29,18 @@ const RelatedCourses = (props) => {
           />
         )}
         keyExtractor={(item) => item.id}
+        ItemSeparatorComponent={FlatListItemSeparator}
       />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  separator: {
+    height: 1,
+    width: "100%",
+    backgroundColor: "#E7E8E8",
+  },
+});
 
 export default RelatedCourses;

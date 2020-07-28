@@ -28,7 +28,11 @@ const BrowseStackNavigation = () => {
       <Stack.Screen name="PathDetail" component={LearningPathDetail} />
       <Stack.Screen name="AuthorDetail" component={ListAuthorDetail} />
       <Stack.Screen name="CourseDetail" component={CourseDetail} />
-      <Stack.Screen name="RelatedCourses" component={RelatedCourses} />
+      <Stack.Screen
+        name="RelatedCourses"
+        component={RelatedCourses}
+        options={{ title: "Related Courses" }}
+      />
     </Stack.Navigator>
   );
 };
