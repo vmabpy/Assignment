@@ -6,7 +6,12 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 const ListLessonItem = (props) => {
   const { item } = props;
   return (
-    <TouchableOpacity style={styles.containerView}>
+    <TouchableOpacity
+      style={styles.containerView}
+      onPress={() => {
+        props.handleClick(item);
+      }}
+    >
       <View style={styles.viewCircle}></View>
       <Text style={styles.titleItem}>{item.name}</Text>
       <Text style={styles.titleTime}>{item.hours}</Text>

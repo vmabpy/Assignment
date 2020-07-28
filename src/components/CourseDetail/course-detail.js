@@ -22,6 +22,7 @@ import loGet from "lodash/get";
 import CourseActions from "../../redux/courseRedux";
 
 const CourseDetail = (props) => {
+  const [idVideo, setIdVideo] = useState(undefined);
   const {
     route: { params },
     getCourseDetail,
@@ -56,13 +57,18 @@ const CourseDetail = (props) => {
     },
   ];
 
+  const handleClick = (item) => {
+    // console.log(item.id);
+    setIdVideo(item.id);
+  };
+
   const handleRelatedCourse = (relatedCourses) => {
     props.navigation.navigate("RelatedCourses", { relatedCourses });
   };
   return dataDetail ? (
     <View style={styles.container}>
       <TouchableOpacity style={styles.buttonBack}></TouchableOpacity>
-      {/* <VideoPlayer /> */}
+      <VideoPlayer id={idVideo} dataVideo={dataDetail} />
       <ScrollView>
         <Text style={styles.title}>{`${dataDetail.title}`}</Text>
         <AuthorCourse item={dataDetail} />
@@ -76,7 +82,7 @@ const CourseDetail = (props) => {
           item={dataDetail.coursesLikeCategory}
           onPress={handleRelatedCourse}
         />
-        <ListLesson data={dataDetail.section} />
+        <ListLesson data={dataDetail.section} handleClick={handleClick} />
       </ScrollView>
     </View>
   ) : (

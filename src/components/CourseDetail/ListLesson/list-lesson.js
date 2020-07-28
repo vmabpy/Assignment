@@ -20,59 +20,15 @@ const ListLesson = (props) => {
     return <View style={styles.separator}></View>;
   };
 
-  const courseSectionDeatail = [
-    {
-      index: 0,
-      title: "Course Overview",
-      data: [
-        {
-          id: 1,
-          title: "Course Overview",
-          time: "3:00",
-        },
-      ],
-    },
-    {
-      index: 1,
-      title: "Course Introduction",
-      data: [
-        {
-          id: 1,
-          title: "Getting Started",
-          time: "3:00",
-        },
-      ],
-    },
-    {
-      index: 2,
-      title: "Key Concepts and Core Service",
-      data: [
-        {
-          id: 1,
-          title: "What will we cover",
-          time: "2:00",
-        },
-        {
-          id: 2,
-          title: "Understading React Native",
-          time: "2:00",
-        },
-        {
-          id: 3,
-          title: "React Hook",
-          time: "1:50",
-        },
-      ],
-    },
-  ];
-
   return (
     <View>
       <SectionList
         SectionSeparatorComponent={FlatListItemSeparator}
         sections={dataList.map((item, index) => ({ ...item, index }))}
         // sections={dataList}
-        renderItem={({ item }) => <ListLessonItem item={item} />}
+        renderItem={({ item }) => (
+          <ListLessonItem item={item} handleClick={props.handleClick} />
+        )}
         renderSectionHeader={({ section: { title, index } }) => {
           return (
             <View style={styles.header}>
