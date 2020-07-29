@@ -1,100 +1,119 @@
-import React, { useContext } from 'react'
-import { Text, View, StyleSheet, Image } from 'react-native'
-import { AuthenticationContext } from '../../provider/authentication-provider'
-import { ScrollView } from 'react-native-gesture-handler'
+import React, { useContext } from "react";
+import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
+import { AuthenticationContext } from "../../provider/authentication-provider";
+import Button from "../../components/Common/button";
+import { connect } from "react-redux";
+import loGet from "lodash/get";
+import UserActions from "../../redux/userRedux";
 
 const Profile = (props) => {
-    const item = props.route.params.item
-    const { authentication } = useContext(AuthenticationContext)
+  // const item = props.route.params.item;
+  // const { state } = useContext(AuthenticationContext);
 
-    return (
-        // <View style={styles.container}>
-        //     {/* <Text>{item.username}</Text>
-        //     <Text>{item.fullName}</Text> */}
-        //     <Text>{authentication.user.username}</Text>
-        //     <Text>{authentication.user.fullName}</Text>
+  const handleLogout = () => {
+    props.logout(() => {});
+  };
 
-        // </View>
-        <ScrollView>
-            <View style={styles.container}>
-                <View style={{ alignItems: 'center' }}>
-                    <Image source={require('../../../assets/ic_profile.png')} style={styles.image} />
-                    <Text style={styles.name}>{authentication.user.username}</Text>
-                </View>
+  return (
+    // <View style={styles.container}>
+    //     {/* <Text>{item.username}</Text>
+    //     <Text>{item.fullName}</Text> */}
+    //     <Text>{authentication.user.username}</Text>
+    //     <Text>{authentication.user.fullName}</Text>
 
-                {/* <Text>{authentication.user.fullName}</Text> */}
-                <View style={styles.view}>
-                    <Text style={styles.title}>Activity insights (last 30 days)</Text>
-                    <Text style={styles.subTitle}>TOTAL ACTIVE DAYS</Text>
-                    <Text style={styles.title}>4 days streak</Text>
-                    <Text style={styles.subTitle}>MOST ACTIVE TIME OF DAY</Text>
-                    <Text style={styles.title}>14:00</Text>
-                    <Text style={styles.subTitle}>MOST VIEW SUBJECT</Text>
-                    <Text style={styles.title}>React Native</Text>
-                </View>
-            </View>
-        </ScrollView>
-    )
-    // return (
-    //     <AuthenticationContext.Consumer>
-    //         {
-    //             ({ authentication }) => {
-    //                 console.log('profile authentication: ', authentication)
-    //                 return (
-    //                     <ThemeContext.Consumer>
-    //                         {
-    //                             ({ theme, setTheme }) => {
-    //                                 return (
-    //                                     <View style={{ ...styles.container, backgroundColor: theme.background }}>
-    //                                         {/* <Text>{item.username}</Text>
-    //                                         <Text>{item.fullName}</Text> */}
-    //                                         <Text>{authentication.user.username}</Text>
-    //                                         <Text>{authentication.user.fullName}</Text>
-    //                                     </View>
-    //                                 )
-    //                             }
-    //                         }
-    //                     </ThemeContext.Consumer>
+    // </View>
+    <ScrollView>
+      <View style={{ alignItems: "center" }}>
+        <Image
+          source={require("../../../assets/ic_profile.png")}
+          style={styles.image}
+        />
+        {/* <Text style={styles.name}>{state.userInfo.name}</Text> */}
+        <Text style={styles.name}>Hieu Tong</Text>
+      </View>
 
-    //                 )
-    //             }
-    //         }
-    //     </AuthenticationContext.Consumer>
-    // )
+      {/* <Text>{authentication.user.fullName}</Text> */}
+      <View style={styles.view}>
+        <Text style={styles.title}>Activity insights (last 30 days)</Text>
+        <Text style={styles.subTitle}>TOTAL ACTIVE DAYS</Text>
+        <Text style={styles.title}>4 days streak</Text>
+        <Text style={styles.subTitle}>MOST ACTIVE TIME OF DAY</Text>
+        <Text style={styles.title}>14:00</Text>
+        <Text style={styles.subTitle}>MOST VIEW SUBJECT</Text>
+        <Text style={styles.title}>React Native</Text>
+      </View>
+      <View style={styles.buttonLogout}>
+        <Button text="Log out" handlePress={handleLogout} />
+      </View>
+    </ScrollView>
+  );
+  // return (
+  //     <AuthenticationContext.Consumer>
+  //         {
+  //             ({ authentication }) => {
+  //                 console.log('profile authentication: ', authentication)
+  //                 return (
+  //                     <ThemeContext.Consumer>
+  //                         {
+  //                             ({ theme, setTheme }) => {
+  //                                 return (
+  //                                     <View style={{ ...styles.container, backgroundColor: theme.background }}>
+  //                                         {/* <Text>{item.username}</Text>
+  //                                         <Text>{item.fullName}</Text> */}
+  //                                         <Text>{authentication.user.username}</Text>
+  //                                         <Text>{authentication.user.fullName}</Text>
+  //                                     </View>
+  //                                 )
+  //                             }
+  //                         }
+  //                     </ThemeContext.Consumer>
 
-}
+  //                 )
+  //             }
+  //         }
+  //     </AuthenticationContext.Consumer>
+  // )
+};
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    image: {
-        marginTop: 50,
-        height: 120,
-        width: 120,
-        borderRadius: 60,
-    },
-    name: {
-        marginTop: 10,
-        fontSize: 16,
-        fontWeight: 'bold',
+  image: {
+    marginTop: 50,
+    height: 120,
+    width: 120,
+    borderRadius: 60,
+  },
+  name: {
+    marginTop: 10,
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  view: {
+    alignItems: "flex-start",
+    marginLeft: 5,
+    marginTop: 20,
+  },
+  subTitle: {
+    marginTop: 10,
+    fontSize: 14,
+    color: "gray",
+  },
+  title: {
+    marginTop: 10,
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  buttonLogout: {
+    marginHorizontal: 40,
+    marginTop: 160,
+  },
+});
 
-    },
-    view: {
-        alignItems: 'flex-start',
-        marginLeft: 5,
-        marginTop: 20,
-    },
-    subTitle: {
-        marginTop: 10,
-        fontSize: 14,
-        color: 'gray',
-    },
-    title: {
-        marginTop: 10,
-        fontSize: 16,
-        fontWeight: 'bold',
-    }
-})
+//get data
+const mapStateToProps = (state) => ({});
 
-export default Profile;
+//call api to get response
+const mapDispatchToProps = (dispatch) => ({
+  logout: (actionSuccess) => dispatch(UserActions.logout(actionSuccess)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

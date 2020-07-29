@@ -1,4 +1,4 @@
-// import * as React from 'react';
+// import React, { useState } from "react";
 // import {
 //   Text,
 //   View,
@@ -6,208 +6,150 @@
 //   FlatList,
 //   ActivityIndicator,
 //   Platform,
-// } from 'react-native';
-// import { SearchBar } from 'react-native-elements';
+// } from "react-native";
+// import { SearchBar } from "react-native-elements";
+// import { searchCourses } from "../../../globals/courses";
+// import ListCoursesItem from "../../Courses/ListCoursesItem/list-courses-item";
 
-// export default class SearchCourses extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = { isLoading: true, search: '' };
-//     this.arrayholder = [];
-//   }
-//   componentDidMount() {
-//     return fetch('https://jsonplaceholder.typicode.com/posts')
-//       .then(response => response.json())
-//       .then(responseJson => {
-//         this.setState(
-//           {
-//             isLoading: false,
-//             dataSource: responseJson,
-//           },
-//           function () {
-//             this.arrayholder = responseJson;
-//           }
-//         );
-//       })
-//       .catch(error => {
-//         console.error(error);
-//       });
-//   }
+// const SearchCourse = (props) => {
+//   const [isLoading, setIsLoading] = useState(false);
+//   const [search, setSearch] = useState("");
+//   const [arrayholder, setArrayHolder] = useState(searchCourses);
+//   const [dataSource, setDataSource] = useState([]);
 
-//   search = text => {
-//     console.log(text);
-//   };
-//   clear = () => {
-//     this.search.clear();
+//   const onPressListItem = (item) => {
+//     props.navigation.navigate("CourseDetail", { item });
 //   };
 
-//   SearchFilterFunction(text) {
-//     //passing the inserted text in textinput
-//     const newData = this.arrayholder.filter(function (item) {
-//       //applying filter for the inserted text in search bar
-//       const itemData = item.title ? item.title.toUpperCase() : ''.toUpperCase();
+//   const FlatListItemSeparator = () => {
+//     return <View style={styles.separator}></View>;
+//   };
+
+//   const searchFilter = (text) => {
+//     const newData = arrayholder.filter(function (item) {
+//       const itemData = item.title ? item.title.toUpperCase() : "".toUpperCase();
 //       const textData = text.toUpperCase();
 //       return itemData.indexOf(textData) > -1;
 //     });
 
-//     this.setState({
-//       //setting the filtered newData on datasource
-//       //After setting the data it will automatically re-render the view
-//       dataSource: newData,
-//       search: text,
-//     });
-//   }
-
-//   ListViewItemSeparator = () => {
-//     //Item sparator view
-//     return (
-//       <View
-//         style={{
-//           height: 0.3,
-//           width: '90%',
-//           backgroundColor: '#080808',
-//         }}
-//       />
-//     );
+//     setDataSource(newData);
+//     setSearch(text);
 //   };
 
-//   render() {
-//     if (this.state.isLoading) {
-//       //Loading View while data is loading
-//       return (
-//         <View style={{ flex: 1, paddingTop: 20 }}>
-//           <ActivityIndicator />
-//         </View>
-//       );
-//     }
+//   if (isLoading) {
 //     return (
-//       //ListView to show with textinput used as search bar
-//       <View style={styles.viewStyle}>
-//         <SearchBar
-//           round
-//           lightTheme
-//           searchIcon={{ size: 24 }}
-//           onChangeText={text => this.SearchFilterFunction(text)}
-//           onClear={text => this.SearchFilterFunction('')}
-//           placeholder="Type Here..."
-//           value={this.state.search}
-//         />
-//         <FlatList
-//           data={this.state.dataSource}
-//           ItemSeparatorComponent={this.ListViewItemSeparator}
-//           //Item Separator View
-//           renderItem={({ item }) => (
-//             // Single Comes here which will be repeatative for the FlatListItems
-//             <Text style={styles.textStyle}>{item.title}</Text>
-//           )}
-//           enableEmptySections={true}
-//           style={{ marginTop: 10 }}
-//           keyExtractor={(item, index) => index.toString()}
-//         />
+//       <View style={{ flex: 1, paddingTop: 20 }}>
+//         <ActivityIndicator />
 //       </View>
 //     );
 //   }
-// }
-
+//   return (
+//     <View style={styles.viewStyle}>
+//       <SearchBar
+//         round
+//         lightTheme
+//         searchIcon={{ size: 24 }}
+//         onChangeText={(text) => searchFilter(text)}
+//         onClear={(text) => searchFilter("")}
+//         placeholder="Type Here..."
+//         value={search}
+//       />
+//       <FlatList
+//         data={dataSource}
+//         renderItem={({ item }) => (
+//           <ListCoursesItem
+//             item={item}
+//             navigation={props.navigation}
+//             onPressListItem={onPressListItem}
+//           />
+//         )}
+//         ItemSeparatorComponent={FlatListItemSeparator}
+//         enableEmptySections={true}
+//         style={{ marginTop: 10 }}
+//         keyExtractor={(item, index) => index.toString()}
+//       />
+//     </View>
+//   );
+// };
 // const styles = StyleSheet.create({
 //   viewStyle: {
-//     justifyContent: 'center',
+//     justifyContent: "center",
 //     flex: 1,
-//     backgroundColor: 'white',
-//     marginTop: Platform.OS == 'ios' ? 50 : 0,
+//     backgroundColor: "white",
+//     marginTop: Platform.OS == "ios" ? 50 : 0,
 //   },
 //   textStyle: {
 //     padding: 10,
 //   },
+//   separator: {
+//     height: 0.5,
+//     width: "100%",
+//     backgroundColor: "gray",
+//   },
 // });
-
-import React, { useState } from 'react';
-import {
-  Text,
-  View,
-  StyleSheet,
-  FlatList,
-  ActivityIndicator,
-  Platform,
-} from 'react-native';
-import { SearchBar } from 'react-native-elements';
-import { searchCourses } from '../../../globals/courses'
-import ListCoursesItem from '../../Courses/ListCoursesItem/list-courses-item';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, FlatList } from "react-native";
+import SearchBar from "./SearchBar";
+import { connect } from "react-redux";
+import loGet from "lodash/get";
+import CourseActions from "../../../redux/courseRedux";
+import ListCoursesItem from "../../Courses/ListCoursesItem/list-courses-item";
 
 const SearchCourse = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [search, setSearch] = useState('');
-  const [arrayholder, setArrayHolder] = useState(searchCourses);
-  const [dataSource, setDataSource] = useState([]);
-
   const onPressListItem = (item) => {
-    props.navigation.navigate("CourseDetail", { item })
-  }
+    props.navigation.navigate("CourseDetail", { item });
+  };
+
+  const dataSearch = props.searchResults;
+  const { inputSearch } = props;
 
   const FlatListItemSeparator = () => {
-    return (
-      <View style={styles.separator}></View>
-    )
-  }
+    return <View style={styles.separator}></View>;
+  };
 
-  const searchFilter = (text) => {
-    const newData = arrayholder.filter(function (item) {
-      const itemData = item.title ? item.title.toUpperCase() : ''.toUpperCase();
-      const textData = text.toUpperCase();
-      return itemData.indexOf(textData) > -1;
-    });
+  useEffect(() => {
+    const params = { keyword: inputSearch, limit: 20, offset: 0 };
+    props.search(params);
+  });
 
-    setDataSource(newData);
-    setSearch(text);
-
-  }
-
-  if (isLoading) {
-    return (
-      <View style={{ flex: 1, paddingTop: 20 }}>
-        <ActivityIndicator />
-      </View>
-    )
-  }
   return (
-    <View style={styles.viewStyle}>
-      <SearchBar
-        round
-        lightTheme
-        searchIcon={{ size: 24 }}
-        onChangeText={text => searchFilter(text)}
-        onClear={text => searchFilter('')}
-        placeholder="Type Here..."
-        value={search}
-      />
+    <View style={styles.container}>
+      <SearchBar search={props.search} />
       <FlatList
-        data={dataSource}
-        renderItem={({ item }) => <ListCoursesItem item={item} navigation={props.navigation} onPressListItem={onPressListItem} />}
+        data={dataSearch}
+        renderItem={({ item }) => (
+          <ListCoursesItem
+            navigation={props.navigation}
+            item={item}
+            onPressListItem={onPressListItem}
+          />
+        )}
+        keyExtractor={(item) => item.id}
         ItemSeparatorComponent={FlatListItemSeparator}
-        enableEmptySections={true}
-        style={{ marginTop: 10 }}
-        keyExtractor={(item, index) => index.toString()}
       />
-
     </View>
-  )
-}
+  );
+};
+
 const styles = StyleSheet.create({
-  viewStyle: {
-    justifyContent: 'center',
-    flex: 1,
-    backgroundColor: 'white',
-    marginTop: Platform.OS == 'ios' ? 50 : 0,
-  },
-  textStyle: {
-    padding: 10,
+  container: {
+    padding: 15,
+    marginTop: Platform.OS == "ios" ? 20 : 0,
   },
   separator: {
-    height: 0.5,
-    width: '100%',
-    backgroundColor: 'gray',
+    height: 1,
+    width: "100%",
+    backgroundColor: "#E7E8E8",
   },
 });
 
-export default SearchCourse;
+const mapStateToProps = (state) => ({
+  searchResults: loGet(state, ["course", "searchResults"], []),
 
+  inputSearch: loGet(state, ["course", "inputSearch"], undefined),
+});
+const mapDispatchTopProps = (dispatch) => ({
+  search: (params, actionSuccess) =>
+    dispatch(CourseActions.searchCoursesRequest(params, actionSuccess)),
+});
+export default connect(mapStateToProps, mapDispatchTopProps)(SearchCourse);

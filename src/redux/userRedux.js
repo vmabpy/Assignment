@@ -1,0 +1,109 @@
+import { createReducer, createActions } from "reduxsauce";
+import Immutable from "seamless-immutable";
+/* ------------- Types and Action Creators ------------- */
+
+const { Types, Creators } = createActions({
+  registerRequest: ["params", "actionSuccess"],
+  registerFailure: null,
+  registerSuccess: null,
+
+  loginRequest: ["params", "actionSuccess"],
+  loginFailure: null,
+  loginSuccess: ["userInfo", "token"],
+
+  likeCourseRequest: ["params", "actionSuccess"],
+  likeCourseFailure: null,
+  likeCourseSuccess: null,
+
+  getFavoriteRequest: ["actionSuccess"],
+  getFavoriteFailure: null,
+  getFavoriteSuccess: ["favorite"],
+
+  logout: ["actionSuccess"],
+});
+
+export const UserTypes = Types;
+export default Creators;
+/* ------------- Initial State ------------- */
+
+export const INITIAL_STATE = Immutable({
+  favorite: [],
+  token: undefined,
+  userInfo: undefined,
+  error: undefined,
+});
+
+/* ------------- Reducers ------------- */
+
+const registerRequest = (state) => {
+  return state.merge({});
+};
+
+const registerSuccess = (state) => {
+  return state.merge({});
+};
+
+const registerFailure = (state) => {
+  return state.merge({});
+};
+
+const loginRequest = (state) => {
+  return state.merge({});
+};
+
+const loginSuccess = (state, { userInfo, token }) => {
+  return state.merge({ userInfo, token });
+};
+
+const loginFailure = (state, { error }) => {
+  return state.merge({ error });
+};
+
+const likeCourseRequest = (state) => {
+  return state.merge({});
+};
+
+const likeCourseSuccess = (state) => {
+  return state.merge({});
+};
+
+const likeCourseFailure = (state) => {
+  return state.merge({});
+};
+
+const getFavoriteRequest = (state) => {
+  return state.merge({});
+};
+
+const getFavoriteSuccess = (state, { favorite }) => {
+  return state.merge({ favorite });
+};
+
+const getFavoriteFailure = (state) => {
+  return state.merge({});
+};
+
+const logout = (state) => {
+  return INITIAL_STATE;
+};
+
+/* ------------- Hookup Reducers To Types ------------- */
+export const reducer = createReducer(INITIAL_STATE, {
+  [Types.REGISTER_REQUEST]: registerRequest,
+  [Types.REGISTER_SUCCESS]: registerSuccess,
+  [Types.REGISTER_FAILURE]: registerFailure,
+
+  [Types.LOGIN_REQUEST]: loginRequest,
+  [Types.LOGIN_SUCCESS]: loginSuccess,
+  [Types.LOGIN_FAILURE]: loginFailure,
+
+  [Types.LIKE_COURSE_REQUEST]: likeCourseRequest,
+  [Types.LIKE_COURSE_SUCCESS]: likeCourseSuccess,
+  [Types.LIKE_COURSE_FAILURE]: likeCourseFailure,
+
+  [Types.GET_FAVORITE_REQUEST]: getFavoriteRequest,
+  [Types.GET_FAVORITE_SUCCESS]: getFavoriteSuccess,
+  [Types.GET_FAVORITE_FAILURE]: getFavoriteFailure,
+
+  [Types.LOGOUT]: logout,
+});
