@@ -56,7 +56,7 @@ const Favorite = (props) => {
 
 const styles = StyleSheet.create({
   separator: {
-    height: 0.5,
+    height: 1,
     width: "100%",
     backgroundColor: "#E7E8E8",
   },
