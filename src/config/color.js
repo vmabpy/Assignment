@@ -1,2 +1,5 @@
 const BLUE_1 = "#417AF9";
-export { BLUE_1 };
+const GRAY = "#CDCDCD";
+const BLACK = "#000000";
+
+export { BLUE_1, GRAY, BLACK };

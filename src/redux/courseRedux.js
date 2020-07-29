@@ -31,6 +31,10 @@ const { Types, Creators } = createActions({
   getTutorDetailRequest: ["params", "actionSuccess"],
   getTutorDetailSuccess: null,
   getTutorDetailFailure: null,
+
+  searchCoursesRequest: ["params", "actionSuccess"],
+  searchCoursesSuccess: ["searchResults", "inputSearch"],
+  searchCoursesFailure: null,
 });
 
 export const CourseTypes = Types;
@@ -39,6 +43,8 @@ export default Creators;
 
 export const INITIAL_STATE = Immutable({
   categories: [],
+  searchResults: [],
+  inputSearch: "",
 });
 
 /* ------------- Reducers ------------- */
@@ -127,6 +133,18 @@ const getTutorDetailFailure = (state) => {
   return state.merge({});
 };
 
+const searchCoursesRequest = (state) => {
+  return state.merge({});
+};
+
+const searchCoursesSuccess = (state, { searchResults, inputSearch }) => {
+  return state.merge({ searchResults, inputSearch });
+};
+
+const searchCoursesFailure = (state) => {
+  return state.merge({});
+};
+
 /* ------------- Hookup Reducers To Types ------------- */
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_CATEGORIES_REQUEST]: getCategoriesRequest,
@@ -156,4 +174,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_TUTOR_DETAIL_REQUEST]: getTutorDetailRequest,
   [Types.GET_TUTOR_DETAIL_SUCCESS]: getTutorDetailSuccess,
   [Types.GET_TUTOR_DETAIL_FAILURE]: getTutorDetailFailure,
+
+  [Types.SEARCH_COURSES_REQUEST]: searchCoursesRequest,
+  [Types.SEARCH_COURSES_SUCCESS]: searchCoursesSuccess,
+  [Types.SEARCH_COURSES_FAILURE]: searchCoursesFailure,
 });

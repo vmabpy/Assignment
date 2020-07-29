@@ -13,6 +13,7 @@ function* courseRootSaga() {
     yield takeLatest(CourseTypes.GET_RATE_REQUEST, getRate),
     yield takeLatest(CourseTypes.GET_LIST_TUTOR_REQUEST, getListTutor),
     yield takeLatest(CourseTypes.GET_TUTOR_DETAIL_REQUEST, getTutorDetail),
+    yield takeLatest(CourseTypes.SEARCH_COURSES_REQUEST, searchCourses),
   ]);
 }
 
@@ -123,6 +124,24 @@ function* getTutorDetail({ params, actionSuccess }) {
     yield put(AppActions.hideIndicator());
   } catch (error) {
     yield put(CourseActions.getTutorDetailFailure());
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
+}
+
+function* searchCourses({ params, actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const response = yield call(api.searchCourses, params);
+    yield put(
+      CourseActions.searchCoursesSuccess(response.payload.rows, params.keyword)
+    );
+    if (actionSuccess) {
+      actionSuccess(response.payload.rows);
+    }
+    yield put(AppActions.hideIndicator());
+  } catch (error) {
+    yield put(CourseActions.searchCoursesFailure());
     yield put(AppActions.hideIndicator());
     yield put(AppActions.showError(error.message));
   }

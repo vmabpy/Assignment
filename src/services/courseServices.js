@@ -30,3 +30,8 @@ export const getTutorDetail = (params) => {
   const { idTutor } = params;
   return request.get(`/instructor/detail/${idTutor}`);
 };
+
+export const searchCourses = (params) => {
+  console.log(params);
+  return request.post("/course/search", params);
+};
