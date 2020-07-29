@@ -19,6 +19,14 @@ export const getNewCourses = (params) => {
 };
 
 export const getRateCourses = (params) => {
-  console.log(params);
   return request.post("/course/top-rate", params);
+};
+
+export const getListTutor = () => {
+  return request.get("/instructor");
+};
+
+export const getTutorDetail = (params) => {
+  const { idTutor } = params;
+  return request.get(`/instructor/detail/${idTutor}`);
 };

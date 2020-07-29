@@ -1,6 +1,7 @@
 import { createReducer, createActions } from "reduxsauce";
 import Immutable from "seamless-immutable";
 import { getStoredState } from "redux-persist";
+import { multiply } from "react-native-reanimated";
 /* ------------- Types and Action Creators ------------- */
 const { Types, Creators } = createActions({
   getCategoriesRequest: ["actionSuccess"],
@@ -22,6 +23,14 @@ const { Types, Creators } = createActions({
   getRateRequest: ["params", "actionSuccess"],
   getRateSuccess: null,
   getRateFailure: null,
+
+  getListTutorRequest: ["actionSuccess"],
+  getListTutorSuccess: null,
+  getListTutorFailure: null,
+
+  getTutorDetailRequest: ["params", "actionSuccess"],
+  getTutorDetailSuccess: null,
+  getTutorDetailFailure: null,
 });
 
 export const CourseTypes = Types;
@@ -94,6 +103,30 @@ const getRateFailure = (state) => {
   return state.merge({});
 };
 
+const getListTutorRequest = (state) => {
+  return state.merge({});
+};
+
+const getListTutorSuccess = (state) => {
+  return state.merge({});
+};
+
+const getListTutorFailure = (state) => {
+  return state.merge({});
+};
+
+const getTutorDetailRequest = (state) => {
+  return state.merge({});
+};
+
+const getTutorDetailSuccess = (state) => {
+  return state.merge({});
+};
+
+const getTutorDetailFailure = (state) => {
+  return state.merge({});
+};
+
 /* ------------- Hookup Reducers To Types ------------- */
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_CATEGORIES_REQUEST]: getCategoriesRequest,
@@ -115,4 +148,12 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_RATE_REQUEST]: getRateRequest,
   [Types.GET_RATE_SUCCESS]: getRateSuccess,
   [Types.GET_RATE_FAILURE]: getRateFailure,
+
+  [Types.GET_LIST_TUTOR_REQUEST]: getListTutorRequest,
+  [Types.GET_LIST_TUTOR_SUCCESS]: getListTutorSuccess,
+  [Types.GET_LIST_TUTOR_FAILURE]: getListTutorFailure,
+
+  [Types.GET_TUTOR_DETAIL_REQUEST]: getTutorDetailRequest,
+  [Types.GET_TUTOR_DETAIL_SUCCESS]: getTutorDetailSuccess,
+  [Types.GET_TUTOR_DETAIL_FAILURE]: getTutorDetailFailure,
 });

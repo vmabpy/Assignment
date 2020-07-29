@@ -12,9 +12,9 @@ import CourseActions from "../../../redux/courseRedux";
 const Browse = (props) => {
   const [newData, setNewData] = useState([]);
   const [recommendData, setRecommedData] = useState([]);
+  const [listTutor, setListTutor] = useState([]);
 
-  const params = { limit: 10, page: 1 };
-  const { getNew, getRate } = props;
+  const { getNew, getRate, getListTutor } = props;
 
   const handleNewRelease = () => {
     props.navigation.navigate("NewRealse", { newData });
@@ -32,7 +32,10 @@ const Browse = (props) => {
     getRate(params, (res) => {
       setRecommedData(res);
     });
-  });
+    getListTutor((res) => {
+      setListTutor(res);
+    });
+  }, [getListTutor]);
 
   return (
     <ScrollView>
@@ -45,7 +48,11 @@ const Browse = (props) => {
       <ListLanguage title="Popular skills" navigation={props.navigation} />
       {/* <Trending /> */}
       <LearningPath title="Path" navigation={props.navigation} />
-      <Authors title="Top Authors" navigation={props.navigation} />
+      <Authors
+        title="Top Authors"
+        navigation={props.navigation}
+        listTutor={listTutor}
+      />
     </ScrollView>
   );
 };
@@ -56,5 +63,8 @@ const mapDispatchTopProps = (dispatch) => ({
     dispatch(CourseActions.getNewRequest(params, actionSuccess)),
   getRate: (params, actionSuccess) =>
     dispatch(CourseActions.getRateRequest(params, actionSuccess)),
+  getListTutor: (actionSuccess) => {
+    dispatch(CourseActions.getListTutorRequest(actionSuccess));
+  },
 });
 export default connect(mapStateToProps, mapDispatchTopProps)(Browse);
