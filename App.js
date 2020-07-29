@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import MainApp from "./src/components/MainApp";
 import createStore from "./src/redux/";
 const { store } = createStore();
+console.disableYellowBox = true;
 
 const App = () => {
   return (

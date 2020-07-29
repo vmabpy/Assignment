@@ -25,7 +25,7 @@ function* register({ params, actionSuccess }) {
       actionSuccess(response);
     }
     yield put(AppActions.hideIndicator());
-    yield put(AppActions.showSuccess("Đăng kí thành công"));
+    yield put(AppActions.showSuccess("You are successfully register"));
   } catch (error) {
     yield put(UserActions.registerFailure(error));
     yield put(AppActions.hideIndicator());
@@ -44,7 +44,7 @@ function* login({ params, actionSuccess }) {
     }
     setToken(token);
     yield put(AppActions.hideIndicator());
-    yield put(AppActions.showSuccess("Đăng nhập thành công"));
+    yield put(AppActions.showSuccess("You are successfully loged in"));
     yield put(AppActions.startupSuccess());
   } catch (error) {
     yield put(UserActions.loginFailure(error));

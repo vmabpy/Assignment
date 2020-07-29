@@ -29,7 +29,7 @@ export const Register = (props) => {
       phone: phone,
       password: password,
     };
-    register(params, () => {});
+    register(params);
   };
   return (
     <View>
@@ -82,7 +82,7 @@ export const Register = (props) => {
           />
         </View>
       </View>
-      <TouchableOpacity style={styles.button} onPress={() => {}}>
+      <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.textLogin}>Sign Up</Text>
       </TouchableOpacity>
       <TouchableOpacity
