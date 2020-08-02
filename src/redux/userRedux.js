@@ -11,6 +11,10 @@ const { Types, Creators } = createActions({
   loginFailure: null,
   loginSuccess: ["userInfo", "token"],
 
+  forgotPasswordRequest: ["params", "actionSuccess"],
+  forgotPasswordFailure: null,
+  forgotPasswordSuccess: null,
+
   likeCourseRequest: ["params", "actionSuccess"],
   likeCourseFailure: null,
   likeCourseSuccess: null,
@@ -59,6 +63,18 @@ const loginFailure = (state, { error }) => {
   return state.merge({ error });
 };
 
+const forgotPasswordRequest = (state) => {
+  return state.merge({});
+};
+
+const forgotPasswordSuccess = (state) => {
+  return state.merge({});
+};
+
+const forgotPasswordFailure = (state) => {
+  return state.merge({});
+};
+
 const likeCourseRequest = (state) => {
   return state.merge({});
 };
@@ -96,6 +112,10 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.LOGIN_REQUEST]: loginRequest,
   [Types.LOGIN_SUCCESS]: loginSuccess,
   [Types.LOGIN_FAILURE]: loginFailure,
+
+  [Types.FORGOT_PASSWORD_REQUEST]: forgotPasswordRequest,
+  [Types.FORGOT_PASSWORD_SUCCESS]: forgotPasswordSuccess,
+  [Types.FORGOT_PASSWORD_FAILURE]: forgotPasswordFailure,
 
   [Types.LIKE_COURSE_REQUEST]: likeCourseRequest,
   [Types.LIKE_COURSE_SUCCESS]: likeCourseSuccess,

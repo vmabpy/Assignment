@@ -3,13 +3,14 @@ import { AsyncStorage } from "react-native";
 import _ from "lodash";
 import * as api from "../services/userServices";
 import UserActions, { UserTypes } from "../redux/userRedux";
-import { setToken } from "../config/axios";
+import { setToken, request } from "../config/axios";
 import AppActions from "../redux/appRedux";
 
 function* userRootSagas() {
   yield all([
     yield takeLatest(UserTypes.LOGIN_REQUEST, login),
     yield takeLatest(UserTypes.REGISTER_REQUEST, register),
+    yield takeLatest(UserTypes.FORGOT_PASSWORD_REQUEST, forgotPassword),
     yield takeLatest(UserTypes.LIKE_COURSE_REQUEST, likeCourse),
     yield takeLatest(UserTypes.GET_FAVORITE_REQUEST, getCoursesFavorite),
     yield takeLatest(UserTypes.LOGOUT, logout),
@@ -28,6 +29,25 @@ function* register({ params, actionSuccess }) {
     yield put(AppActions.showSuccess("You are successfully register"));
   } catch (error) {
     yield put(UserActions.registerFailure(error));
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
+}
+
+function* forgotPassword({ params, actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const response = yield call(api.forgotPassword, params);
+    yield put(UserActions.forgotPasswordSuccess(response));
+    if (actionSuccess) {
+      actionSuccess(response);
+    }
+    yield put(AppActions.hideIndicator());
+    yield put(
+      AppActions.showSuccess("The instructions are sent to your email")
+    );
+  } catch (error) {
+    yield put(UserActions.forgotPasswordFailure(error));
     yield put(AppActions.hideIndicator());
     yield put(AppActions.showError(error.message));
   }

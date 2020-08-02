@@ -1,6 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Login, Register } from "../components/Authentication/";
+import { Login, Register, ForgotPassword } from "../components/Authentication/";
 const Stack = createStackNavigator();
 
 const AuthNavigation = () => {
@@ -15,6 +15,12 @@ const AuthNavigation = () => {
         name="Register"
         component={Register}
         options={{ title: "Register", headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="ForgotPassword"
+        component={ForgotPassword}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

@@ -65,6 +65,14 @@ const Login = (props) => {
           <Text style={{ fontWeight: "500", color: "#E9446A" }}>Sign Up</Text>
         </Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.textForgotPassword}
+        onPress={() => props.navigation.push("ForgotPassword")}
+      >
+        <Text style={{ fontWeight: "500", color: "#E9446A" }}>
+          Forgot Password?
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -148,6 +156,10 @@ const styles = StyleSheet.create({
   textSignUp: {
     alignSelf: "center",
     marginTop: 32,
+  },
+  textForgotPassword: {
+    alignSelf: "center",
+    marginTop: 10,
   },
   error: {
     color: "#E9446A",
