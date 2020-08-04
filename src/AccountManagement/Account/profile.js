@@ -1,34 +1,22 @@
 import React, { useContext } from "react";
 import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
-import { AuthenticationContext } from "../../provider/authentication-provider";
 import Button from "../../components/Common/button";
 import { connect } from "react-redux";
 import loGet from "lodash/get";
 import UserActions from "../../redux/userRedux";
 
 const Profile = (props) => {
-  // const item = props.route.params.item;
-  // const { state } = useContext(AuthenticationContext);
-
   const handleLogout = () => {
     props.logout(() => {});
   };
 
   return (
-    // <View style={styles.container}>
-    //     {/* <Text>{item.username}</Text>
-    //     <Text>{item.fullName}</Text> */}
-    //     <Text>{authentication.user.username}</Text>
-    //     <Text>{authentication.user.fullName}</Text>
-
-    // </View>
     <ScrollView>
       <View style={{ alignItems: "center" }}>
         <Image
           source={require("../../../assets/ic_profile.png")}
           style={styles.image}
         />
-        {/* <Text style={styles.name}>{state.userInfo.name}</Text> */}
         <Text style={styles.name}>Hieu Tong</Text>
       </View>
 
@@ -47,32 +35,6 @@ const Profile = (props) => {
       </View>
     </ScrollView>
   );
-  // return (
-  //     <AuthenticationContext.Consumer>
-  //         {
-  //             ({ authentication }) => {
-  //                 console.log('profile authentication: ', authentication)
-  //                 return (
-  //                     <ThemeContext.Consumer>
-  //                         {
-  //                             ({ theme, setTheme }) => {
-  //                                 return (
-  //                                     <View style={{ ...styles.container, backgroundColor: theme.background }}>
-  //                                         {/* <Text>{item.username}</Text>
-  //                                         <Text>{item.fullName}</Text> */}
-  //                                         <Text>{authentication.user.username}</Text>
-  //                                         <Text>{authentication.user.fullName}</Text>
-  //                                     </View>
-  //                                 )
-  //                             }
-  //                         }
-  //                     </ThemeContext.Consumer>
-
-  //                 )
-  //             }
-  //         }
-  //     </AuthenticationContext.Consumer>
-  // )
 };
 
 const styles = StyleSheet.create({

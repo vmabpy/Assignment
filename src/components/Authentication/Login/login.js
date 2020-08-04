@@ -6,17 +6,24 @@ import {
   TextInput,
   TouchableOpacity,
   StatusBar,
+  Image,
 } from "react-native";
+import * as Google from "expo-google-app-auth";
 import { Dimensions } from "react-native";
 import { connect } from "react-redux";
 import loGet from "lodash/get";
 import UserActions from "../../../redux/userRedux";
+import { ICONGG } from "../../../config/icon";
 const screenHeight = Math.round(Dimensions.get("window").height);
+
+const IOS_CLIENT_ID =
+  "124182005930-5ornmd19glhm7r4lqm662u9hi4bit65j.apps.googleusercontent.com";
+const ANDROID_CLIENT_ID = "your-android-client-id";
 
 const Login = (props) => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = props;
+  const { login, loginGoogle } = props;
 
   const handleLogin = () => {
     const params = {
@@ -26,6 +33,28 @@ const Login = (props) => {
     login(params, () => {});
   };
 
+  const handleLoginGoogle = async () => {
+    try {
+      const result = await Google.logInAsync({
+        iosClientId: IOS_CLIENT_ID,
+        // androidClientId: ANDROID_CLIENT_ID,
+        scopes: ["profile", "email", "openid"],
+      });
+
+      if (result.type === "success") {
+        const paramsGoogle = {
+          email: result.user.email,
+          googleId: result.user.id,
+        };
+        loginGoogle(paramsGoogle);
+      } else {
+        return { cancelled: true };
+      }
+    } catch (e) {
+      console.log("Error with login", e);
+      return { error: true };
+    }
+  };
   return (
     <View>
       <StatusBar barStyle="light-content" />
@@ -56,20 +85,36 @@ const Login = (props) => {
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.textLogin}>Sign In</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.buttonGoogle} onPress={handleLoginGoogle}>
+        <Image source={ICONGG} style={styles.iconGoogle} />
+        <Text style={styles.textLoginGoogle}>Login with Google</Text>
+      </TouchableOpacity>
       <TouchableOpacity
         style={styles.textSignUp}
         onPress={() => props.navigation.push("Register")}
       >
         <Text style={{ color: "#414959", fontSize: 13 }}>
           New to App?{" "}
-          <Text style={{ fontWeight: "500", color: "#E9446A" }}>Sign Up</Text>
+          <Text
+            style={{
+              fontWeight: "500",
+              color: "#E9446A",
+            }}
+          >
+            Sign Up
+          </Text>
         </Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.textForgotPassword}
         onPress={() => props.navigation.push("ForgotPassword")}
       >
-        <Text style={{ fontWeight: "500", color: "#E9446A" }}>
+        <Text
+          style={{
+            fontWeight: "500",
+            color: "#E9446A",
+          }}
+        >
           Forgot Password?
         </Text>
       </TouchableOpacity>
@@ -93,21 +138,8 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderWidth: 1,
   },
-  button: {
-    height: 40,
-    marginTop: 20,
-    width: "98%",
-    backgroundColor: "red",
-    alignItems: "center",
-  },
   buttonText: {
     textAlign: "center",
-  },
-  button: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    marginVertical: 10,
-    borderRadius: 5,
   },
   containerLogin: {
     flex: 1,
@@ -142,6 +174,7 @@ const styles = StyleSheet.create({
     color: "#161F3D",
   },
   button: {
+    marginVertical: 5,
     marginHorizontal: 30,
     backgroundColor: "#E9446A",
     borderRadius: 4,
@@ -149,9 +182,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  buttonGoogle: {
+    flexDirection: "row",
+    marginVertical: 5,
+    marginHorizontal: 30,
+    backgroundColor: "white",
+    borderRadius: 4,
+    height: 52,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  iconGoogle: {
+    width: 30,
+    height: 30,
+    marginHorizontal: 10,
+    marginVertical: 10,
+  },
   textLogin: {
     color: "#fff",
     fontWeight: "500",
+  },
+  textLoginGoogle: {
+    textAlign: "center",
+    fontSize: 14,
   },
   textSignUp: {
     alignSelf: "center",
@@ -217,5 +270,7 @@ const mapStateToProps = (state) => ({});
 const mapDispatchToProps = (dispatch) => ({
   login: (params, actionSuccess) =>
     dispatch(UserActions.loginRequest(params, actionSuccess)),
+  loginGoogle: (params, actionSuccess) =>
+    dispatch(UserActions.loginGoogleRequest(params, actionSuccess)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

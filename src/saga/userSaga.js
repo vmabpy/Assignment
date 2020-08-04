@@ -9,6 +9,7 @@ import AppActions from "../redux/appRedux";
 function* userRootSagas() {
   yield all([
     yield takeLatest(UserTypes.LOGIN_REQUEST, login),
+    yield takeLatest(UserTypes.LOGIN_GOOGLE_REQUEST, loginGoogle),
     yield takeLatest(UserTypes.REGISTER_REQUEST, register),
     yield takeLatest(UserTypes.FORGOT_PASSWORD_REQUEST, forgotPassword),
     yield takeLatest(UserTypes.LIKE_COURSE_REQUEST, likeCourse),
@@ -64,10 +65,32 @@ function* login({ params, actionSuccess }) {
     }
     setToken(token);
     yield put(AppActions.hideIndicator());
-    yield put(AppActions.showSuccess("You are successfully loged in"));
+    yield put(AppActions.showSuccess("You are successfully logged in"));
     yield put(AppActions.startupSuccess());
   } catch (error) {
     yield put(UserActions.loginFailure(error));
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
+}
+
+function* loginGoogle({ params, actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const { userInfo, token } = yield call(api.loginGoogle, params);
+    yield put(UserActions.loginGoogleSuccess(userInfo, token));
+    yield AsyncStorage.setItem("user", JSON.stringify({ token }));
+    if (actionSuccess) {
+      actionSuccess({ token });
+    }
+    setToken(token);
+    yield put(AppActions.hideIndicator());
+    yield put(
+      AppActions.showSuccess("You are successfully logged in by Google")
+    );
+    yield put(AppActions.startupSuccess());
+  } catch (error) {
+    yield put(UserActions.loginGoogleFailure(error));
     yield put(AppActions.hideIndicator());
     yield put(AppActions.showError(error.message));
   }

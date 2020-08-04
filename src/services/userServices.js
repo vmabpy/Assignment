@@ -5,6 +5,13 @@ export const login = (params) => {
   return request.post("/user/login", queryString.stringify(params));
 };
 
+export const loginGoogle = (params) => {
+  return request.post(
+    "/user/login-google-mobile",
+    queryString.stringify(params)
+  );
+};
+
 export const register = (params) => {
   return request.post("/user/register", queryString.stringify(params));
 };
@@ -22,4 +29,8 @@ export const likeCourse = (params) => {
 
 export const getFavoriteCourses = () => {
   return request.get("/user/get-favorite-courses");
+};
+
+export const getInfoUser = () => {
+  return request.get("/user/me");
 };

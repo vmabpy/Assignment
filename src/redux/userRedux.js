@@ -11,6 +11,10 @@ const { Types, Creators } = createActions({
   loginFailure: null,
   loginSuccess: ["userInfo", "token"],
 
+  loginGoogleRequest: ["params", "actionSuccess"],
+  loginGoogleFailure: null,
+  loginGoogleSuccess: ["userInfo", "token"],
+
   forgotPasswordRequest: ["params", "actionSuccess"],
   forgotPasswordFailure: null,
   forgotPasswordSuccess: null,
@@ -22,6 +26,10 @@ const { Types, Creators } = createActions({
   getFavoriteRequest: ["actionSuccess"],
   getFavoriteFailure: null,
   getFavoriteSuccess: ["favorite"],
+
+  getInfoUserRequest: ["actionSuccess"],
+  getInfoUserSuccess: null,
+  getInfoUserFailure: null,
 
   logout: ["actionSuccess"],
 });
@@ -63,6 +71,18 @@ const loginFailure = (state, { error }) => {
   return state.merge({ error });
 };
 
+const loginGoogleRequest = (state) => {
+  return state.merge({});
+};
+
+const loginGoogleSuccess = (state, { userInfo, token }) => {
+  return state.merge({ userInfo, token });
+};
+
+const loginGoogleFailure = (state, { error }) => {
+  return state.merge({ error });
+};
+
 const forgotPasswordRequest = (state) => {
   return state.merge({});
 };
@@ -99,6 +119,18 @@ const getFavoriteFailure = (state) => {
   return state.merge({});
 };
 
+const getInfoUserRequest = (state) => {
+  return state.merge({});
+};
+
+const getInfoUserSuccess = (state, { userInfo }) => {
+  return state.merge({ userInfo });
+};
+
+const getInfoUserFailure = (state) => {
+  return state.merge({});
+};
+
 const logout = (state) => {
   return INITIAL_STATE;
 };
@@ -113,6 +145,10 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.LOGIN_SUCCESS]: loginSuccess,
   [Types.LOGIN_FAILURE]: loginFailure,
 
+  [Types.LOGIN_GOOGLE_REQUEST]: loginGoogleRequest,
+  [Types.LOGIN_GOOGLE_SUCCESS]: loginGoogleSuccess,
+  [Types.LOGIN_GOOGLE_FAILURE]: loginGoogleFailure,
+
   [Types.FORGOT_PASSWORD_REQUEST]: forgotPasswordRequest,
   [Types.FORGOT_PASSWORD_SUCCESS]: forgotPasswordSuccess,
   [Types.FORGOT_PASSWORD_FAILURE]: forgotPasswordFailure,
@@ -124,6 +160,10 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_FAVORITE_REQUEST]: getFavoriteRequest,
   [Types.GET_FAVORITE_SUCCESS]: getFavoriteSuccess,
   [Types.GET_FAVORITE_FAILURE]: getFavoriteFailure,
+
+  [Types.GET_INFO_USER_REQUEST]: getInfoUserRequest,
+  [Types.GET_INFO_USER_SUCCESS]: getInfoUserSuccess,
+  [Types.GET_INFO_USER_FAILURE]: getInfoUserFailure,
 
   [Types.LOGOUT]: logout,
 });
