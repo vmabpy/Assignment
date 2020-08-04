@@ -6,10 +6,7 @@ export const login = (params) => {
 };
 
 export const loginGoogle = (params) => {
-  return request.post(
-    "/user/login-google-mobile",
-    queryString.stringify(params)
-  );
+  return request.post("/user/login-google-mobile", params);
 };
 
 export const register = (params) => {

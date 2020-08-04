@@ -32,6 +32,5 @@ export const getTutorDetail = (params) => {
 };
 
 export const searchCourses = (params) => {
-  console.log(params);
   return request.post("/course/search", params);
 };

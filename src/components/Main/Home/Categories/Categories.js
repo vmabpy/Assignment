@@ -15,6 +15,7 @@ import CourseActions from "../../../../redux/courseRedux";
 const Categories = (props) => {
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const { userInfo } = props;
 
   props.navigation.setOptions({
     headerRight: () => (
@@ -24,10 +25,7 @@ const Categories = (props) => {
         }}
       >
         <View style={{ marginRight: 20 }}>
-          <Image
-            source={require("../../../../../assets/ic_profile.png")}
-            style={styles.image}
-          />
+          <Image source={{ uri: userInfo.avatar }} style={styles.image} />
         </View>
       </TouchableOpacity>
     ),
@@ -80,7 +78,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  data: loGet(state, ["course", "categories"], []),
+  dataCategories: loGet(state, ["course", "categories"], []),
+  userInfo: loGet(state, ["user", "userInfo"], {}),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -42,11 +42,14 @@ const Login = (props) => {
       });
 
       if (result.type === "success") {
-        const paramsGoogle = {
+        const paramsUser = {
           email: result.user.email,
-          googleId: result.user.id,
+          id: result.user.id,
         };
-        loginGoogle(paramsGoogle);
+        const _params = {
+          user: paramsUser,
+        };
+        loginGoogle(_params, () => {});
       } else {
         return { cancelled: true };
       }
