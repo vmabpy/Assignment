@@ -1,12 +1,15 @@
 import React from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
-import ListCoursesItem from "../../../Courses/ListCoursesItem/list-courses-item";
+import RecommendItem from "./recommendItem";
 
 const Recommendation = (props) => {
   const {
     route: { params },
   } = props;
-  let recommendData = params ? params.recommendData : [];
+  let recommendData = params
+    ? params.recommendData.filter((item) => item.status === "COMPLETED")
+    : [];
+
   const onPressListItem = (item) => {
     props.navigation.navigate("CourseDetail", { item });
   };
@@ -14,17 +17,20 @@ const Recommendation = (props) => {
     return <View style={styles.separator}></View>;
   };
 
+  console.log(recommendData, "DATA");
+
   return (
     <View>
       <FlatList
         data={recommendData}
         renderItem={({ item }) => (
-          <ListCoursesItem
+          <RecommendItem
             item={item}
             navigation={props.navigation}
             onPressListItem={onPressListItem}
           />
         )}
+        keyExtractor={(item) => item.id}
         ItemSeparatorComponent={FlatListItemSeparator}
       />
     </View>

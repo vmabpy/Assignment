@@ -24,6 +24,10 @@ const { Types, Creators } = createActions({
   getRateSuccess: null,
   getRateFailure: null,
 
+  getRecommendRequest: ["params", "actionSuccess"],
+  getRecommendSuccess: null,
+  getRecommendFailure: null,
+
   getListTutorRequest: ["actionSuccess"],
   getListTutorSuccess: null,
   getListTutorFailure: null,
@@ -109,6 +113,18 @@ const getRateFailure = (state) => {
   return state.merge({});
 };
 
+const getRecommendRequest = (state) => {
+  return state.merge({});
+};
+
+const getRecommendSuccess = (state) => {
+  return state.merge({});
+};
+
+const getRecommendFailure = (state) => {
+  return state.merge({});
+};
+
 const getListTutorRequest = (state) => {
   return state.merge({});
 };
@@ -166,6 +182,10 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_RATE_REQUEST]: getRateRequest,
   [Types.GET_RATE_SUCCESS]: getRateSuccess,
   [Types.GET_RATE_FAILURE]: getRateFailure,
+
+  [Types.GET_RECOMMEND_REQUEST]: getRecommendRequest,
+  [Types.GET_RECOMMEND_SUCCESS]: getRecommendSuccess,
+  [Types.GET_RECOMMEND_FAILURE]: getRecommendFailure,
 
   [Types.GET_LIST_TUTOR_REQUEST]: getListTutorRequest,
   [Types.GET_LIST_TUTOR_SUCCESS]: getListTutorSuccess,

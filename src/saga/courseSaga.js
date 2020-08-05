@@ -11,6 +11,7 @@ function* courseRootSaga() {
     yield takeLatest(CourseTypes.GET_COURSE_DETAIL_REQUEST, getCourseDetail),
     yield takeLatest(CourseTypes.GET_NEW_REQUEST, getNew),
     yield takeLatest(CourseTypes.GET_RATE_REQUEST, getRate),
+    yield takeLatest(CourseTypes.GET_RECOMMEND_REQUEST, getRecommend),
     yield takeLatest(CourseTypes.GET_LIST_TUTOR_REQUEST, getListTutor),
     yield takeLatest(CourseTypes.GET_TUTOR_DETAIL_REQUEST, getTutorDetail),
     yield takeLatest(CourseTypes.SEARCH_COURSES_REQUEST, searchCourses),
@@ -92,6 +93,22 @@ function* getRate({ params, actionSuccess }) {
     yield put(AppActions.hideIndicator());
   } catch (error) {
     yield put(CourseActions.getRateFailure());
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
+}
+
+function* getRecommend({ params, actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const { payload } = yield call(api.getRecommendCourses, params);
+    yield put(CourseActions.getRecommendSuccess(payload));
+    if (actionSuccess) {
+      actionSuccess(payload);
+    }
+    yield put(AppActions.hideIndicator());
+  } catch (error) {
+    yield put(CourseActions.getRecommendFailure());
     yield put(AppActions.hideIndicator());
     yield put(AppActions.showError(error.message));
   }
