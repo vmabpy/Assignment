@@ -4,4 +4,13 @@ const ICONLOGIN = require("../../assets/ic_login.png");
 const ICONNEXT = require("../../assets/ic_next.png");
 const ICONNOVIDEO = require("../../assets/ic_novideo.png");
 const ICONGG = require("../../assets/ic_google.png");
-export { BackIcon, ICONAPP, ICONLOGIN, ICONNEXT, ICONNOVIDEO, ICONGG };
+const ICONPROFILE = require("../../assets/ic_profile.png");
+export {
+  BackIcon,
+  ICONAPP,
+  ICONLOGIN,
+  ICONNEXT,
+  ICONNOVIDEO,
+  ICONGG,
+  ICONPROFILE,
+};

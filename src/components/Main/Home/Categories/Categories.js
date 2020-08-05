@@ -11,6 +11,7 @@ import CategoriesItem from "../CategoriesItem/CategoriesItem";
 import { connect } from "react-redux";
 import loGet from "lodash/get";
 import CourseActions from "../../../../redux/courseRedux";
+import { ICONPROFILE } from "../../../../config/icon";
 
 const Categories = (props) => {
   const [data, setData] = useState([]);
@@ -25,7 +26,10 @@ const Categories = (props) => {
         }}
       >
         <View style={{ marginRight: 20 }}>
-          <Image source={{ uri: userInfo.avatar }} style={styles.image} />
+          <Image
+            source={userInfo.avatar ? { uri: userInfo.avatar } : ICONPROFILE}
+            style={styles.image}
+          />
         </View>
       </TouchableOpacity>
     ),

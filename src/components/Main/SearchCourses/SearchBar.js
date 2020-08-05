@@ -3,8 +3,7 @@ import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import debounce from "lodash/debounce";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { GRAY, BLACK } from "../../../config/color";
-import { useNavigation } from "@react-navigation/native";
-import { defaultFormatUtc } from "moment";
+import { Ionicons } from "@expo/vector-icons";
 
 const SearchBar = (props) => {
   const [text, setText] = useState("");
@@ -13,18 +12,24 @@ const SearchBar = (props) => {
   const handleOnPressClearText = () => {
     setText("");
   };
-  const debounceSearchDoctors = debounce(
+  const debounceSearchCourses = debounce(
     (value) => props.search({ keyword: value, limit: 20, offset: 0 }),
     500
   );
   const searchCourses = (_text) => {
     setText(_text);
-    debounceSearchDoctors(_text);
+    debounceSearchCourses(_text);
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
+        <Ionicons
+          style={{ marginLeft: 10 }}
+          name="ios-search"
+          size="18"
+          color="gray"
+        />
         <TextInput
           ref={textInput}
           style={styles.input}
@@ -64,7 +69,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 16,
     flex: 1,
-    paddingLeft: 15,
+    paddingLeft: 5,
     paddingRight: 15,
     paddingTop: 7,
     paddingBottom: 7,

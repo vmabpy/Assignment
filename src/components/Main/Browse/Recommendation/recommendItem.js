@@ -16,6 +16,7 @@ const RecommendItem = (props) => {
       <Image source={{ uri: imageUri }} style={styles.image} />
       <View style={styles.viewMain}>
         <Text style={styles.name}>{item.title}</Text>
+        <Text>{item.name ? item.name : item.instructorName}</Text>
         <Text style={styles.darkText}>{`${moment(item.updatedAt).format(
           "hh:mm DD/MM/YYYY "
         )} . ${item.totalHours} hours`}</Text>

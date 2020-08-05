@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   searchResults: loGet(state, ["course", "searchResults"], []),
-
   inputSearch: loGet(state, ["course", "inputSearch"], undefined),
 });
 const mapDispatchTopProps = (dispatch) => ({
