@@ -13,7 +13,17 @@ const SearchBar = (props) => {
     setText("");
   };
   const debounceSearchCourses = debounce(
-    (value) => props.search({ keyword: value, limit: 20, offset: 0 }),
+    (value) =>
+      props.search(
+        {
+          keyword: props.valueHistory ? props.valueHistory : value,
+          limit: props.limit,
+          offset: props.offset,
+        },
+        (res) => {
+          props.updateData(res);
+        }
+      ),
     500
   );
   const searchCourses = (_text) => {
@@ -36,13 +46,14 @@ const SearchBar = (props) => {
           onChangeText={searchCourses}
           defaultValue={text}
           placeholder="Seach course ..."
+          autoFocus={true}
         />
         {text !== "" && (
           <TouchableOpacity
             style={styles.button}
             onPress={handleOnPressClearText}
           >
-            <MaterialIcons name="clear" size={24} color={BLACK} />
+            <MaterialIcons name="clear" size={18} color="gray" />
           </TouchableOpacity>
         )}
       </View>
@@ -73,6 +84,9 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     paddingTop: 7,
     paddingBottom: 7,
+  },
+  button: {
+    marginRight: 5,
   },
 });
 

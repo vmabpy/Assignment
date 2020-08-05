@@ -150,11 +150,9 @@ function* searchCourses({ params, actionSuccess }) {
   yield put(AppActions.showIndicator());
   try {
     const response = yield call(api.searchCourses, params);
-    yield put(
-      CourseActions.searchCoursesSuccess(response.payload.rows, params.keyword)
-    );
+    yield put(CourseActions.searchCoursesSuccess(params.keyword));
     if (actionSuccess) {
-      actionSuccess(response.payload.rows);
+      actionSuccess(response);
     }
     yield put(AppActions.hideIndicator());
   } catch (error) {

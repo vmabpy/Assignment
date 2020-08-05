@@ -24,7 +24,6 @@ export const getRateCourses = (params) => {
 
 export const getRecommendCourses = (params) => {
   const { id, limit, offset } = params;
-  console.log(`/user/recommend-course/${id}/${limit}/${offset}`, "URL");
   return request.get(`/user/recommend-course/${id}/${limit}/${offset}`);
 };
 

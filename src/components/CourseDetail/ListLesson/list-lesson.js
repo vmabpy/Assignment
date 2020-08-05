@@ -33,7 +33,7 @@ const ListLesson = (props) => {
           return (
             <View style={styles.header}>
               <View style={styles.viewNumber}>
-                <Text style={styles.titleNumber}>{index}</Text>
+                <Text style={styles.titleNumber}>{index + 1}</Text>
               </View>
               <View>
                 <Text style={styles.titleSection}>{title}</Text>
@@ -54,25 +54,28 @@ const styles = StyleSheet.create({
     width: 100,
   },
   separator: {
+    margin: 10,
     height: 0.5,
-    width: "100%",
+    // width: "90%",
     backgroundColor: "gray",
   },
   header: {
     flexDirection: "row",
-    margin: 5,
+    margin: 10,
     alignItems: "center",
   },
   viewNumber: {
-    height: 50,
-    width: 100,
-    backgroundColor: "darkgray",
+    height: 30,
+    width: 30,
+    borderRadius: 15,
     alignItems: "center",
     justifyContent: "center",
+    borderColor: "darkgray",
+    borderWidth: 2,
   },
   titleNumber: {
     alignSelf: "center",
-    color: "white",
+    color: "black",
   },
   titleSection: {
     margin: 5,

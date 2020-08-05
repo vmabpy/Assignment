@@ -1,7 +1,5 @@
 import { createReducer, createActions } from "reduxsauce";
 import Immutable from "seamless-immutable";
-import { getStoredState } from "redux-persist";
-import { multiply } from "react-native-reanimated";
 /* ------------- Types and Action Creators ------------- */
 const { Types, Creators } = createActions({
   getCategoriesRequest: ["actionSuccess"],
@@ -37,7 +35,8 @@ const { Types, Creators } = createActions({
   getTutorDetailFailure: null,
 
   searchCoursesRequest: ["params", "actionSuccess"],
-  searchCoursesSuccess: ["searchResults", "inputSearch"],
+  searchCoursesSuccess: ["inputSearch"],
+  // searchCoursesSuccess: ["inputSearch"],
   searchCoursesFailure: null,
 });
 
@@ -47,8 +46,8 @@ export default Creators;
 
 export const INITIAL_STATE = Immutable({
   categories: [],
-  searchResults: [],
-  inputSearch: "",
+  inputSearch: undefined,
+  historiesSearch: [],
 });
 
 /* ------------- Reducers ------------- */
@@ -153,9 +152,13 @@ const searchCoursesRequest = (state) => {
   return state.merge({});
 };
 
-const searchCoursesSuccess = (state, { searchResults, inputSearch }) => {
-  return state.merge({ searchResults, inputSearch });
+const searchCoursesSuccess = (state, { inputSearch }) => {
+  return state.merge({ inputSearch });
 };
+
+// const searchCoursesSuccess = (state, { inputSearch }) => {
+//   return state.merge({ inputSearch });
+// };
 
 const searchCoursesFailure = (state) => {
   return state.merge({});
