@@ -6,7 +6,7 @@ import {
   Categories,
   CoursesInCategory,
   RelatedCourses,
-  ChangePassword,
+  Changepassword,
 } from "../components/Main/Home";
 const Stack = createStackNavigator();
 
@@ -17,6 +17,11 @@ const HomeStackNavigation = () => {
       <Stack.Screen name="Courses" component={CoursesInCategory} />
       <Stack.Screen name="CourseDetail" component={CourseDetail} />
       <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen
+        name="Changepassword"
+        component={Changepassword}
+        options={{ title: "Change password" }}
+      />
       <Stack.Screen
         name="RelatedCourses"
         component={RelatedCourses}

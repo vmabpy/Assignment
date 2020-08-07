@@ -168,7 +168,7 @@ function* updateInfoUser({ params, actionSuccess }) {
 function* changePassword({ params, actionSuccess }) {
   yield put(AppActions.showIndicator());
   try {
-    const response = yield call(api.chnagePassword, params);
+    const response = yield call(api.changePassword, params);
     yield put(UserActions.changePasswordSuccess(response));
     if (actionSuccess) {
       actionSuccess(response);

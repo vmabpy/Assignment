@@ -71,6 +71,7 @@ const Profile = (props) => {
       case 0:
         break;
       case 1:
+        props.navigation.navigate("Changepassword");
         break;
       case 2:
         alert("2");
