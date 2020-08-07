@@ -27,10 +27,6 @@ const { Types, Creators } = createActions({
   getFavoriteFailure: null,
   getFavoriteSuccess: ["favorite"],
 
-  getInfoUserRequest: ["actionSuccess"],
-  getInfoUserSuccess: null,
-  getInfoUserFailure: null,
-
   updateInfoRequest: ["params", "actionSuccess"],
   updateInfoSuccess: null,
   updateInfoFailure: null,
@@ -38,6 +34,10 @@ const { Types, Creators } = createActions({
   changePasswordRequest: ["params", "actionSuccess"],
   changePasswordSuccess: null,
   changePasswordFailure: null,
+
+  getMeRequest: ["actionSuccess"],
+  getMeSuccess: ["userMe"],
+  getMeFailure: null,
 
   logout: ["actionSuccess"],
 });
@@ -51,6 +51,7 @@ export const INITIAL_STATE = Immutable({
   token: undefined,
   userInfo: undefined,
   error: undefined,
+  userMe: undefined,
 });
 
 /* ------------- Reducers ------------- */
@@ -127,18 +128,6 @@ const getFavoriteFailure = (state) => {
   return state.merge({});
 };
 
-const getInfoUserRequest = (state) => {
-  return state.merge({});
-};
-
-const getInfoUserSuccess = (state, { userInfo }) => {
-  return state.merge({ userInfo });
-};
-
-const getInfoUserFailure = (state) => {
-  return state.merge({});
-};
-
 const updateInfoRequest = (state) => {
   return state.merge({});
 };
@@ -160,6 +149,18 @@ const changePasswordSuccess = (state) => {
 };
 
 const changePasswordFailure = (state) => {
+  return state.merge({});
+};
+
+const getMeRequest = (state) => {
+  return state.merge({});
+};
+
+const getMeSuccess = (state, { userMe }) => {
+  return state.merge({ userMe });
+};
+
+const getMeFailure = (state) => {
   return state.merge({});
 };
 
@@ -193,10 +194,6 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_FAVORITE_SUCCESS]: getFavoriteSuccess,
   [Types.GET_FAVORITE_FAILURE]: getFavoriteFailure,
 
-  [Types.GET_INFO_USER_REQUEST]: getInfoUserRequest,
-  [Types.GET_INFO_USER_SUCCESS]: getInfoUserSuccess,
-  [Types.GET_INFO_USER_FAILURE]: getInfoUserFailure,
-
   [Types.UPDATE_INFO_REQUEST]: updateInfoRequest,
   [Types.UPDATE_INFO_SUCCESS]: updateInfoSuccess,
   [Types.UPDATE_INFO_FAILURE]: updateInfoFailure,
@@ -204,6 +201,10 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.CHANGE_PASSWORD_REQUEST]: changePasswordRequest,
   [Types.CHANGE_PASSWORD_SUCCESS]: changePasswordSuccess,
   [Types.CHANGE_PASSWORD_FAILURE]: changePasswordFailure,
+
+  [Types.GET_ME_REQUEST]: getMeRequest,
+  [Types.GET_ME_SUCCESS]: getMeSuccess,
+  [Types.GET_ME_FAILURE]: getMeFailure,
 
   [Types.LOGOUT]: logout,
 });

@@ -7,6 +7,7 @@ import {
   ScrollView,
   RefreshControl,
   useCallback,
+  SafeAreaView,
 } from "react-native";
 import Button from "../../components/Common/button";
 import { connect } from "react-redux";
@@ -22,14 +23,19 @@ import {
 } from "../../config/icon";
 import ListCoursesItem from "../../components/Courses/ListCoursesItem/list-courses-item";
 import ProfileItem from "./profileItem";
+import Constants from "expo-constants";
 
 const Profile = (props) => {
-  const { userInfo = {} } = props;
-  const [reLoad, setReLoad] = useState(true);
+  const { getInfoMe, user } = props;
+  const [dataUser, setDataUser] = useState(undefined);
+  const [reload, setReload] = useState(true);
 
-  const handleLogout = () => {
-    props.logout(() => {});
-  };
+  useEffect(() => {
+    getInfoMe((res) => {
+      console.log(res, "CALIING");
+      setDataUser(res);
+    });
+  }, [getInfoMe]);
 
   const profileItem = [
     {
@@ -69,6 +75,7 @@ const Profile = (props) => {
     const id = item.id;
     switch (id) {
       case 0:
+        props.navigation.navigate("UpdateInfoUser", { user: dataUser });
         break;
       case 1:
         props.navigation.navigate("Changepassword");
@@ -85,17 +92,17 @@ const Profile = (props) => {
         break;
     }
   };
-  return (
-    <ScrollView style={styles.contain}>
+  return dataUser ? (
+    <ScrollView style={styles.container}>
       <View style={styles.viewInfo}>
         <Image
-          source={userInfo.avatar ? { uri: userInfo.avatar } : ICONPROFILE}
+          source={dataUser.avatar ? { uri: dataUser.avatar } : ICONPROFILE}
           style={styles.image}
         />
         <View style={styles.viewInfoSub}>
-          <Text style={styles.title}>{userInfo.name}</Text>
-          <Text style={styles.subTitle}>{userInfo.phone}</Text>
-          <Text style={styles.subTitle}>{userInfo.email}</Text>
+          <Text style={styles.title}>{dataUser.name}</Text>
+          <Text style={styles.subTitle}>{dataUser.phone}</Text>
+          <Text style={styles.subTitle}>{dataUser.email}</Text>
         </View>
       </View>
       <View>
@@ -107,12 +114,14 @@ const Profile = (props) => {
         <ProfileItem item={profileItem[5]} onPressItem={onPressItem} />
       </View>
     </ScrollView>
+  ) : (
+    <View />
   );
 };
 
 const styles = StyleSheet.create({
-  contain: {
-    backgroundColor: "#EFF0F5",
+  container: {
+    flex: 1,
   },
   viewInfo: {
     flex: 1,
@@ -153,13 +162,13 @@ const styles = StyleSheet.create({
 
 //get data
 const mapStateToProps = (state) => ({
-  userInfo: loGet(state, ["user", "userInfo"], {}),
+  userMe: loGet(state, ["user", "userMe"], {}),
 });
 
 //call api to get response
 const mapDispatchToProps = (dispatch) => ({
-  getInfo: (actionSuccess) =>
-    dispatch(UserActions.getInfoUserRequest(actionSuccess)),
+  getInfoMe: (actionSuccess) =>
+    dispatch(UserActions.getMeRequest(actionSuccess)),
   logout: (actionSuccess) => dispatch(UserActions.logout(actionSuccess)),
 });
 

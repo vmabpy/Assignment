@@ -6,26 +6,13 @@ import {
   StatusBar,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from "react-native";
 import { connect } from "react-redux";
 import loGet from "lodash/get";
 import UserActions from "../../redux/userRedux";
 import { dimension } from "../../globals/dimension";
-import { ScrollView } from "react-native-gesture-handler";
-const initialState = {
-  oldPassword: {
-    value: "",
-    isValid: true,
-  },
-  newPassword: {
-    value: "",
-    isValid: true,
-  },
-  confirmNewPassword: {
-    value: "",
-    isValid: true,
-  },
-};
+
 const Changepassword = (props) => {
   const { userInfo = {}, changePassword } = props;
 
@@ -92,6 +79,10 @@ const styles = StyleSheet.create({
   form: {
     margin: 30,
     marginHorizontal: 30,
+  },
+  inputTitle: {
+    color: "#417AF9",
+    fontSize: 16,
   },
   input: {
     borderBottomColor: "#8A8F9E",

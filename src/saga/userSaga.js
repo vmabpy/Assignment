@@ -14,9 +14,9 @@ function* userRootSagas() {
     yield takeLatest(UserTypes.FORGOT_PASSWORD_REQUEST, forgotPassword),
     yield takeLatest(UserTypes.LIKE_COURSE_REQUEST, likeCourse),
     yield takeLatest(UserTypes.GET_FAVORITE_REQUEST, getCoursesFavorite),
-    yield takeLatest(UserTypes.GET_INFO_USER_REQUEST, getInfoUser),
     yield takeLatest(UserTypes.UPDATE_INFO_REQUEST, updateInfoUser),
     yield takeLatest(UserTypes.CHANGE_PASSWORD_REQUEST, changePassword),
+    yield takeLatest(UserTypes.GET_ME_REQUEST, getMeInfo),
     yield takeLatest(UserTypes.LOGOUT, logout),
   ]);
 }
@@ -132,22 +132,6 @@ function* getCoursesFavorite({ actionSuccess }) {
   }
 }
 
-function* getInfoUser({ actionSuccess }) {
-  yield put(AppActions.showIndicator());
-  try {
-    const { payload } = yield call(api.getInfoUser);
-    yield put(UserActions.getFavoriteSuccess(payload));
-    if (actionSuccess) {
-      actionSuccess(payload);
-    }
-    yield put(AppActions.hideIndicator());
-  } catch (error) {
-    yield put(UserActions.getFavoriteFailure());
-    yield put(AppActions.hideIndicator());
-    yield put(AppActions.showError(error.message));
-  }
-}
-
 function* updateInfoUser({ params, actionSuccess }) {
   yield put(AppActions.showIndicator());
   try {
@@ -177,6 +161,22 @@ function* changePassword({ params, actionSuccess }) {
     yield put(AppActions.hideIndicator());
   } catch (error) {
     yield put(UserActions.changePasswordFailure());
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
+}
+
+function* getMeInfo({ actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const { payload } = yield call(api.getMe);
+    yield put(UserActions.getMeSuccess(payload));
+    if (actionSuccess) {
+      actionSuccess(payload);
+    }
+    yield put(AppActions.hideIndicator());
+  } catch (error) {
+    yield put(UserActions.getMeFailure());
     yield put(AppActions.hideIndicator());
     yield put(AppActions.showError(error.message));
   }
