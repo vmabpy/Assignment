@@ -6,6 +6,7 @@ import {
   Categories,
   CoursesInCategory,
   RelatedCourses,
+  ChangePassword,
 } from "../components/Main/Home";
 const Stack = createStackNavigator();
 

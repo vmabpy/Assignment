@@ -1,53 +1,134 @@
-import React, { useContext } from "react";
-import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
+import React, { useContext, useState, useEffect } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  ScrollView,
+  RefreshControl,
+  useCallback,
+} from "react-native";
 import Button from "../../components/Common/button";
 import { connect } from "react-redux";
 import loGet from "lodash/get";
 import UserActions from "../../redux/userRedux";
+import {
+  ICONPROFILE,
+  ICONPASSWORD,
+  ICONACCOUNT,
+  ICONMAIL,
+  ICONLOGOUT,
+  ICONSETTING,
+} from "../../config/icon";
+import ListCoursesItem from "../../components/Courses/ListCoursesItem/list-courses-item";
+import ProfileItem from "./profileItem";
 
 const Profile = (props) => {
+  const { userInfo = {} } = props;
+  const [reLoad, setReLoad] = useState(true);
+
   const handleLogout = () => {
     props.logout(() => {});
   };
 
+  const profileItem = [
+    {
+      id: 0,
+      icon: ICONACCOUNT,
+      title: "Cập nhật thông tin",
+    },
+    {
+      id: 1,
+      icon: ICONPASSWORD,
+      title: "Thay đổi mật khẩu",
+    },
+    {
+      id: 2,
+      icon: ICONMAIL,
+      title: "Thay đổi email",
+    },
+    {
+      id: 3,
+      icon: ICONACCOUNT,
+      title: "Điều khoản sử dụng",
+    },
+    {
+      id: 4,
+      icon: ICONSETTING,
+      title: "Phiên bản",
+      appVersion: "1.0.0",
+    },
+    {
+      id: 5,
+      icon: ICONLOGOUT,
+      title: "Đăng xuất",
+    },
+  ];
+
+  const onPressItem = (item) => {
+    const id = item.id;
+    switch (id) {
+      case 0:
+        break;
+      case 1:
+        break;
+      case 2:
+        alert("2");
+        break;
+      case 3:
+        break;
+      case 4:
+        break;
+      default:
+        props.logout(() => {});
+        break;
+    }
+  };
   return (
-    <ScrollView>
-      <View style={{ alignItems: "center" }}>
+    <ScrollView style={styles.contain}>
+      <View style={styles.viewInfo}>
         <Image
-          source={require("../../../assets/ic_profile.png")}
+          source={userInfo.avatar ? { uri: userInfo.avatar } : ICONPROFILE}
           style={styles.image}
         />
-        <Text style={styles.name}>Hieu Tong</Text>
+        <View style={styles.viewInfoSub}>
+          <Text style={styles.title}>{userInfo.name}</Text>
+          <Text style={styles.subTitle}>{userInfo.phone}</Text>
+          <Text style={styles.subTitle}>{userInfo.email}</Text>
+        </View>
       </View>
-
-      {/* <Text>{authentication.user.fullName}</Text> */}
-      <View style={styles.view}>
-        <Text style={styles.title}>Activity insights (last 30 days)</Text>
-        <Text style={styles.subTitle}>TOTAL ACTIVE DAYS</Text>
-        <Text style={styles.title}>4 days streak</Text>
-        <Text style={styles.subTitle}>MOST ACTIVE TIME OF DAY</Text>
-        <Text style={styles.title}>14:00</Text>
-        <Text style={styles.subTitle}>MOST VIEW SUBJECT</Text>
-        <Text style={styles.title}>React Native</Text>
-      </View>
-      <View style={styles.buttonLogout}>
-        <Button text="Log out" handlePress={handleLogout} />
+      <View>
+        <ProfileItem item={profileItem[0]} onPressItem={onPressItem} />
+        <ProfileItem item={profileItem[1]} onPressItem={onPressItem} />
+        <ProfileItem item={profileItem[2]} onPressItem={onPressItem} />
+        <ProfileItem item={profileItem[3]} onPressItem={onPressItem} />
+        <ProfileItem item={profileItem[4]} onPressItem={onPressItem} />
+        <ProfileItem item={profileItem[5]} onPressItem={onPressItem} />
       </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  image: {
-    marginTop: 50,
-    height: 120,
-    width: 120,
-    borderRadius: 60,
+  contain: {
+    backgroundColor: "#EFF0F5",
   },
-  name: {
-    marginTop: 10,
-    fontSize: 16,
-    fontWeight: "bold",
+  viewInfo: {
+    flex: 1,
+    flexDirection: "row",
+    backgroundColor: "white",
+    alignItems: "center",
+    marginTop: 20,
+  },
+  image: {
+    margin: 20,
+    height: 50,
+    width: 50,
+    borderRadius: 25,
+  },
+  viewInfoSub: {
+    flex: 1,
+    alignItems: "stretch",
   },
   view: {
     alignItems: "flex-start",
@@ -55,14 +136,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   subTitle: {
-    marginTop: 10,
     fontSize: 14,
     color: "gray",
   },
   title: {
-    marginTop: 10,
     fontSize: 16,
     fontWeight: "bold",
+    color: "#417AF9",
   },
   buttonLogout: {
     marginHorizontal: 40,
@@ -71,10 +151,14 @@ const styles = StyleSheet.create({
 });
 
 //get data
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  userInfo: loGet(state, ["user", "userInfo"], {}),
+});
 
 //call api to get response
 const mapDispatchToProps = (dispatch) => ({
+  getInfo: (actionSuccess) =>
+    dispatch(UserActions.getInfoUserRequest(actionSuccess)),
   logout: (actionSuccess) => dispatch(UserActions.logout(actionSuccess)),
 });
 

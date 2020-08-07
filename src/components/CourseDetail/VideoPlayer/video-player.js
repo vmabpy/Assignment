@@ -3,7 +3,7 @@ import YoutubePlayer from "react-native-youtube-iframe";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { Video } from "expo-av";
 import { dimension } from "../../../globals/dimension";
-import { ICONNOVIDEO } from "../../../config/icon";
+import { Ionicons } from "@expo/vector-icons";
 
 const VideoPlayer = (props) => {
   const { urlVideo, dataDetail = {} } = props;
@@ -21,7 +21,17 @@ const VideoPlayer = (props) => {
 
   if (urlVideo === null) {
     return (
-      <View style={{ ...styles.video, backgroundColor: "#FBF1E6" }}></View>
+      <View
+        style={{
+          ...styles.video,
+          backgroundColor: "#FBF1E6",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Ionicons name="ios-videocam" size="50" color="gray" />
+        <Text style={styles.text}>Comming soon</Text>
+      </View>
     );
   }
 
@@ -79,6 +89,10 @@ const styles = StyleSheet.create({
   viewImage: {
     height: dimension.height / 3,
     width: "100%",
+  },
+  text: {
+    fontSize: 14,
+    fontWeight: "bold",
   },
 });
 

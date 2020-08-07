@@ -10,7 +10,7 @@ const ListOption = (props) => {
     {
       id: 1,
       imageRoute: require("../../../../assets/ic_bookmark.png"),
-      title: "Bookmark",
+      title: "Favorite",
     },
     {
       id: 2,
@@ -20,7 +20,7 @@ const ListOption = (props) => {
     {
       id: 3,
       imageRoute: require("../../../../assets/ic_download.png"),
-      title: "Favorite",
+      title: "Download",
     },
   ];
 
@@ -46,10 +46,8 @@ const ListOption = (props) => {
     //     }
     // </DownLoadContext.Consumer>
     <View style={styles.container}>
-      <OptionItem item={options[0]} onPressListItem={() => {}} />
-      <OptionItem item={options[1]} onPressListItem={() => {}} />
       <OptionItem
-        item={options[2]}
+        item={options[0]}
         onPressListItem={() => {
           const params = {
             courseId: item.id,
@@ -57,6 +55,8 @@ const ListOption = (props) => {
           likeCourse(params);
         }}
       />
+      <OptionItem item={options[1]} onPressListItem={() => {}} />
+      <OptionItem item={options[2]} onPressListItem={() => {}} />
     </View>
   );
 };

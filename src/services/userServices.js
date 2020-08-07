@@ -31,3 +31,11 @@ export const getFavoriteCourses = () => {
 export const getInfoUser = () => {
   return request.get("/user/me");
 };
+
+export const updateInfoUser = (params) => {
+  return request.put("/user/update-profile", queryString.stringify(params));
+};
+
+export const changePassword = (params) => {
+  return request.post("/user/change-password", queryString.stringify(params));
+};

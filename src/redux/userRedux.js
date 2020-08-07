@@ -31,6 +31,14 @@ const { Types, Creators } = createActions({
   getInfoUserSuccess: null,
   getInfoUserFailure: null,
 
+  updateInfoRequest: ["params", "actionSuccess"],
+  updateInfoSuccess: null,
+  updateInfoFailure: null,
+
+  changePasswordRequest: ["params", "actionSuccess"],
+  changePasswordSuccess: null,
+  changePasswordFailure: null,
+
   logout: ["actionSuccess"],
 });
 
@@ -131,6 +139,30 @@ const getInfoUserFailure = (state) => {
   return state.merge({});
 };
 
+const updateInfoRequest = (state) => {
+  return state.merge({});
+};
+
+const updateInfoSuccess = (state) => {
+  return state.merge({});
+};
+
+const updateInfoFailure = (state) => {
+  return state.merge({});
+};
+
+const changePasswordRequest = (state) => {
+  return state.merge({});
+};
+
+const changePasswordSuccess = (state) => {
+  return state.merge({});
+};
+
+const changePasswordFailure = (state) => {
+  return state.merge({});
+};
+
 const logout = (state) => {
   return INITIAL_STATE;
 };
@@ -164,6 +196,14 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_INFO_USER_REQUEST]: getInfoUserRequest,
   [Types.GET_INFO_USER_SUCCESS]: getInfoUserSuccess,
   [Types.GET_INFO_USER_FAILURE]: getInfoUserFailure,
+
+  [Types.UPDATE_INFO_REQUEST]: updateInfoRequest,
+  [Types.UPDATE_INFO_SUCCESS]: updateInfoSuccess,
+  [Types.UPDATE_INFO_FAILURE]: updateInfoFailure,
+
+  [Types.CHANGE_PASSWORD_REQUEST]: changePasswordRequest,
+  [Types.CHANGE_PASSWORD_SUCCESS]: changePasswordSuccess,
+  [Types.CHANGE_PASSWORD_FAILURE]: changePasswordFailure,
 
   [Types.LOGOUT]: logout,
 });
