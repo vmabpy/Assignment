@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Dimensions,
   Image,
+  Alert,
 } from "react-native";
 import VideoPlayer from "./VideoPlayer/video-player";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
@@ -58,7 +59,14 @@ const CourseDetail = (props) => {
   ];
 
   const handleClick = (item) => {
-    setUrlVideo(item.videoUrl);
+    if (item.isPreview) {
+      setUrlVideo(item.videoUrl);
+    } else {
+      Alert.alert(
+        "Remind",
+        "Register or payment courses to learn more. Please!"
+      );
+    }
   };
 
   const handleRelatedCourse = (relatedCourses) => {

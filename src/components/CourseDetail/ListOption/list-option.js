@@ -15,7 +15,7 @@ const ListOption = (props) => {
     {
       id: 2,
       imageRoute: require("../../../../assets/ic_channel.png"),
-      title: "Add to Channel",
+      title: "Share",
     },
     {
       id: 3,
