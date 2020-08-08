@@ -135,10 +135,10 @@ function* getCoursesFavorite({ actionSuccess }) {
 function* updateInfoUser({ params, actionSuccess }) {
   yield put(AppActions.showIndicator());
   try {
-    const response = yield call(api.updateInfoUser, params);
-    yield put(UserActions.updateInfoSuccess(response));
+    const { payload } = yield call(api.updateInfoUser, params);
+    yield put(UserActions.updateInfoSuccess(payload));
     if (actionSuccess) {
-      actionSuccess(response);
+      actionSuccess(payload);
     }
     yield put(AppActions.showSuccess("Update information successfully"));
     yield put(AppActions.hideIndicator());

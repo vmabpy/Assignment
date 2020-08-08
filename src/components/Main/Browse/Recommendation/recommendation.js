@@ -17,8 +17,6 @@ const Recommendation = (props) => {
     return <View style={styles.separator}></View>;
   };
 
-  console.log(recommendData, "DATA");
-
   return (
     <View>
       <FlatList

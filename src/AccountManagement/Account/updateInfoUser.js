@@ -6,6 +6,7 @@ import {
   TextInput,
   StatusBar,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
@@ -40,6 +41,9 @@ const UpdateInfoUser = (props) => {
         >
           <Ionicons name="ios-arrow-round-back" size="32" color="#FFF" />
         </TouchableOpacity>
+        <View style={styles.viewProfile}>
+          <Image style={styles.image} source={{ uri: user.avatar }} />
+        </View>
         <View style={styles.form}>
           <View style={{ marginTop: 32 }}>
             <Text style={styles.inputTitle}>FullName</Text>
@@ -111,6 +115,19 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(21,22,48,0.1)",
     alignItems: "center",
     justifyContent: "center",
+  },
+  viewProfile: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 50,
+  },
+  image: {
+    height: 130,
+    width: 130,
+    borderRadius: 65,
+    resizeMode: "cover",
   },
 });
 

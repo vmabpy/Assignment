@@ -26,48 +26,54 @@ import ProfileItem from "./profileItem";
 import Constants from "expo-constants";
 
 const Profile = (props) => {
-  const { getInfoMe, user } = props;
-  const [dataUser, setDataUser] = useState(undefined);
+  const { getInfoMe, userMe, user = {} } = props;
   const [reload, setReload] = useState(true);
 
   useEffect(() => {
-    getInfoMe((res) => {
-      console.log(res, "CALIING");
-      setDataUser(res);
-    });
-  }, [getInfoMe]);
+    if (reload) {
+      getInfoMe(() => {
+        setReload(false);
+      });
+    }
+  }, [reload]);
+
+  useEffect(() => {
+    setReload(true);
+  }, [user.avatar, user.name, user.phone]);
+
+  console.log(user, "USER");
 
   const profileItem = [
     {
       id: 0,
       icon: ICONACCOUNT,
-      title: "Cập nhật thông tin",
+      title: "Update profile",
     },
     {
       id: 1,
       icon: ICONPASSWORD,
-      title: "Thay đổi mật khẩu",
+      title: "Change password",
     },
     {
       id: 2,
       icon: ICONMAIL,
-      title: "Thay đổi email",
+      title: "Change email",
     },
     {
       id: 3,
       icon: ICONACCOUNT,
-      title: "Điều khoản sử dụng",
+      title: "Term of use",
     },
     {
       id: 4,
       icon: ICONSETTING,
-      title: "Phiên bản",
+      title: "Version",
       appVersion: "1.0.0",
     },
     {
       id: 5,
       icon: ICONLOGOUT,
-      title: "Đăng xuất",
+      title: "Log out",
     },
   ];
 
@@ -75,7 +81,7 @@ const Profile = (props) => {
     const id = item.id;
     switch (id) {
       case 0:
-        props.navigation.navigate("UpdateInfoUser", { user: dataUser });
+        props.navigation.navigate("UpdateInfoUser", { user: userMe });
         break;
       case 1:
         props.navigation.navigate("Changepassword");
@@ -92,17 +98,17 @@ const Profile = (props) => {
         break;
     }
   };
-  return dataUser ? (
+  return (
     <ScrollView style={styles.container}>
       <View style={styles.viewInfo}>
         <Image
-          source={dataUser.avatar ? { uri: dataUser.avatar } : ICONPROFILE}
+          source={userMe.avatar ? { uri: userMe.avatar } : ICONPROFILE}
           style={styles.image}
         />
         <View style={styles.viewInfoSub}>
-          <Text style={styles.title}>{dataUser.name}</Text>
-          <Text style={styles.subTitle}>{dataUser.phone}</Text>
-          <Text style={styles.subTitle}>{dataUser.email}</Text>
+          <Text style={styles.title}>{userMe.name}</Text>
+          <Text style={styles.subTitle}>{userMe.phone}</Text>
+          <Text style={styles.subTitle}>{userMe.email}</Text>
         </View>
       </View>
       <View>
@@ -114,8 +120,6 @@ const Profile = (props) => {
         <ProfileItem item={profileItem[5]} onPressItem={onPressItem} />
       </View>
     </ScrollView>
-  ) : (
-    <View />
   );
 };
 
@@ -163,6 +167,7 @@ const styles = StyleSheet.create({
 //get data
 const mapStateToProps = (state) => ({
   userMe: loGet(state, ["user", "userMe"], {}),
+  user: loGet(state, ["user", "userInfo"]),
 });
 
 //call api to get response

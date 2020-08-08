@@ -28,7 +28,7 @@ const { Types, Creators } = createActions({
   getFavoriteSuccess: ["favorite"],
 
   updateInfoRequest: ["params", "actionSuccess"],
-  updateInfoSuccess: null,
+  updateInfoSuccess: ["userInfo"],
   updateInfoFailure: null,
 
   changePasswordRequest: ["params", "actionSuccess"],
@@ -132,8 +132,8 @@ const updateInfoRequest = (state) => {
   return state.merge({});
 };
 
-const updateInfoSuccess = (state) => {
-  return state.merge({});
+const updateInfoSuccess = (state, { userInfo }) => {
+  return state.merge({ userInfo });
 };
 
 const updateInfoFailure = (state) => {
