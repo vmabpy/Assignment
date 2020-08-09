@@ -13,7 +13,6 @@ const SearchCourse = (props) => {
   const [offset, setOffset] = useState(0);
   const [limitItem, setLimitItem] = useState(10);
   const [dataSearch, setDataSearch] = useState([]);
-  const [valueHistory, setValueHistory] = useState(undefined);
 
   const onPressListItem = (item) => {
     props.navigation.navigate("CourseDetail", { item });
@@ -21,7 +20,6 @@ const SearchCourse = (props) => {
 
   const updateData = (data) => {
     setDataSearch(data.payload.rows);
-    setValueHistory(undefined);
   };
 
   const { inputSearch } = props;
@@ -47,7 +45,6 @@ const SearchCourse = (props) => {
   return (
     <View style={styles.container}>
       <SearchBar
-        valueHistory={valueHistory}
         search={props.search}
         limit={limitItem}
         offset={props.offset}

@@ -16,7 +16,7 @@ const SearchBar = (props) => {
     (value) =>
       props.search(
         {
-          keyword: props.valueHistory ? props.valueHistory : value,
+          keyword: value,
           limit: props.limit,
           offset: props.offset,
         },
