@@ -30,7 +30,7 @@ const Profile = (props) => {
   const [reload, setReload] = useState(true);
 
   useEffect(() => {
-    if (reload) {
+    if (reload && user.id) {
       getInfoMe(() => {
         setReload(false);
       });
@@ -40,8 +40,6 @@ const Profile = (props) => {
   useEffect(() => {
     setReload(true);
   }, [user.avatar, user.name, user.phone]);
-
-  console.log(user, "USER");
 
   const profileItem = [
     {
