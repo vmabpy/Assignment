@@ -36,8 +36,11 @@ const { Types, Creators } = createActions({
 
   searchCoursesRequest: ["params", "actionSuccess"],
   searchCoursesSuccess: ["inputSearch"],
-  // searchCoursesSuccess: ["inputSearch"],
   searchCoursesFailure: null,
+
+  paymentCourseRequest: ["params", "actionSuccess"],
+  paymentCourseSuccess: null,
+  paymentCourseFailure: null,
 });
 
 export const CourseTypes = Types;
@@ -164,6 +167,18 @@ const searchCoursesFailure = (state) => {
   return state.merge({});
 };
 
+const paymentCourseRequest = (state) => {
+  return state.merge({});
+};
+
+const paymentCourseSuccess = (state) => {
+  return state.merge({});
+};
+
+const paymentCourseFailure = (state) => {
+  return state.merge({});
+};
+
 /* ------------- Hookup Reducers To Types ------------- */
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_CATEGORIES_REQUEST]: getCategoriesRequest,
@@ -201,4 +216,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.SEARCH_COURSES_REQUEST]: searchCoursesRequest,
   [Types.SEARCH_COURSES_SUCCESS]: searchCoursesSuccess,
   [Types.SEARCH_COURSES_FAILURE]: searchCoursesFailure,
+
+  [Types.PAYMENT_COURSE_REQUEST]: paymentCourseRequest,
+  [Types.PAYMENT_COURSE_SUCCESS]: paymentCourseSuccess,
+  [Types.PAYMENT_COURSE_FAILURE]: paymentCourseFailure,
 });

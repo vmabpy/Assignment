@@ -15,6 +15,7 @@ function* courseRootSaga() {
     yield takeLatest(CourseTypes.GET_LIST_TUTOR_REQUEST, getListTutor),
     yield takeLatest(CourseTypes.GET_TUTOR_DETAIL_REQUEST, getTutorDetail),
     yield takeLatest(CourseTypes.SEARCH_COURSES_REQUEST, searchCourses),
+    yield takeLatest(CourseTypes.PAYMENT_COURSE_REQUEST, paymentCourses),
   ]);
 }
 
@@ -157,6 +158,23 @@ function* searchCourses({ params, actionSuccess }) {
     yield put(AppActions.hideIndicator());
   } catch (error) {
     yield put(CourseActions.searchCoursesFailure());
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
+}
+
+function* paymentCourses({ params, actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const response = yield call(api.paymentCourse, params);
+    yield put(CourseActions.paymentCourseSuccess(response));
+    if (actionSuccess) {
+      actionSuccess(response);
+    }
+    yield put(AppActions.showSuccess("Joined course and learning more now!"));
+    yield put(AppActions.hideIndicator());
+  } catch (error) {
+    yield put(CourseActions.paymentCourseFailure());
     yield put(AppActions.hideIndicator());
     yield put(AppActions.showError(error.message));
   }

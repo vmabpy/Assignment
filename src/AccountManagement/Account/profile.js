@@ -26,11 +26,11 @@ import ProfileItem from "./profileItem";
 import Constants from "expo-constants";
 
 const Profile = (props) => {
-  const { getInfoMe, userMe, user = {} } = props;
+  const { getInfoMe, userMe, user = {}, tokenSave } = props;
   const [reload, setReload] = useState(true);
 
   useEffect(() => {
-    if (reload && user.id) {
+    if (reload && tokenSave) {
       getInfoMe(() => {
         setReload(false);
       });
@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => ({
   userMe: loGet(state, ["user", "userMe"], {}),
   user: loGet(state, ["user", "userInfo"]),
+  tokenSave: loGet(state, ["user", "token"]),
 });
 
 //call api to get response

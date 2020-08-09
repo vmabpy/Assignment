@@ -59,14 +59,12 @@ const CourseDetail = (props) => {
   ];
 
   const handleClick = (item) => {
-    if (item.isPreview) {
-      setUrlVideo(item.videoUrl);
-    } else {
-      Alert.alert(
-        "Remind",
-        "Register or payment courses to learn more. Please!"
-      );
-    }
+    // if (item.isPreview) {
+    //   setUrlVideo(item.videoUrl);
+    // } else {
+    //   Alert.alert("Remind", "Joining or payment course to learn more. Please!");
+    // }
+    setUrlVideo(item.videoUrl);
   };
 
   const handleRelatedCourse = (relatedCourses) => {

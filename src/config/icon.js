@@ -10,6 +10,9 @@ const ICONLOGOUT = require("../../assets/ic_logout.png");
 const ICONMAIL = require("../../assets/ic_mail.png");
 const ICONPASSWORD = require("../../assets/ic_password.png");
 const ICONSETTING = require("../../assets/ic_setting.png");
+const ICONFAVORITE = require("../../assets/ic_bookmark.png");
+const ICONDOWNLOAD = require("../../assets/ic_download.png");
+const ICONPAYMENT = require("../../assets/ic_channel.png");
 export {
   BackIcon,
   ICONAPP,
@@ -23,4 +26,7 @@ export {
   ICONMAIL,
   ICONPASSWORD,
   ICONSETTING,
+  ICONFAVORITE,
+  ICONDOWNLOAD,
+  ICONPAYMENT,
 };
