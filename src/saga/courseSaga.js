@@ -174,6 +174,7 @@ function* paymentCourses({ params, actionSuccess }) {
     yield put(AppActions.showSuccess("Joined course and learning more now!"));
     yield put(AppActions.hideIndicator());
   } catch (error) {
+    console.log(error);
     yield put(CourseActions.paymentCourseFailure());
     yield put(AppActions.hideIndicator());
     yield put(AppActions.showError(error.message));

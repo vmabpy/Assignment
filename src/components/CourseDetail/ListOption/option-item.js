@@ -8,7 +8,7 @@ const OptionItem = (props) => {
     <TouchableOpacity
       style={styles.conatiner}
       onPress={() => {
-        props.onPressListItem(props.optionItem);
+        props.handleOption(optionItem);
       }}
     >
       <View style={styles.viewIcon}>
