@@ -4,28 +4,26 @@ import {
   Text,
   Button,
   StyleSheet,
-  Dimensions,
   Image,
-  Alert,
   ActivityIndicator,
+  ScrollView,
+  TouchableOpacity,
+  Share,
 } from "react-native";
 import VideoPlayer from "./VideoPlayer/video-player";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { padding } from "../../globals/constants";
 import ListOption from "./ListOption/list-option";
 import AuthorCourse from "./ListAuthorDetail/author-course";
 import ReviewItem from "./ListReviewCourse/review-item";
-import ListLessonItem from "./ListLessonItem/list-lesson-item";
 import ListLesson from "./ListLesson/list-lesson";
-import { dimension } from "../../globals/dimension";
 import moment from "moment";
 import { connect } from "react-redux";
 import loGet from "lodash/get";
 import CourseActions from "../../redux/courseRedux";
 import UserActions from "../../redux/userRedux";
 import WebView from "react-native-webview";
-import configs from "../../config/configs";
-const APIWEB = "https://itedu.me";
+import { ICONSHARE } from "../../config/icon";
+
 const CourseDetail = (props) => {
   const [urlVideo, setUrlVideo] = useState(undefined);
   const {
@@ -36,10 +34,36 @@ const CourseDetail = (props) => {
   } = props;
   const item = params ? params.item : undefined;
   const id = item ? item.id : undefined;
+  const APIWEB = "https://itedu.me";
 
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: `${APIWEB}/course-detail/${dataDetail.id}`,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
   const [visibleWeb, setVisibleWeb] = useState(false);
   props.navigation.setOptions({
     title: item.title ? item.title : item.courseTitle,
+    headerRight: () => (
+      <TouchableOpacity onPress={onShare}>
+        <View style={{ marginRight: 20 }}>
+          <Image source={ICONSHARE} style={styles.imageHeader} />
+        </View>
+      </TouchableOpacity>
+    ),
   });
 
   const [dataDetail, setDataDetail] = useState(undefined);
@@ -174,6 +198,10 @@ const styles = StyleSheet.create({
     marginTop: padding._5,
     marginLeft: padding._10,
     color: "darkgray",
+  },
+  imageHeader: {
+    height: 20,
+    width: 20,
   },
 });
 

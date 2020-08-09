@@ -13,6 +13,7 @@ const ICONSETTING = require("../../assets/ic_setting.png");
 const ICONFAVORITE = require("../../assets/ic_bookmark.png");
 const ICONDOWNLOAD = require("../../assets/ic_download.png");
 const ICONPAYMENT = require("../../assets/ic_channel.png");
+const ICONSHARE = require("../../assets/ic_share.png");
 export {
   BackIcon,
   ICONAPP,
@@ -29,4 +30,5 @@ export {
   ICONFAVORITE,
   ICONDOWNLOAD,
   ICONPAYMENT,
+  ICONSHARE,
 };
