@@ -51,7 +51,7 @@ const SearchCourse = (props) => {
         updateData={updateData}
       />
 
-      {inputSearch !== "" ? (
+      {inputSearch !== "" && inputSearch !== undefined ? (
         <View style={{ flex: 1 }}>
           {dataSearch.length > 0 ? (
             <FlatList

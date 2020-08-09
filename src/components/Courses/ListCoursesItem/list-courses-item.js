@@ -26,15 +26,15 @@ const ListCoursesItem = (props) => {
 const styles = StyleSheet.create({
   item: {
     flexDirection: "row",
-    margin: 5,
+    marginLeft: 10,
     marginVertical: 20,
-    marginLeft: 20,
   },
   image: {
     height: 70,
     width: 80,
   },
   viewMain: {
+    flex: 1,
     margin: 10,
   },
   name: {
