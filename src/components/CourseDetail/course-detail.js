@@ -130,10 +130,8 @@ const CourseDetail = (props) => {
             <Text style={styles.title}>{`${dataDetail.title}`}</Text>
             <AuthorCourse item={dataDetail} />
             <Text style={styles.darkText}>{`${moment(
-              dataDetail.createdAt
-            ).format("hh:mm DD/MM/YYYY ")} . ${
-              dataDetail.totalHours
-            } hours`}</Text>
+              dataDetail.updatedAt
+            ).format("DD/MM/YYYY ")} . ${dataDetail.totalHours} hours`}</Text>
             <ListOption item={dataDetail} handleOption={handleOption} />
             <ReviewItem itemTitle={review[0]} item={{}} onPress={() => {}} />
             <ReviewItem

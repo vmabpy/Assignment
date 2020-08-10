@@ -18,7 +18,7 @@ const LearningPathItem = (props) => {
           {item.name ? item.name : item.instructorName}
         </Text>
         <Text style={styles.darkText}>{`${moment(item.updatedAt).format(
-          "hh:mm DD/MM/YYYY "
+          "DD/MM/YYYY "
         )}`}</Text>
         <Text style={styles.darkText}>{`${item.totalHours} hours`}</Text>
       </View>

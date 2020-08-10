@@ -18,7 +18,7 @@ const RecommendItem = (props) => {
         <Text style={styles.name}>{item.title}</Text>
         <Text>{item.name ? item.name : item.instructorName}</Text>
         <Text style={styles.darkText}>{`${moment(item.updatedAt).format(
-          "hh:mm DD/MM/YYYY "
+          "DD/MM/YYYY "
         )} . ${item.totalHours} hours`}</Text>
       </View>
     </TouchableOpacity>
