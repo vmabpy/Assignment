@@ -46,3 +46,17 @@ export const paymentCourse = (params) => {
     queryString.stringify(params)
   );
 };
+
+export const listExercisesLesson = (params) => {
+  return request.post(
+    "/exercise/student/list-exercise-lesson",
+    queryString.stringify(params)
+  );
+};
+
+export const exercisesTest = (params) => {
+  return request.post(
+    "/exercise/student/exercise-test",
+    queryString.stringify(params)
+  );
+};

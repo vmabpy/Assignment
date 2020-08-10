@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "darkgray",
+    backgroundColor: "#C6C6C6",
     resizeMode: "contain",
   },
   image: {

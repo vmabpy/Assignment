@@ -9,7 +9,6 @@ const VideoPlayer = (props) => {
   const { urlVideo, dataDetail = {} } = props;
   const playerRef = useRef(null);
   const [playing, setPlaying] = useState(false);
-  console.log(typeof urlVideo, "video");
 
   if (urlVideo === undefined) {
     return (

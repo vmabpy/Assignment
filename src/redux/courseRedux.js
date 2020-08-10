@@ -41,6 +41,14 @@ const { Types, Creators } = createActions({
   paymentCourseRequest: ["params", "actionSuccess"],
   paymentCourseSuccess: null,
   paymentCourseFailure: null,
+
+  listExercisesLessonRequest: ["params", "actionSuccess"],
+  listExercisesLessonSuccess: null,
+  listExercisesLessonFailure: null,
+
+  exercisesTestRequest: ["params", "actionSuccess"],
+  exercisesTestSuccess: null,
+  exercisesTestFailure: null,
 });
 
 export const CourseTypes = Types;
@@ -159,10 +167,6 @@ const searchCoursesSuccess = (state, { inputSearch }) => {
   return state.merge({ inputSearch });
 };
 
-// const searchCoursesSuccess = (state, { inputSearch }) => {
-//   return state.merge({ inputSearch });
-// };
-
 const searchCoursesFailure = (state) => {
   return state.merge({});
 };
@@ -179,6 +183,29 @@ const paymentCourseFailure = (state) => {
   return state.merge({});
 };
 
+const listExercisesLessonRequest = (state) => {
+  return state.merge({});
+};
+
+const listExercisesLessonSuccess = (state) => {
+  return state.merge({});
+};
+
+const listExercisesLessonFailure = (state) => {
+  return state.merge({});
+};
+
+const exercisesTestRequest = (state) => {
+  return state.merge({});
+};
+
+const exercisesTestSuccess = (state) => {
+  return state.merge({});
+};
+
+const exercisesTestFailure = (state) => {
+  return state.merge({});
+};
 /* ------------- Hookup Reducers To Types ------------- */
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_CATEGORIES_REQUEST]: getCategoriesRequest,
@@ -220,4 +247,12 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.PAYMENT_COURSE_REQUEST]: paymentCourseRequest,
   [Types.PAYMENT_COURSE_SUCCESS]: paymentCourseSuccess,
   [Types.PAYMENT_COURSE_FAILURE]: paymentCourseFailure,
+
+  [Types.LIST_EXERCISES_LESSON_REQUEST]: listExercisesLessonRequest,
+  [Types.LIST_EXERCISES_LESSON_SUCCESS]: listExercisesLessonSuccess,
+  [Types.LIST_EXERCISES_LESSON_FAILURE]: listExercisesLessonFailure,
+
+  [Types.EXERCISES_TEST_REQUEST]: exercisesTestRequest,
+  [Types.EXERCISES_TEST_SUCCESS]: exercisesTestSuccess,
+  [Types.EXERCISES_TEST_FAILURE]: exercisesTestFailure,
 });

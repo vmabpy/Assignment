@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "darkgray",
+    backgroundColor: "#C6C6C6",
     height: 30,
     borderRadius: 10,
     padding: 5,
@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
   titleAuthor: {
     marginLeft: padding._5,
     marginRight: padding._5,
-    color: "white",
   },
 });
 

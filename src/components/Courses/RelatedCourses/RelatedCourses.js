@@ -9,7 +9,6 @@ const RelatedCourses = (props) => {
 
   const relatedCourses = params ? params.relatedCourses : undefined;
 
-  console.log(relatedCourses, "Related");
   const onPressListItem = (item) => {
     props.navigation.navigate("CourseDetail", { item });
   };

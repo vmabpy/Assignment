@@ -9,6 +9,8 @@ import {
   ScrollView,
   TouchableOpacity,
   Share,
+  Modal,
+  TouchableHighlight,
 } from "react-native";
 import VideoPlayer from "./VideoPlayer/video-player";
 import { padding } from "../../globals/constants";
@@ -22,10 +24,11 @@ import loGet from "lodash/get";
 import CourseActions from "../../redux/courseRedux";
 import UserActions from "../../redux/userRedux";
 import WebView from "react-native-webview";
-import { ICONSHARE } from "../../config/icon";
+import { ICONSHARE, ICONCLOSE } from "../../config/icon";
 import StarRating from "react-native-star-rating";
 import { Ionicons } from "@expo/vector-icons";
 import AveragePoint from "../../config/function/averagePoint";
+import ModalExercises from "./Exercises/ModalExercises";
 
 const CourseDetail = (props) => {
   const [urlVideo, setUrlVideo] = useState(undefined);
@@ -70,6 +73,8 @@ const CourseDetail = (props) => {
   });
 
   const [dataDetail, setDataDetail] = useState(undefined);
+  const [itemLesson, setItemLesson] = useState(undefined);
+  const [visibleModalEx, setVisibleModalEx] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -83,7 +88,7 @@ const CourseDetail = (props) => {
     {
       id: 0,
       imageRoute: require("../../../assets/ic_purpose.png"),
-      title: "Take a learning check",
+      title: "Take exercises with this lesson",
     },
     {
       id: 1,
@@ -99,6 +104,7 @@ const CourseDetail = (props) => {
     //   Alert.alert("Remind", "Joining or payment course to learn more. Please!");
     // }
     setUrlVideo(item.videoUrl);
+    setItemLesson(item);
   };
 
   const handleOption = (optionItem) => {
@@ -120,8 +126,19 @@ const CourseDetail = (props) => {
     }
   };
 
-  const handleRelatedCourse = (relatedCourses) => {
-    props.navigation.navigate("RelatedCourses", { relatedCourses });
+  const handleVisibleModal = () => {
+    setVisibleModalEx((visible) => !visible);
+  };
+
+  const handleReviewItem = (itemReview) => {
+    if (itemReview.id === 1) {
+      const relatedCourses = dataDetail.coursesLikeCategory
+        ? dataDetail.coursesLikeCategory
+        : [];
+      props.navigation.navigate("RelatedCourses", { relatedCourses });
+    } else if (itemReview.id === 0) {
+      setVisibleModalEx(true);
+    }
   };
   return dataDetail ? (
     <View style={styles.container}>
@@ -156,14 +173,22 @@ const CourseDetail = (props) => {
             </View>
 
             <ListOption item={dataDetail} handleOption={handleOption} />
-            <ReviewItem itemTitle={review[0]} item={{}} onPress={() => {}} />
             <ReviewItem
-              itemTitle={review[1]}
-              item={dataDetail.coursesLikeCategory}
-              onPress={handleRelatedCourse}
+              itemReview={review[0]}
+              handleReviewItem={handleReviewItem}
+            />
+            <ReviewItem
+              itemReview={review[1]}
+              // item={dataDetail.coursesLikeCategory}
+              handleReviewItem={handleReviewItem}
             />
             <ListLesson data={dataDetail.section} handleClick={handleClick} />
           </ScrollView>
+          <ModalExercises
+            itemLesson={itemLesson}
+            modalVisible={visibleModalEx}
+            handleModalVisible={handleVisibleModal}
+          />
         </View>
       ) : (
         <View style={styles.container}>
@@ -228,6 +253,41 @@ const styles = StyleSheet.create({
   imageHeader: {
     height: 20,
     width: 20,
+  },
+
+  modalView: {
+    flex: 1,
+    marginTop: 30,
+    backgroundColor: "#C6C6C6",
+    borderRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  viewHeader: {
+    flexDirection: "row",
+    backgroundColor: "blue",
+    height: 40,
+    alignItems: "center",
+  },
+  openButton: {
+    backgroundColor: "#F194FF",
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    textAlign: "center",
   },
 });
 

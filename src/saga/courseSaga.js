@@ -16,6 +16,8 @@ function* courseRootSaga() {
     yield takeLatest(CourseTypes.GET_TUTOR_DETAIL_REQUEST, getTutorDetail),
     yield takeLatest(CourseTypes.SEARCH_COURSES_REQUEST, searchCourses),
     yield takeLatest(CourseTypes.PAYMENT_COURSE_REQUEST, paymentCourses),
+    yield takeLatest(CourseTypes.LIST_EXERCISES_LESSON_REQUEST, listExercises),
+    yield takeLatest(CourseTypes.EXERCISES_TEST_REQUEST, exercisesTest),
   ]);
 }
 
@@ -176,6 +178,38 @@ function* paymentCourses({ params, actionSuccess }) {
   } catch (error) {
     console.log(error);
     yield put(CourseActions.paymentCourseFailure());
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
+}
+
+function* listExercises({ params, actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const { payload } = yield call(api.listExercisesLesson, params);
+    yield put(CourseActions.listExercisesLessonSuccess(payload));
+    if (actionSuccess) {
+      actionSuccess(payload);
+    }
+    yield put(AppActions.hideIndicator());
+  } catch (error) {
+    yield put(CourseActions.listExercisesLessonFailure());
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
+}
+
+function* exercisesTest({ params, actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const { payload } = yield call(api.exercisesTest, params);
+    yield put(CourseActions.exercisesTestSuccess(payload));
+    if (actionSuccess) {
+      actionSuccess(payload);
+    }
+    yield put(AppActions.hideIndicator());
+  } catch (error) {
+    yield put(CourseActions.exercisesTestFailure());
     yield put(AppActions.hideIndicator());
     yield put(AppActions.showError(error.message));
   }
