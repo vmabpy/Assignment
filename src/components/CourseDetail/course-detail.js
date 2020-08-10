@@ -23,6 +23,9 @@ import CourseActions from "../../redux/courseRedux";
 import UserActions from "../../redux/userRedux";
 import WebView from "react-native-webview";
 import { ICONSHARE } from "../../config/icon";
+import StarRating from "react-native-star-rating";
+import { Ionicons } from "@expo/vector-icons";
+import AveragePoint from "../../config/function/averagePoint";
 
 const CourseDetail = (props) => {
   const [urlVideo, setUrlVideo] = useState(undefined);
@@ -129,9 +132,29 @@ const CourseDetail = (props) => {
           <ScrollView>
             <Text style={styles.title}>{`${dataDetail.title}`}</Text>
             <AuthorCourse item={dataDetail} />
-            <Text style={styles.darkText}>{`${moment(
-              dataDetail.updatedAt
-            ).format("DD/MM/YYYY ")} . ${dataDetail.totalHours} hours`}</Text>
+            <View style={styles.viewInfo}>
+              <Text style={styles.darkText}>{`${moment(
+                dataDetail.updatedAt
+              ).format("DD/MM/YYYY ")} . ${dataDetail.totalHours} hours`}</Text>
+              <StarRating
+                disabled={true}
+                emptyStar={"ios-star-outline"}
+                fullStar={"ios-star"}
+                halfStar={"ios-star-half"}
+                iconSet={"Ionicons"}
+                maxStars={5}
+                rating={
+                  (dataDetail.formalityPoint +
+                    dataDetail.contentPoint +
+                    dataDetail.presentationPoint) /
+                  3
+                }
+                fullStarColor={"#FADB13"}
+                starSize={20}
+                containerStyle={{ marginLeft: padding._5 }}
+              />
+            </View>
+
             <ListOption item={dataDetail} handleOption={handleOption} />
             <ReviewItem itemTitle={review[0]} item={{}} onPress={() => {}} />
             <ReviewItem
@@ -177,6 +200,13 @@ const styles = StyleSheet.create({
     width: 20,
     borderRadius: 10,
   },
+  viewInfo: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: padding._5,
+    marginLeft: padding._10,
+  },
   buttonBack: {
     position: "absolute",
     top: 50,
@@ -193,8 +223,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   darkText: {
-    marginTop: padding._5,
-    marginLeft: padding._10,
     color: "darkgray",
   },
   imageHeader: {
