@@ -1,19 +1,16 @@
 import React from "react";
-import { View, Text, StyleSheet, SectionList, Alert } from "react-native";
-import { padding } from "../../../globals/constants";
-import ListLessonItem from "../ListLessonItem/list-lesson-item";
+import { View, Text, StyleSheet, SectionList } from "react-native";
+import ListExercisesItem from "./list-exercises-item";
+import WebView from "react-native-webview";
 
-const ListLesson = (props) => {
+const ListExercises = (props) => {
   const { data = [] } = props;
-  const dataList = data.map((item) => ({
+  const dataExercise = data.map((item) => ({
     id: item.id,
-    courseId: item.courseId,
-    numberOrder: item.numberOrder,
-    title: item.name,
-    isDeleted: item.isDeleted,
-    createdAt: item.createdAt,
-    updatedAt: item.updatedAt,
-    data: item.lesson,
+    title: item.content,
+    isMultipleChoice: item.isMultipleChoice,
+    contentHtml: item.contentHtml,
+    data: item.exercises_answers,
   }));
 
   const FlatListItemSeparator = () => {
@@ -24,19 +21,22 @@ const ListLesson = (props) => {
     <View>
       <SectionList
         SectionSeparatorComponent={FlatListItemSeparator}
-        sections={dataList.map((item, index) => ({ ...item, index }))}
-        // sections={dataList}
-        renderItem={({ item }) => (
-          <ListLessonItem item={item} handleClick={props.handleClick} />
-        )}
-        renderSectionHeader={({ section: { title, index } }) => {
+        stickySectionHeadersEnabled={true}
+        sections={dataExercise.map((item, index) => ({ ...item, index }))}
+        renderItem={({ item }) => <ListExercisesItem item={item} />}
+        renderSectionHeader={({ section: { contentHtml, title, index } }) => {
           return (
             <View style={styles.header}>
               <View style={styles.viewNumber}>
                 <Text style={styles.titleNumber}>{index + 1}</Text>
               </View>
               <View>
-                <Text style={styles.titleSection}>{title}</Text>
+                {/* <Text style={styles.titleSection}>{contentHtml}</Text> */}
+                <WebView
+                  style={styles.webview}
+                  originWhitelist={["*"]}
+                  source={{ html: "<h1>Hello world</h1>" }}
+                />
               </View>
             </View>
           );
@@ -49,7 +49,7 @@ const ListLesson = (props) => {
 
 const styles = StyleSheet.create({
   sectionitem: {
-    margin: padding._5,
+    margin: 5,
     height: 100,
     width: 100,
   },
@@ -72,15 +72,14 @@ const styles = StyleSheet.create({
     borderColor: "darkgray",
     borderWidth: 2,
   },
-  titleNumber: {
-    alignSelf: "center",
-    color: "black",
-  },
   titleSection: {
     margin: 5,
     fontSize: 16,
     fontWeight: "bold",
   },
+  webview: {
+    margin: 5,
+  },
 });
 
-export default ListLesson;
+export default ListExercises;

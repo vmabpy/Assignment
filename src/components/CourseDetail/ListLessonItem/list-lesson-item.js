@@ -1,7 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { padding } from "../../../globals/constants";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 const ListLessonItem = (props) => {
   const { item } = props;

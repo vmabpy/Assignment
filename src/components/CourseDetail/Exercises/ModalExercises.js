@@ -1,20 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Image,
   Modal,
   StyleSheet,
-  TouchableHighlight,
   Text,
-  StatusBar,
   TouchableOpacity,
+  ScrollView,
 } from "react-native";
 import Constants from "expo-constants";
 import { ICONCLOSE, ICONHOMEWORK, ICONEXERCISE } from "../../../config/icon";
+import { connect } from "react-redux";
+import loGet from "lodash/get";
+import CourseActions from "../../../redux/courseRedux";
+import ListExercises from "../ListExercises/list-exercises";
 
 const ModalExercises = (props) => {
   const { itemLesson = {}, modalVisible, handleModalVisible } = props;
-  const [execises, setExercise] = useState([{}]);
+  const [execises, setExercise] = useState([]);
+  const [exercisesList, setExercisesList] = useState(undefined);
+  const { checkExercise, getListExercises } = props;
+  useEffect(() => {
+    if (itemLesson.id) {
+      const params = {
+        lessonId: itemLesson.id,
+      };
+      checkExercise(params, (res) => {
+        setExercise(res.exercises);
+      });
+    }
+  }, [itemLesson.id]);
+  const handleShowExercises = () => {
+    if (execises[0].id) {
+      const _params = {
+        exerciseId: execises[0].id,
+      };
+      getListExercises(_params, (res) => {
+        setExercisesList(res.exercises);
+      });
+    }
+  };
   return (
     <View style={{ ...styles.centeredView }}>
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
@@ -36,26 +61,38 @@ const ModalExercises = (props) => {
                 <Image source={ICONCLOSE} style={{ height: 10, width: 10 }} />
               </TouchableOpacity>
             </View>
-            <View style={styles.viewRest}>
-              {execises.length === 0 ? (
-                <View style={styles.viewCenter}>
-                  <Image source={ICONEXERCISE} style={styles.image} />
-                  <Text>No exercises right now. Come back later.</Text>
-                </View>
-              ) : (
-                <View>
+            {exercisesList === undefined ? (
+              <View style={styles.viewRest}>
+                {execises.length === 0 ? (
                   <View style={styles.viewCenter}>
-                    <Image source={ICONHOMEWORK} style={styles.image} />
-                    <Text>
-                      Answer some multiple questions created by the author.
-                    </Text>
+                    <Image source={ICONEXERCISE} style={styles.image} />
+                    <Text>No exercises right now. Come back later.</Text>
                   </View>
-                  <TouchableOpacity style={styles.button}>
-                    <Text style={styles.text}>Start</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
-            </View>
+                ) : (
+                  <View>
+                    <View style={styles.viewCenter}>
+                      <Image source={ICONHOMEWORK} style={styles.image} />
+                      <Text>
+                        Answer some multiple questions created by the author.
+                      </Text>
+                    </View>
+                    <TouchableOpacity
+                      style={styles.button}
+                      onPress={handleShowExercises}
+                    >
+                      <Text style={styles.text}>Start</Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
+            ) : (
+              <View style={styles.containList}>
+                <ScrollView>
+                  <Text style={styles.title}>{exercisesList.title}</Text>
+                  <ListExercises data={exercisesList.exercises_questions} />
+                </ScrollView>
+              </View>
+            )}
           </View>
         </View>
       </Modal>
@@ -63,11 +100,11 @@ const ModalExercises = (props) => {
   );
 };
 
-export default ModalExercises;
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    marginTop: Constants.statusBarHeight,
+    // marginTop: Constants.statusBarHeight,
+    marginTop: 60,
   },
   modalView: {
     flex: 1,
@@ -116,4 +153,22 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "500",
   },
+  containList: {
+    flex: 1,
+    marginTop: 5,
+    marginLeft: 10,
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
 });
+
+const mapStateToProps = (state) => ({});
+const mapDispatchTopProps = (dispatch) => ({
+  checkExercise: (params, actionSuccess) =>
+    dispatch(CourseActions.listExercisesLessonRequest(params, actionSuccess)),
+  getListExercises: (params, actionSuccess) =>
+    dispatch(CourseActions.exercisesTestRequest(params, actionSuccess)),
+});
+export default connect(mapStateToProps, mapDispatchTopProps)(ModalExercises);

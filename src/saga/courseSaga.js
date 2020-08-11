@@ -1,4 +1,4 @@
-import { takeLatest, all, call, put } from "redux-saga/effects";
+import { takeLatest, all, call, put, cps } from "redux-saga/effects";
 import { AsyncStorage } from "react-native";
 import * as api from "../services/courseServices";
 import CourseActions, { CourseTypes } from "../redux/courseRedux";
@@ -209,6 +209,7 @@ function* exercisesTest({ params, actionSuccess }) {
     }
     yield put(AppActions.hideIndicator());
   } catch (error) {
+    console.log(JSON.stringify(error));
     yield put(CourseActions.exercisesTestFailure());
     yield put(AppActions.hideIndicator());
     yield put(AppActions.showError(error.message));

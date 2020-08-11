@@ -2,15 +2,12 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  Button,
   StyleSheet,
   Image,
   ActivityIndicator,
   ScrollView,
   TouchableOpacity,
   Share,
-  Modal,
-  TouchableHighlight,
 } from "react-native";
 import VideoPlayer from "./VideoPlayer/video-player";
 import { padding } from "../../globals/constants";
@@ -26,8 +23,6 @@ import UserActions from "../../redux/userRedux";
 import WebView from "react-native-webview";
 import { ICONSHARE, ICONEXERCISE, ICONPATH } from "../../config/icon";
 import StarRating from "react-native-star-rating";
-import { Ionicons } from "@expo/vector-icons";
-import AveragePoint from "../../config/function/averagePoint";
 import ModalExercises from "./Exercises/ModalExercises";
 
 const CourseDetail = (props) => {
@@ -179,16 +174,15 @@ const CourseDetail = (props) => {
             />
             <ReviewItem
               itemReview={review[1]}
-              // item={dataDetail.coursesLikeCategory}
               handleReviewItem={handleReviewItem}
             />
             <ListLesson data={dataDetail.section} handleClick={handleClick} />
+            <ModalExercises
+              itemLesson={itemLesson}
+              modalVisible={visibleModalEx}
+              handleModalVisible={handleVisibleModal}
+            />
           </ScrollView>
-          <ModalExercises
-            itemLesson={itemLesson}
-            modalVisible={visibleModalEx}
-            handleModalVisible={handleVisibleModal}
-          />
         </View>
       ) : (
         <View style={styles.container}>
