@@ -8,6 +8,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Share,
+  Alert,
 } from "react-native";
 import VideoPlayer from "./VideoPlayer/video-player";
 import { padding } from "../../globals/constants";
@@ -32,6 +33,7 @@ const CourseDetail = (props) => {
     getCourseDetail,
     likeCourse,
     joinCourse,
+    checkOwnCourse,
   } = props;
   const item = params ? params.item : undefined;
   const id = item ? item.id : undefined;
@@ -70,15 +72,22 @@ const CourseDetail = (props) => {
   const [dataDetail, setDataDetail] = useState(undefined);
   const [itemLesson, setItemLesson] = useState(undefined);
   const [visibleModalEx, setVisibleModalEx] = useState(false);
-
+  const [ownCourse, setOwnCourse] = useState(false);
   useEffect(() => {
     if (id) {
       const params = { id };
       getCourseDetail(params, (res) => {
         setDataDetail(res);
       });
+
+      const _params = {
+        courseId: id,
+      };
+      checkOwnCourse(_params, (res) => {
+        setOwnCourse(res.isUserOwnCourse);
+      });
     }
-  }, [id, getCourseDetail]);
+  }, [id, getCourseDetail, checkOwnCourse]);
   const review = [
     {
       id: 0,
@@ -93,13 +102,12 @@ const CourseDetail = (props) => {
   ];
 
   const handleClick = (item) => {
-    // if (item.isPreview) {
-    //   setUrlVideo(item.videoUrl);
-    // } else {
-    //   Alert.alert("Remind", "Joining or payment course to learn more. Please!");
-    // }
-    setUrlVideo(item.videoUrl);
-    setItemLesson(item);
+    if (item.isPreview || ownCourse) {
+      setUrlVideo(item.videoUrl);
+      setItemLesson(item);
+    } else {
+      Alert.alert("Remind", "Joining or payment course to learn more. Please!");
+    }
   };
 
   const handleOption = (optionItem) => {
@@ -114,7 +122,14 @@ const CourseDetail = (props) => {
         const params = {
           courseId: item.id,
         };
-        joinCourse(params);
+        joinCourse(params, () => {
+          const _paramsOwn = {
+            courseId: item.id,
+          };
+          checkOwnCourse(_paramsOwn, (res) => {
+            setOwnCourse(res.isUserOwnCourse);
+          });
+        });
       } else {
         setVisibleWeb(true);
       }
@@ -291,6 +306,8 @@ const mapDispatchTopProps = (dispatch) => ({
     dispatch(CourseActions.getCourseDetailRequest(params, actionSuccess)),
   likeCourse: (params, actionSuccess) =>
     dispatch(UserActions.likeCourseRequest(params, actionSuccess)),
+  checkOwnCourse: (params, actionSuccess) =>
+    dispatch(UserActions.checkOwnCourseRequest(params, actionSuccess)),
   joinCourse: (params, actionSuccess) =>
     dispatch(CourseActions.paymentCourseRequest(params, actionSuccess)),
 });

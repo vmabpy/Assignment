@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, StyleSheet, SectionList } from "react-native";
 import ListExercisesItem from "./list-exercises-item";
 import WebView from "react-native-webview";
+import HTML from "react-native-render-html";
+import { dimension } from "../../../globals/dimension";
 
 const ListExercises = (props) => {
   const { data = [] } = props;
@@ -24,19 +26,14 @@ const ListExercises = (props) => {
         stickySectionHeadersEnabled={true}
         sections={dataExercise.map((item, index) => ({ ...item, index }))}
         renderItem={({ item }) => <ListExercisesItem item={item} />}
-        renderSectionHeader={({ section: { contentHtml, title, index } }) => {
+        renderSectionHeader={({ section: { contentHtml, index } }) => {
           return (
             <View style={styles.header}>
               <View style={styles.viewNumber}>
                 <Text style={styles.titleNumber}>{index + 1}</Text>
               </View>
-              <View>
-                {/* <Text style={styles.titleSection}>{contentHtml}</Text> */}
-                <WebView
-                  style={styles.webview}
-                  originWhitelist={["*"]}
-                  source={{ html: "<h1>Hello world</h1>" }}
-                />
+              <View style={styles.webview}>
+                <HTML html={contentHtml} imagesMaxWidth={dimension.width} />
               </View>
             </View>
           );
@@ -72,13 +69,8 @@ const styles = StyleSheet.create({
     borderColor: "darkgray",
     borderWidth: 2,
   },
-  titleSection: {
-    margin: 5,
-    fontSize: 16,
-    fontWeight: "bold",
-  },
   webview: {
-    margin: 5,
+    marginHorizontal: 5,
   },
 });
 

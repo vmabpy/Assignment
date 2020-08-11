@@ -39,3 +39,9 @@ export const changePassword = (params) => {
 export const getMe = () => {
   return request.get("/user/me");
 };
+
+export const checkOwnCourse = (params) => {
+  const { courseId } = params;
+  console.log(`/user/check-own-course/${courseId}`, "TAKE A LOOK");
+  return request.get(`/user/check-own-course/${courseId}`);
+};

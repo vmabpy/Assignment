@@ -17,6 +17,7 @@ function* userRootSagas() {
     yield takeLatest(UserTypes.UPDATE_INFO_REQUEST, updateInfoUser),
     yield takeLatest(UserTypes.CHANGE_PASSWORD_REQUEST, changePassword),
     yield takeLatest(UserTypes.GET_ME_REQUEST, getMeInfo),
+    yield takeLatest(UserTypes.CHECK_OWN_COURSE_REQUEST, checkOwnCourse),
     yield takeLatest(UserTypes.LOGOUT, logout),
   ]);
 }
@@ -161,6 +162,23 @@ function* changePassword({ params, actionSuccess }) {
     yield put(AppActions.hideIndicator());
   } catch (error) {
     yield put(UserActions.changePasswordFailure());
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
+}
+
+function* checkOwnCourse({ params, actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const { payload } = yield call(api.checkOwnCourse, params);
+    yield put(UserActions.checkOwnCourseSuccess(payload));
+    if (actionSuccess) {
+      actionSuccess(payload);
+    }
+    yield put(AppActions.hideIndicator());
+  } catch (error) {
+    console.log(error, "HERE");
+    yield put(UserActions.checkOwnCourseFailure());
     yield put(AppActions.hideIndicator());
     yield put(AppActions.showError(error.message));
   }

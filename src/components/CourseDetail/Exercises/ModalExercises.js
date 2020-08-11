@@ -20,6 +20,7 @@ const ModalExercises = (props) => {
   const [execises, setExercise] = useState([]);
   const [exercisesList, setExercisesList] = useState(undefined);
   const { checkExercise, getListExercises } = props;
+
   useEffect(() => {
     if (itemLesson.id) {
       const params = {
@@ -27,11 +28,13 @@ const ModalExercises = (props) => {
       };
       checkExercise(params, (res) => {
         setExercise(res.exercises);
+        setExercisesList(undefined);
       });
     }
-  }, [itemLesson.id]);
+  }, [checkExercise, itemLesson.id, getListExercises]);
+
   const handleShowExercises = () => {
-    if (execises[0].id) {
+    if (execises.length && execises[0].id) {
       const _params = {
         exerciseId: execises[0].id,
       };
@@ -103,8 +106,8 @@ const ModalExercises = (props) => {
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    // marginTop: Constants.statusBarHeight,
-    marginTop: 60,
+    marginTop: Constants.statusBarHeight,
+    // marginTop: 80,
   },
   modalView: {
     flex: 1,

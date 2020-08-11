@@ -39,6 +39,10 @@ const { Types, Creators } = createActions({
   getMeSuccess: ["userMe"],
   getMeFailure: null,
 
+  checkOwnCourseRequest: ["params", "actionSuccess"],
+  checkOwnCourseSuccess: null,
+  checkOwnCourseFailure: null,
+
   logout: ["actionSuccess"],
 });
 
@@ -164,6 +168,18 @@ const getMeFailure = (state) => {
   return state.merge({});
 };
 
+const checkOwnCourseRequest = (state) => {
+  return state.merge({});
+};
+
+const checkOwnCourseSuccess = (state) => {
+  return state.merge({});
+};
+
+const checkOwnCourseFailure = (state) => {
+  return state.merge({});
+};
+
 const logout = (state) => {
   return INITIAL_STATE;
 };
@@ -205,6 +221,10 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_ME_REQUEST]: getMeRequest,
   [Types.GET_ME_SUCCESS]: getMeSuccess,
   [Types.GET_ME_FAILURE]: getMeFailure,
+
+  [Types.CHECK_OWN_COURSE_REQUEST]: checkOwnCourseRequest,
+  [Types.CHECK_OWN_COURSE_SUCCESS]: checkOwnCourseSuccess,
+  [Types.CHECK_OWN_COURSE_FAILURE]: checkOwnCourseFailure,
 
   [Types.LOGOUT]: logout,
 });
