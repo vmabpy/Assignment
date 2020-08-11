@@ -4,7 +4,7 @@ import { padding } from "../../../globals/constants";
 import ListLessonItem from "../ListLessonItem/list-lesson-item";
 
 const ListLesson = (props) => {
-  const { data = [] } = props;
+  const { data = [], ownCourse } = props;
   const dataList = data.map((item) => ({
     id: item.id,
     courseId: item.courseId,
@@ -27,7 +27,11 @@ const ListLesson = (props) => {
         sections={dataList.map((item, index) => ({ ...item, index }))}
         // sections={dataList}
         renderItem={({ item }) => (
-          <ListLessonItem item={item} handleClick={props.handleClick} />
+          <ListLessonItem
+            item={item}
+            handleClick={props.handleClick}
+            ownCourse={ownCourse}
+          />
         )}
         renderSectionHeader={({ section: { title, index } }) => {
           return (

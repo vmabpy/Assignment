@@ -18,6 +18,7 @@ const ICONCLOSE = require("../../assets/ic_close.png");
 const ICONHOMEWORK = require("../../assets/ic_homework.png");
 const ICONEXERCISE = require("../../assets/ic_purpose.png");
 const ICONPATH = require("../../assets/ic_related_path.png");
+const ICONPREVIEW = require("../../assets/ic_preview.png");
 export {
   BackIcon,
   ICONAPP,
@@ -39,4 +40,5 @@ export {
   ICONHOMEWORK,
   ICONEXERCISE,
   ICONPATH,
+  ICONPREVIEW,
 };

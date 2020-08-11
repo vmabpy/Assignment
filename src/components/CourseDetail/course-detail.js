@@ -191,7 +191,11 @@ const CourseDetail = (props) => {
               itemReview={review[1]}
               handleReviewItem={handleReviewItem}
             />
-            <ListLesson data={dataDetail.section} handleClick={handleClick} />
+            <ListLesson
+              data={dataDetail.section}
+              handleClick={handleClick}
+              ownCourse={ownCourse}
+            />
             <ModalExercises
               itemLesson={itemLesson}
               modalVisible={visibleModalEx}
