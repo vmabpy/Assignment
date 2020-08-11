@@ -24,7 +24,7 @@ import loGet from "lodash/get";
 import CourseActions from "../../redux/courseRedux";
 import UserActions from "../../redux/userRedux";
 import WebView from "react-native-webview";
-import { ICONSHARE, ICONCLOSE } from "../../config/icon";
+import { ICONSHARE, ICONEXERCISE, ICONPATH } from "../../config/icon";
 import StarRating from "react-native-star-rating";
 import { Ionicons } from "@expo/vector-icons";
 import AveragePoint from "../../config/function/averagePoint";
@@ -87,12 +87,12 @@ const CourseDetail = (props) => {
   const review = [
     {
       id: 0,
-      imageRoute: require("../../../assets/ic_purpose.png"),
+      imageRoute: ICONEXERCISE,
       title: "Take exercises with this lesson",
     },
     {
       id: 1,
-      imageRoute: require("../../../assets/ic_related_path.png"),
+      imageRoute: ICONPATH,
       title: "View related path and course",
     },
   ];
