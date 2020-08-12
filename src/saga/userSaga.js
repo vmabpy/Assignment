@@ -177,7 +177,6 @@ function* checkOwnCourse({ params, actionSuccess }) {
     }
     yield put(AppActions.hideIndicator());
   } catch (error) {
-    console.log(error, "HERE");
     yield put(UserActions.checkOwnCourseFailure());
     yield put(AppActions.hideIndicator());
     yield put(AppActions.showError(error.message));

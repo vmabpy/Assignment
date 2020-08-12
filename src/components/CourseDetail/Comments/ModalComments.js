@@ -25,6 +25,7 @@ const ModalComments = (props) => {
     dataComments = {},
     modalVisibleComments,
     handleModalVisibleComments,
+    commentCourse,
   } = props;
 
   const [value, onChangeText] = useState("");
@@ -52,7 +53,13 @@ const ModalComments = (props) => {
       presentationPoint: pointPre,
       content: value,
     };
-    console.log(params, "comment");
+    commentCourse(params, () => {
+      onChangeText("");
+      setPointContent(0);
+      setPointFormal(0);
+      setPointPre(0);
+      handleModalVisibleComments();
+    });
   };
   return (
     <View style={{ ...styles.centeredView }}>
@@ -257,5 +264,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({});
-const mapDispatchTopProps = (dispatch) => ({});
+const mapDispatchTopProps = (dispatch) => ({
+  commentCourse: (params, actionSuccess) =>
+    dispatch(CourseActions.commentCourseRequest(params, actionSuccess)),
+});
 export default connect(mapStateToProps, mapDispatchTopProps)(ModalComments);

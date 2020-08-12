@@ -89,7 +89,7 @@ const CourseDetail = (props) => {
         setOwnCourse(res.isUserOwnCourse);
       });
     }
-  }, [id, getCourseDetail, checkOwnCourse]);
+  }, [id, getCourseDetail, checkOwnCourse, visibleModalComment]);
   const review = [
     {
       id: 0,
