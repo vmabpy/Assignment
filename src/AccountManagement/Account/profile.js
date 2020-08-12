@@ -1,14 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  Image,
-  ScrollView,
-  RefreshControl,
-  useCallback,
-  SafeAreaView,
-} from "react-native";
+import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
 import Button from "../../components/Common/button";
 import { connect } from "react-redux";
 import loGet from "lodash/get";
@@ -19,7 +10,7 @@ import {
   ICONACCOUNT,
   ICONMAIL,
   ICONLOGOUT,
-  ICONSETTING,
+  ICONDOWNLOAD,
 } from "../../config/icon";
 import ListCoursesItem from "../../components/Courses/ListCoursesItem/list-courses-item";
 import ProfileItem from "./profileItem";
@@ -64,9 +55,8 @@ const Profile = (props) => {
     },
     {
       id: 4,
-      icon: ICONSETTING,
-      title: "Version",
-      appVersion: "1.0.0",
+      icon: ICONDOWNLOAD,
+      title: "Download Courses",
     },
     {
       id: 5,

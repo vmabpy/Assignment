@@ -43,16 +43,15 @@ const styles = StyleSheet.create({
   },
   iconNext: {
     position: "absolute",
-    justifyContent: "flex-end",
     width: 20,
     height: 20,
     right: 10,
   },
   textNext: {
     position: "absolute",
-    justifyContent: "flex-end",
     color: "#417AF9",
     right: 15,
+    fontWeight: "bold",
   },
 });
 
