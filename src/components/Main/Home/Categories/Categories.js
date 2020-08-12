@@ -11,7 +11,7 @@ import CategoriesItem from "../CategoriesItem/CategoriesItem";
 import { connect } from "react-redux";
 import loGet from "lodash/get";
 import CourseActions from "../../../../redux/courseRedux";
-import { ICONPROFILE } from "../../../../config/icon";
+import { ICONPROFILE, ICONSETTING } from "../../../../config/icon";
 
 const Categories = (props) => {
   const [data, setData] = useState([]);
@@ -30,6 +30,17 @@ const Categories = (props) => {
             source={userInfo.avatar ? { uri: userInfo.avatar } : ICONPROFILE}
             style={styles.image}
           />
+        </View>
+      </TouchableOpacity>
+    ),
+    headerLeft: () => (
+      <TouchableOpacity
+        onPress={() => {
+          props.navigation.navigate("Setting");
+        }}
+      >
+        <View style={{ marginLeft: 20 }}>
+          <Image source={ICONSETTING} style={styles.imageSetting} />
         </View>
       </TouchableOpacity>
     ),
@@ -78,6 +89,10 @@ const styles = StyleSheet.create({
     height: 30,
     width: 30,
     borderRadius: 15,
+  },
+  imageSetting: {
+    height: 20,
+    width: 20,
   },
 });
 

@@ -8,6 +8,7 @@ import {
   RelatedCourses,
   Changepassword,
   UpdateInfoUser,
+  Setting,
 } from "../components/Main/Home";
 const Stack = createStackNavigator();
 
@@ -33,6 +34,7 @@ const HomeStackNavigation = () => {
         component={RelatedCourses}
         options={{ title: "Related Courses" }}
       />
+      <Stack.Screen name="Setting" component={Setting} />
     </Stack.Navigator>
   );
 };

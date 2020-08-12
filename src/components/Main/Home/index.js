@@ -5,7 +5,7 @@ import CoursesInCategory from "./CoursesInCategory/CoursesInCategory";
 import Changepassword from "../../../AccountManagement/Account/changePassword";
 import UpdateInfoUser from "../../../AccountManagement/Account/updateInfoUser";
 import RelatedCourses from "../../Courses/RelatedCourses/RelatedCourses";
-
+import Setting from "../../../AccountManagement/Account/Setting/Setting";
 export {
   Categories,
   CourseDetail,
@@ -14,4 +14,5 @@ export {
   RelatedCourses,
   Changepassword,
   UpdateInfoUser,
+  Setting,
 };
