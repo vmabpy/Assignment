@@ -25,9 +25,9 @@ import WebView from "react-native-webview";
 import { ICONSHARE, ICONEXERCISE, ICONPATH } from "../../config/icon";
 import StarRating from "react-native-star-rating";
 import ModalExercises from "./Exercises/ModalExercises";
+import ModalComments from "./Comments/ModalComments";
 
 const CourseDetail = (props) => {
-  const [urlVideo, setUrlVideo] = useState(undefined);
   const {
     route: { params },
     getCourseDetail,
@@ -69,9 +69,11 @@ const CourseDetail = (props) => {
     ),
   });
 
+  const [urlVideo, setUrlVideo] = useState(undefined);
   const [dataDetail, setDataDetail] = useState(undefined);
   const [itemLesson, setItemLesson] = useState(undefined);
   const [visibleModalEx, setVisibleModalEx] = useState(false);
+  const [visibleModalComment, setVisibleModalComment] = useState(false);
   const [ownCourse, setOwnCourse] = useState(false);
   useEffect(() => {
     if (id) {
@@ -140,6 +142,10 @@ const CourseDetail = (props) => {
     setVisibleModalEx((visible) => !visible);
   };
 
+  const handleVisibleModalComment = () => {
+    setVisibleModalComment((visible) => !visible);
+  };
+
   const handleReviewItem = (itemReview) => {
     if (itemReview.id === 1) {
       const relatedCourses = dataDetail.coursesLikeCategory
@@ -149,6 +155,10 @@ const CourseDetail = (props) => {
     } else if (itemReview.id === 0) {
       setVisibleModalEx(true);
     }
+  };
+
+  const handleShowComments = () => {
+    setVisibleModalComment(true);
   };
   return dataDetail ? (
     <View style={styles.container}>
@@ -180,6 +190,14 @@ const CourseDetail = (props) => {
                 starSize={20}
                 containerStyle={{ marginLeft: padding._5 }}
               />
+              <TouchableOpacity
+                style={styles.comment}
+                onPress={handleShowComments}
+              >
+                <Text style={{ color: "blue" }}>
+                  ({dataDetail.ratedNumber})
+                </Text>
+              </TouchableOpacity>
             </View>
 
             <ListOption item={dataDetail} handleOption={handleOption} />
@@ -200,6 +218,12 @@ const CourseDetail = (props) => {
               itemLesson={itemLesson}
               modalVisible={visibleModalEx}
               handleModalVisible={handleVisibleModal}
+            />
+            <ModalComments
+              dataComments={dataDetail}
+              ownCourse={ownCourse}
+              modalVisibleComments={visibleModalComment}
+              handleModalVisibleComments={handleVisibleModalComment}
             />
           </ScrollView>
         </View>
@@ -267,7 +291,10 @@ const styles = StyleSheet.create({
     height: 20,
     width: 20,
   },
-
+  comment: {
+    marginLeft: 5,
+    paddingHorizontal: 5,
+  },
   modalView: {
     flex: 1,
     marginTop: 30,

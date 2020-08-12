@@ -18,6 +18,7 @@ function* courseRootSaga() {
     yield takeLatest(CourseTypes.PAYMENT_COURSE_REQUEST, paymentCourses),
     yield takeLatest(CourseTypes.LIST_EXERCISES_LESSON_REQUEST, listExercises),
     yield takeLatest(CourseTypes.EXERCISES_TEST_REQUEST, exercisesTest),
+    yield takeLatest(CourseTypes.COMMENT_COURSE_REQUEST, commentCourse),
   ]);
 }
 
@@ -209,8 +210,23 @@ function* exercisesTest({ params, actionSuccess }) {
     }
     yield put(AppActions.hideIndicator());
   } catch (error) {
-    console.log(JSON.stringify(error));
     yield put(CourseActions.exercisesTestFailure());
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
+}
+
+function* commentCourse({ params, actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const response = yield call(api.commentCourse, params);
+    yield put(CourseActions.commentCourseSuccess(response));
+    if (actionSuccess) {
+      actionSuccess(response);
+    }
+    yield put(AppActions.hideIndicator());
+  } catch (error) {
+    yield put(CourseActions.commentCourseFailure());
     yield put(AppActions.hideIndicator());
     yield put(AppActions.showError(error.message));
   }

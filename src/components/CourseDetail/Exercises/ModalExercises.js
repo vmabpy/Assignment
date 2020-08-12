@@ -107,7 +107,6 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     marginTop: Constants.statusBarHeight,
-    // marginTop: 80,
   },
   modalView: {
     flex: 1,

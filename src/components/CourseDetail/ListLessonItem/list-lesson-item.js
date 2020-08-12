@@ -1,6 +1,5 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { padding } from "../../../globals/constants";
 import { ICONPREVIEW } from "../../../config/icon";
 
 const ListLessonItem = (props) => {
@@ -19,8 +18,10 @@ const ListLessonItem = (props) => {
       ) : (
         <View style={styles.viewCircle}></View>
       )}
-      <Text style={styles.titleItem}>{item.name}</Text>
-      <Text style={styles.titleTime}>{item.hours}</Text>
+      <View style={styles.content}>
+        <Text style={styles.title}>{item.name}</Text>
+        <Text style={styles.titleTime}>{item.hours}</Text>
+      </View>
     </TouchableOpacity>
   );
 };
@@ -28,8 +29,8 @@ const ListLessonItem = (props) => {
 const styles = StyleSheet.create({
   containerView: {
     flexDirection: "row",
-    margin: padding._10,
-    height: 40,
+    margin: 10,
+    padding: 5,
     alignItems: "center",
   },
   viewCircle: {
@@ -42,12 +43,15 @@ const styles = StyleSheet.create({
     height: 20,
     width: 20,
   },
-  titleItem: {
-    marginLeft: 20,
+  content: {
+    flex: 1,
+    flexDirection: "row",
+    marginLeft: 5,
   },
+  title: { flex: 0.9 },
   titleTime: {
-    position: "absolute",
-    right: 0,
+    flex: 0.1,
+    marginRight: 5,
   },
 });
 

@@ -60,3 +60,7 @@ export const exercisesTest = (params) => {
     queryString.stringify(params)
   );
 };
+
+export const commentCourse = (params) => {
+  return request.post("/course/rating-course", params);
+};

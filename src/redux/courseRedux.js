@@ -49,6 +49,10 @@ const { Types, Creators } = createActions({
   exercisesTestRequest: ["params", "actionSuccess"],
   exercisesTestSuccess: null,
   exercisesTestFailure: null,
+
+  commentCourseRequest: ["params", "actionSuccess"],
+  commentCourseSuccess: null,
+  commentCourseFailure: null,
 });
 
 export const CourseTypes = Types;
@@ -206,6 +210,19 @@ const exercisesTestSuccess = (state) => {
 const exercisesTestFailure = (state) => {
   return state.merge({});
 };
+
+const commentCourseRequest = (state) => {
+  return state.merge({});
+};
+
+const commentCourseSuccess = (state) => {
+  return state.merge({});
+};
+
+const commentCourseFailure = (state) => {
+  return state.merge({});
+};
+
 /* ------------- Hookup Reducers To Types ------------- */
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_CATEGORIES_REQUEST]: getCategoriesRequest,
@@ -255,4 +272,8 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.EXERCISES_TEST_REQUEST]: exercisesTestRequest,
   [Types.EXERCISES_TEST_SUCCESS]: exercisesTestSuccess,
   [Types.EXERCISES_TEST_FAILURE]: exercisesTestFailure,
+
+  [Types.COMMENT_COURSE_REQUEST]: commentCourseRequest,
+  [Types.COMMENT_COURSE_SUCCESS]: commentCourseSuccess,
+  [Types.COMMENT_COURSE_FAILURE]: commentCourseFailure,
 });
