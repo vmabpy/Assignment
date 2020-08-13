@@ -1,27 +1,37 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import debounce from "lodash/debounce";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { GRAY, BLACK } from "../../../config/color";
 import { Ionicons } from "@expo/vector-icons";
+import { connect } from "react-redux";
+import loGet from "lodash/get";
 
 const SearchBar = (props) => {
   const [text, setText] = useState("");
   const textInput = useRef(null);
+  const { tokenSave, updateData, useFor, search } = props;
+  const [data, setData] = useState({});
 
   const handleOnPressClearText = () => {
     setText("");
   };
   const debounceSearchCourses = debounce(
     (value) =>
-      props.search(
+      search(
         {
+          token: tokenSave,
           keyword: value,
           limit: props.limit,
           offset: props.offset,
         },
         (res) => {
-          props.updateData(res);
+          setData(res);
+          if (useFor) {
+            updateData(res.courses);
+          } else {
+            updateData(res.instructors);
+          }
         }
       ),
     500
@@ -30,6 +40,14 @@ const SearchBar = (props) => {
     setText(_text);
     debounceSearchCourses(_text);
   };
+
+  useEffect(() => {
+    if (useFor) {
+      updateData(data.courses);
+    } else {
+      updateData(data.instructors);
+    }
+  }, [useFor]);
 
   return (
     <View style={styles.container}>
@@ -45,7 +63,7 @@ const SearchBar = (props) => {
           style={styles.input}
           onChangeText={searchCourses}
           defaultValue={text}
-          placeholder="Seach course ..."
+          placeholder="Seach ..."
           autoFocus={true}
         />
         {text !== "" && (
@@ -90,4 +108,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchBar;
+//get data
+const mapStateToProps = (state) => ({
+  tokenSave: loGet(state, ["user", "token"]),
+});
+
+//call api to get response
+const mapDispatchToProps = (dispatch) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

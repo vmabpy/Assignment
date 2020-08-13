@@ -9,7 +9,11 @@ const CommentItem = (props) => {
     <View style={styles.container}>
       <Image
         style={styles.avatar}
-        source={item.user.avatar ? { uri: item.user.avatar } : ICONPROFILE}
+        source={
+          item.user.avatar.includes("https")
+            ? { uri: item.user.avatar }
+            : ICONPROFILE
+        }
       />
       <View style={styles.content}>
         <Text style={styles.name}>{item.user.name}</Text>

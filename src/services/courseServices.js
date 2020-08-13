@@ -37,7 +37,7 @@ export const getTutorDetail = (params) => {
 };
 
 export const searchCourses = (params) => {
-  return request.post("/course/search", params);
+  return request.post("/course/searchV2", params);
 };
 
 export const paymentCourse = (params) => {

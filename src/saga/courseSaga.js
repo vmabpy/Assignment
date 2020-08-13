@@ -153,10 +153,10 @@ function* getTutorDetail({ params, actionSuccess }) {
 function* searchCourses({ params, actionSuccess }) {
   yield put(AppActions.showIndicator());
   try {
-    const response = yield call(api.searchCourses, params);
+    const { payload } = yield call(api.searchCourses, params);
     yield put(CourseActions.searchCoursesSuccess(params.keyword));
     if (actionSuccess) {
-      actionSuccess(response);
+      actionSuccess(payload);
     }
     yield put(AppActions.hideIndicator());
   } catch (error) {
