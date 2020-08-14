@@ -53,6 +53,14 @@ const { Types, Creators } = createActions({
   commentCourseRequest: ["params", "actionSuccess"],
   commentCourseSuccess: null,
   commentCourseFailure: null,
+
+  getRecentSearchRequest: ["actionSuccess"],
+  getRecentSearchSuccess: ["recentSearch"],
+  getRecentSearchFailure: null,
+
+  deleteSearchRequest: ["params", "actionSuccess"],
+  deleteSearchSuccess: null,
+  deleteSearchFailure: null,
 });
 
 export const CourseTypes = Types;
@@ -64,6 +72,7 @@ export const INITIAL_STATE = Immutable({
   inputSearch: undefined,
   searchResults: undefined,
   historiesSearch: [],
+  recentSearch: [],
 });
 
 /* ------------- Reducers ------------- */
@@ -224,6 +233,29 @@ const commentCourseFailure = (state) => {
   return state.merge({});
 };
 
+const getRecentSearchRequest = (state) => {
+  return state.merge({});
+};
+
+const getRecentSearchSuccess = (state, { recentSearch }) => {
+  return state.merge({ recentSearch });
+};
+
+const getRecentSearchFailure = (state) => {
+  return state.merge({});
+};
+
+const deleteSearchRequest = (state) => {
+  return state.merge({});
+};
+
+const deleteSearchSuccess = (state) => {
+  return state.merge({});
+};
+
+const deleteSearchFailure = (state) => {
+  return state.merge({});
+};
 /* ------------- Hookup Reducers To Types ------------- */
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_CATEGORIES_REQUEST]: getCategoriesRequest,
@@ -277,4 +309,12 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.COMMENT_COURSE_REQUEST]: commentCourseRequest,
   [Types.COMMENT_COURSE_SUCCESS]: commentCourseSuccess,
   [Types.COMMENT_COURSE_FAILURE]: commentCourseFailure,
+
+  [Types.GET_RECENT_SEARCH_REQUEST]: getRecentSearchRequest,
+  [Types.GET_RECENT_SEARCH_SUCCESS]: getRecentSearchSuccess,
+  [Types.GET_RECENT_SEARCH_FAILURE]: getRecentSearchFailure,
+
+  [Types.DELETE_SEARCH_REQUEST]: deleteSearchRequest,
+  [Types.DELETE_SEARCH_SUCCESS]: deleteSearchSuccess,
+  [Types.DELETE_SEARCH_FAILURE]: deleteSearchFailure,
 });

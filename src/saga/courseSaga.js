@@ -231,4 +231,36 @@ function* commentCourse({ params, actionSuccess }) {
     yield put(AppActions.showError(error.message));
   }
 }
+
+function* getRencentRecent({ actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const { payload } = yield call(api.getRecentSearch);
+    yield put(CourseActions.getRecentSearchSuccess(payload.data));
+    if (actionSuccess) {
+      actionSuccess(payload);
+    }
+    yield put(AppActions.hideIndicator());
+  } catch (error) {
+    yield put(CourseActions.getRecentSearchFailure());
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
+}
+
+function* deleSearchItem({ params, actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const response = yield call(api.deleteSearchHistory, params);
+    yield put(CourseActions.deleteSearchSuccess(response));
+    if (actionSuccess) {
+      actionSuccess(response);
+    }
+    yield put(AppActions.hideIndicator());
+  } catch (error) {
+    yield put(CourseActions.deleteSearchFailure());
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
+}
 export default courseRootSaga;

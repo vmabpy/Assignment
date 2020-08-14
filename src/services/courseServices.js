@@ -64,3 +64,12 @@ export const exercisesTest = (params) => {
 export const commentCourse = (params) => {
   return request.post("/course/rating-course", params);
 };
+
+export const getRecentSearch = () => {
+  return request.get("/course/search-history");
+};
+
+export const deleteSearchHistory = (params) => {
+  const { id } = params;
+  return request.delete(`/course/delete-search-history/${id}`);
+};

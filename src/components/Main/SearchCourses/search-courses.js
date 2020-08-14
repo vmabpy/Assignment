@@ -13,6 +13,7 @@ import CourseActions from "../../../redux/courseRedux";
 import ListCoursesItem from "../../Courses/ListCoursesItem/list-courses-item";
 import { Ionicons } from "@expo/vector-icons";
 import ListAuthorItem from "./ListAuthorItem";
+import ItemRecentSearch from "./ItemRecentSearch";
 
 const SearchCourse = (props) => {
   const [page, setPage] = useState(1);
@@ -30,6 +31,8 @@ const SearchCourse = (props) => {
   const onPressItemTutor = (item) => {
     props.navigation.navigate("AuthorDetail", { item });
   };
+
+  const onPressDeleteItemSearch = (item) => {};
 
   const updateData = (data = {}) => {
     setDataSearch(data);
@@ -198,7 +201,20 @@ const SearchCourse = (props) => {
           )}
         </View>
       ) : (
-        <Text>Hello</Text>
+        <View style={styles.viewEmpty}>
+          <Text style={styles.titleRecent}>Recent searches</Text>
+          <FlatList
+            data={[]}
+            renderItem={({ item }) => (
+              <ItemRecentSearch
+                item={item}
+                onPressDeleteItemSearch={onPressDeleteItemSearch}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+            ItemSeparatorComponent={FlatListItemSeparator}
+          />
+        </View>
       )}
     </View>
   );
@@ -245,6 +261,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
+  },
+  viewEmpty: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  titleRecent: {
+    fontSize: 12,
+    fontWeight: "bold",
+    paddingVertical: 10,
   },
 });
 
