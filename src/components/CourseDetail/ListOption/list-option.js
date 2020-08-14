@@ -5,11 +5,16 @@ import { connect } from "react-redux";
 import loGet from "lodash/get";
 import UserActions from "../../../redux/userRedux";
 import CourseActions from "../../../redux/courseRedux";
-import { ICONFAVORITE, ICONDOWNLOAD, ICONPAYMENT } from "../../../config/icon";
+import {
+  ICONFAVORITE,
+  ICONDOWNLOAD,
+  ICONPAYMENT,
+  ICONCHECKED,
+} from "../../../config/icon";
 import { stringify } from "querystring";
 
 const ListOption = (props) => {
-  let { item = {} } = props;
+  let { item = {}, ownCourse } = props;
   const options = [
     {
       id: 1,
@@ -23,8 +28,8 @@ const ListOption = (props) => {
     },
     {
       id: 3,
-      imageRoute: ICONPAYMENT,
-      title: item.price === 0 ? "Joining" : "Paying",
+      imageRoute: ownCourse ? ICONCHECKED : ICONPAYMENT,
+      title: item.price === 0 ? (ownCourse ? "Joined" : "Joining") : "Paying",
     },
   ];
 

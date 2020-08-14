@@ -124,14 +124,18 @@ const CourseDetail = (props) => {
         const params = {
           courseId: item.id,
         };
-        joinCourse(params, () => {
-          const _paramsOwn = {
-            courseId: item.id,
-          };
-          checkOwnCourse(_paramsOwn, (res) => {
-            setOwnCourse(res.isUserOwnCourse);
+        if (ownCourse) {
+          Alert.alert("Remind", "Already joining in course!");
+        } else {
+          joinCourse(params, () => {
+            const _paramsOwn = {
+              courseId: item.id,
+            };
+            checkOwnCourse(_paramsOwn, (res) => {
+              setOwnCourse(res.isUserOwnCourse);
+            });
           });
-        });
+        }
       } else {
         setVisibleWeb(true);
       }
@@ -200,7 +204,11 @@ const CourseDetail = (props) => {
               </TouchableOpacity>
             </View>
 
-            <ListOption item={dataDetail} handleOption={handleOption} />
+            <ListOption
+              item={dataDetail}
+              handleOption={handleOption}
+              ownCourse={ownCourse}
+            />
             <ReviewItem
               itemReview={review[0]}
               handleReviewItem={handleReviewItem}
@@ -214,17 +222,22 @@ const CourseDetail = (props) => {
               handleClick={handleClick}
               ownCourse={ownCourse}
             />
-            <ModalExercises
-              itemLesson={itemLesson}
-              modalVisible={visibleModalEx}
-              handleModalVisible={handleVisibleModal}
-            />
-            <ModalComments
-              dataComments={dataDetail}
-              ownCourse={ownCourse}
-              modalVisibleComments={visibleModalComment}
-              handleModalVisibleComments={handleVisibleModalComment}
-            />
+            {visibleModalEx && (
+              <ModalExercises
+                itemLesson={itemLesson}
+                modalVisible={visibleModalEx}
+                handleModalVisible={handleVisibleModal}
+              />
+            )}
+
+            {visibleModalComment && (
+              <ModalComments
+                dataComments={dataDetail}
+                ownCourse={ownCourse}
+                modalVisibleComments={visibleModalComment}
+                handleModalVisibleComments={handleVisibleModalComment}
+              />
+            )}
           </ScrollView>
         </View>
       ) : (

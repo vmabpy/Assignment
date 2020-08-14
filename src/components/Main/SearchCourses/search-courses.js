@@ -30,8 +30,6 @@ const SearchCourse = (props) => {
     deleteRecentSearch,
   } = props;
 
-  console.log(recentSearch, "RECENTSEARCH");
-
   const onPressListItem = (item) => {
     props.navigation.navigate("CourseDetail", { item });
   };

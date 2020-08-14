@@ -22,6 +22,7 @@ const ICONPREVIEW = require("../../assets/ic_preview.png");
 const ICONLANGUAGE = require("../../assets/ic_language.png");
 const ICONFEEDBACK = require("../../assets/ic_feedback.png");
 const ICONTHEME = require("../../assets/ic_theme.png");
+const ICONCHECKED = require("../../assets/ic_check.png");
 export {
   BackIcon,
   ICONAPP,
@@ -47,4 +48,5 @@ export {
   ICONLANGUAGE,
   ICONFEEDBACK,
   ICONTHEME,
+  ICONCHECKED,
 };
