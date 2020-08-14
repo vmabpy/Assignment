@@ -8,12 +8,12 @@ const ItemRecentSearch = (props) => {
     <View style={styles.container}>
       <Text>{item.content}</Text>
       <TouchableOpacity
-        style={styles.image}
+        style={{ marginRight: 10 }}
         onPress={() => {
           props.onPressDeleteItemSearch(props.item);
         }}
       >
-        <Image source={ICONCLOSE} />
+        <Image style={styles.image} source={ICONCLOSE} />
       </TouchableOpacity>
     </View>
   );
@@ -25,10 +25,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    padding: 10,
   },
   image: {
-    height: 20,
-    width: 20,
+    height: 10,
+    width: 10,
   },
 });
 

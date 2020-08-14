@@ -22,7 +22,15 @@ const SearchCourse = (props) => {
   const [dataSearch, setDataSearch] = useState({});
   const [dataWillShow, setDataWillShow] = useState([]);
   const [useFor, setUseFor] = useState(true);
-  const { tokenSave, searchResults } = props;
+  const {
+    tokenSave,
+    searchResults,
+    recentSearch,
+    rencentInSearch,
+    deleteRecentSearch,
+  } = props;
+
+  console.log(recentSearch, "RECENTSEARCH");
 
   const onPressListItem = (item) => {
     props.navigation.navigate("CourseDetail", { item });
@@ -32,7 +40,12 @@ const SearchCourse = (props) => {
     props.navigation.navigate("AuthorDetail", { item });
   };
 
-  const onPressDeleteItemSearch = (item) => {};
+  const onPressDeleteItemSearch = (item) => {
+    const params = { id: item.id };
+    deleteRecentSearch(params, () => {
+      rencentInSearch();
+    });
+  };
 
   const updateData = (data = {}) => {
     setDataSearch(data);
@@ -105,7 +118,7 @@ const SearchCourse = (props) => {
   //   }
   // };
 
-  useEffect(() => {}, [useFor]);
+  useEffect(() => {}, [useFor, rencentInSearch]);
   return (
     <View style={styles.container}>
       <SearchBar
@@ -204,7 +217,7 @@ const SearchCourse = (props) => {
         <View style={styles.viewEmpty}>
           <Text style={styles.titleRecent}>Recent searches</Text>
           <FlatList
-            data={[]}
+            data={recentSearch}
             renderItem={({ item }) => (
               <ItemRecentSearch
                 item={item}
@@ -214,6 +227,7 @@ const SearchCourse = (props) => {
             keyExtractor={(item) => item.id}
             ItemSeparatorComponent={FlatListItemSeparator}
           />
+          {/* <Text>{recentSearch.length}</Text> */}
         </View>
       )}
     </View>
@@ -267,8 +281,9 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   titleRecent: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: "bold",
+    marginLeft: 10,
     paddingVertical: 10,
   },
 });
@@ -277,9 +292,14 @@ const mapStateToProps = (state) => ({
   searchResults: loGet(state, ["course", "searchResults"], {}),
   inputSearch: loGet(state, ["course", "inputSearch"], undefined),
   tokenSave: loGet(state, ["user", "token"]),
+  recentSearch: loGet(state, ["course", "recentSearch"], []),
 });
 const mapDispatchTopProps = (dispatch) => ({
   search: (params, actionSuccess) =>
     dispatch(CourseActions.searchCoursesRequest(params, actionSuccess)),
+  rencentInSearch: (actionSuccess) =>
+    dispatch(CourseActions.getRecentSearchRequest(actionSuccess)),
+  deleteRecentSearch: (params, actionSuccess) =>
+    dispatch(CourseActions.deleteSearchRequest(params, actionSuccess)),
 });
 export default connect(mapStateToProps, mapDispatchTopProps)(SearchCourse);

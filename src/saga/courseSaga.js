@@ -19,6 +19,8 @@ function* courseRootSaga() {
     yield takeLatest(CourseTypes.LIST_EXERCISES_LESSON_REQUEST, listExercises),
     yield takeLatest(CourseTypes.EXERCISES_TEST_REQUEST, exercisesTest),
     yield takeLatest(CourseTypes.COMMENT_COURSE_REQUEST, commentCourse),
+    yield takeLatest(CourseTypes.GET_RECENT_SEARCH_REQUEST, getRencentSearch),
+    yield takeLatest(CourseTypes.DELETE_SEARCH_REQUEST, deleSearchItem),
   ]);
 }
 
@@ -232,7 +234,7 @@ function* commentCourse({ params, actionSuccess }) {
   }
 }
 
-function* getRencentRecent({ actionSuccess }) {
+function* getRencentSearch({ actionSuccess }) {
   yield put(AppActions.showIndicator());
   try {
     const { payload } = yield call(api.getRecentSearch);
@@ -240,6 +242,7 @@ function* getRencentRecent({ actionSuccess }) {
     if (actionSuccess) {
       actionSuccess(payload);
     }
+    console.log(payload);
     yield put(AppActions.hideIndicator());
   } catch (error) {
     yield put(CourseActions.getRecentSearchFailure());
