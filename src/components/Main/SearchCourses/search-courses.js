@@ -3,11 +3,8 @@ import {
   StyleSheet,
   View,
   FlatList,
-  RefreshControl,
   Text,
-  TouchableHighlight,
   TouchableOpacity,
-  Image,
 } from "react-native";
 import SearchBar from "./SearchBar";
 import { connect } from "react-redux";
@@ -16,21 +13,25 @@ import CourseActions from "../../../redux/courseRedux";
 import ListCoursesItem from "../../Courses/ListCoursesItem/list-courses-item";
 import { Ionicons } from "@expo/vector-icons";
 import ListAuthorItem from "./ListAuthorItem";
-import { update } from "immutable";
+
 const SearchCourse = (props) => {
-  const [reload, setReload] = useState(false);
   const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(0);
-  const [limitItem, setLimitItem] = useState(10);
+  const limitItem = 3;
   const [dataSearch, setDataSearch] = useState({});
   const [dataWillShow, setDataWillShow] = useState([]);
   const [useFor, setUseFor] = useState(true);
+  const { tokenSave, searchResults } = props;
 
   const onPressListItem = (item) => {
     props.navigation.navigate("CourseDetail", { item });
   };
 
-  const updateData = (data) => {
+  const onPressItemTutor = (item) => {
+    props.navigation.navigate("AuthorDetail", { item });
+  };
+
+  const updateData = (data = {}) => {
     setDataSearch(data);
     setDataWillShow(data.data || []);
   };
@@ -41,51 +42,123 @@ const SearchCourse = (props) => {
   };
 
   // const handleLoadMore = () => {
-  //   setPage(page + 1);
-  //   setOffset((page - 1) * limitItem);
-  //   const params = {
-  //     token: tokenSave,
-  //     keyword: inputSearch,
-  //     limit: limitItem,
-  //     offset: offset,
-  //   };
-  //   props.search(params, (res) => {
-  //     setDataSearch([...dataSearch, ...res.payload.courses]);
-  //   });
+  //   if (dataSearch.total >= dataWillShow.length) {
+  //     setPage(page + 1);
+  //     setOffset((page - 1) * limitItem);
+  //     const params = {
+  //       token: tokenSave,
+  //       keyword: inputSearch,
+  //       limit: limitItem,
+  //       offset: offset,
+  //     };
+  //     props.search(params, (res = {}) => {
+  //       console.log(res);
+  //       // setDataSearch((prevData) => {
+  //       //   const newData = {
+  //       //     courses: {
+  //       //       data: [...prevData.courses.data, ...res.courses.data],
+  //       //       totalInPage: res.totalInPage,
+  //       //       total: res.total,
+  //       //     },
+  //       //     instructors: {
+  //       //       data: [...prevData.instructors.data, ...res.instructors.data],
+  //       //       totalInPage: res.totalInPage,
+  //       //       total: res.total,
+  //       //     },
+  //       //   };
+  //       setDataSearch((prevData) => {
+  //         const newData = {
+  //           courses: {
+  //             data: [...prevData.courses.data, ...searchResults.courses.data],
+  //             totalInPage: res.totalInPage,
+  //             total: res.total,
+  //           },
+  //           instructors: {
+  //             data: [
+  //               ...prevData.instructors.data,
+  //               ...searchResults.instructors.data,
+  //             ],
+  //             totalInPage: res.totalInPage,
+  //             total: res.total,
+  //           },
+  //         };
+  //         return newData;
+  //       });
+  //       if (useFor) {
+  //         setDataWillShow((pre) => [
+  //           ...pre,
+  //           ...(searchResults.courses.data || []),
+  //         ]);
+  //       } else {
+  //         setDataWillShow((pre) => [
+  //           ...pre,
+  //           ...(searchResults.instructors.data || []),
+  //         ]);
+  //       }
+  //     });
+  //   } else {
+  //     setOffset(0);
+  //     setPage(1);
+  //   }
   // };
 
   useEffect(() => {}, [useFor]);
-
   return (
     <View style={styles.container}>
       <SearchBar
         useFor={useFor}
         search={props.search}
         limit={limitItem}
-        offset={props.offset}
+        offset={offset}
         updateData={updateData}
       />
 
       {inputSearch !== "" && inputSearch !== undefined ? (
         <View style={{ flex: 1 }}>
-          <View>
+          <View style={styles.listBtn}>
             <TouchableOpacity
+              style={
+                useFor
+                  ? { ...styles.button, backgroundColor: "white" }
+                  : styles.button
+              }
               onPress={() => {
                 setUseFor(true);
               }}
             >
-              <Text>Course</Text>
+              <Text
+                style={
+                  useFor
+                    ? { ...styles.titleBtn, color: "#417AF9" }
+                    : styles.titleBtn
+                }
+              >
+                Course
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              style={
+                !useFor
+                  ? { ...styles.button, backgroundColor: "white" }
+                  : styles.button
+              }
               onPress={() => {
                 setUseFor(false);
               }}
             >
-              <Text>Author</Text>
+              <Text
+                style={
+                  !useFor
+                    ? { ...styles.titleBtn, color: "#417AF9" }
+                    : styles.titleBtn
+                }
+              >
+                Author
+              </Text>
             </TouchableOpacity>
           </View>
           {dataWillShow.length > 0 ? (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, backgroundColor: "white" }}>
               {useFor ? (
                 <FlatList
                   data={dataWillShow}
@@ -106,7 +179,7 @@ const SearchCourse = (props) => {
                     <ListAuthorItem
                       navigation={props.navigation}
                       item={item}
-                      // onPressListItem={onPressListItem}
+                      onPressItemTutor={onPressItemTutor}
                     />
                   )}
                   keyExtractor={(item) => item.id}
@@ -155,26 +228,28 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "white",
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
   },
   button: {
     alignItems: "center",
     justifyContent: "center",
-    flex: 1,
-    padding: 10,
+    flex: 0.5,
+    paddingVertical: 10,
+    borderRadius: 10,
   },
   titleBtn: {
     fontSize: 12,
-    color: "blue",
+    fontWeight: "bold",
   },
   listBtn: {
-    flex: 1,
     flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
   },
 });
 
 const mapStateToProps = (state) => ({
-  searchResults: loGet(state, ["course", "searchResults"], []),
+  searchResults: loGet(state, ["course", "searchResults"], {}),
   inputSearch: loGet(state, ["course", "inputSearch"], undefined),
   tokenSave: loGet(state, ["user", "token"]),
 });

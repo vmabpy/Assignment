@@ -154,7 +154,7 @@ function* searchCourses({ params, actionSuccess }) {
   yield put(AppActions.showIndicator());
   try {
     const { payload } = yield call(api.searchCourses, params);
-    yield put(CourseActions.searchCoursesSuccess(params.keyword));
+    yield put(CourseActions.searchCoursesSuccess(payload, params.keyword));
     if (actionSuccess) {
       actionSuccess(payload);
     }

@@ -34,7 +34,7 @@ const SearchBar = (props) => {
           }
         }
       ),
-    500
+    1000
   );
   const searchCourses = (_text) => {
     setText(_text);
@@ -66,14 +66,14 @@ const SearchBar = (props) => {
           placeholder="Seach ..."
           autoFocus={true}
         />
-        {text !== "" && (
+        {/* {text !== "" && (
           <TouchableOpacity
             style={styles.button}
             onPress={handleOnPressClearText}
           >
             <MaterialIcons name="clear" size={18} color="gray" />
           </TouchableOpacity>
-        )}
+        )} */}
       </View>
     </View>
   );
@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
 //get data
 const mapStateToProps = (state) => ({
   tokenSave: loGet(state, ["user", "token"]),
+  searchResults: loGet(state, ["course", "searchResults"], {}),
 });
 
 //call api to get response

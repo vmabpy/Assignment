@@ -35,7 +35,7 @@ const { Types, Creators } = createActions({
   getTutorDetailFailure: null,
 
   searchCoursesRequest: ["params", "actionSuccess"],
-  searchCoursesSuccess: ["inputSearch"],
+  searchCoursesSuccess: ["searchResults", "inputSearch"],
   searchCoursesFailure: null,
 
   paymentCourseRequest: ["params", "actionSuccess"],
@@ -62,6 +62,7 @@ export default Creators;
 export const INITIAL_STATE = Immutable({
   categories: [],
   inputSearch: undefined,
+  searchResults: undefined,
   historiesSearch: [],
 });
 
@@ -167,8 +168,8 @@ const searchCoursesRequest = (state) => {
   return state.merge({});
 };
 
-const searchCoursesSuccess = (state, { inputSearch }) => {
-  return state.merge({ inputSearch });
+const searchCoursesSuccess = (state, { searchResults, inputSearch }) => {
+  return state.merge({ searchResults, inputSearch });
 };
 
 const searchCoursesFailure = (state) => {

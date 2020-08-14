@@ -4,13 +4,18 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 const ListAuthorItem = (props) => {
   const { item } = props;
   return (
-    <View style={styles.item}>
+    <TouchableOpacity
+      style={styles.item}
+      onPress={() => {
+        props.onPressItemTutor(props.item);
+      }}
+    >
       <Image style={styles.image} source={{ uri: item.avatar }} />
       <View style={styles.viewMain}>
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.darkText}>${item.numcourses} courses</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

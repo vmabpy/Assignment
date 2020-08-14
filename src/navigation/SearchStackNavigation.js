@@ -4,6 +4,7 @@ import {
   SearchCourse,
   CourseDetail,
   RelatedCourses,
+  ListAuthorDetail,
 } from "../components/Main/SearchCourses";
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ const SearchStackNavigation = (props) => {
         component={RelatedCourses}
         options={{ title: "Related Courses" }}
       />
+      <Stack.Screen name="AuthorDetail" component={ListAuthorDetail} />
     </Stack.Navigator>
   );
 };
