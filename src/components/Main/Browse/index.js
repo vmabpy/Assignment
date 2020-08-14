@@ -6,6 +6,7 @@ import LearningPathDetail from "./LearningPath/learning-path-detail";
 import ListAuthorDetail from "./Authors/AuthorList/author-detail";
 import CourseDetail from "../../CourseDetail/course-detail";
 import RelatedCourses from "../../Courses/RelatedCourses/RelatedCourses";
+import RatingCourse from "../../Main/Browse/Rating/RatingCourses";
 
 export {
   Browse,
@@ -16,4 +17,5 @@ export {
   ListAuthorDetail,
   CourseDetail,
   RelatedCourses,
+  RatingCourse,
 };

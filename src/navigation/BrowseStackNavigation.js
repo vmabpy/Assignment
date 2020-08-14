@@ -9,6 +9,7 @@ import {
   ListAuthorDetail,
   CourseDetail,
   RelatedCourses,
+  RatingCourse,
 } from "../components/Main/Browse";
 const Stack = createStackNavigator();
 const BrowseStackNavigation = () => {
@@ -32,6 +33,11 @@ const BrowseStackNavigation = () => {
         name="RelatedCourses"
         component={RelatedCourses}
         options={{ title: "Related Courses" }}
+      />
+      <Stack.Screen
+        name="RatingCourse"
+        component={RatingCourse}
+        options={{ title: "Rating Courses" }}
       />
     </Stack.Navigator>
   );

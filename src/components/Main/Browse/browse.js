@@ -25,6 +25,10 @@ const Browse = (props) => {
     props.navigation.navigate("Recommendation", { recommendData });
   };
 
+  const handleShowRating = () => {
+    props.navigation.navigate("RatingCourse", { ratingData: rating });
+  };
+
   useEffect(() => {
     const params = { limit: 10, page: 1 };
     getNew(params, (res) => {
@@ -60,6 +64,7 @@ const Browse = (props) => {
         title="Rating"
         navigation={props.navigation}
         ratingData={rating}
+        handleShowRating={handleShowRating}
       />
       <Authors
         title="Top Authors"
