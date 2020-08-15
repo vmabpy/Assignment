@@ -108,7 +108,6 @@ function* likeCourse({ params, actionSuccess }) {
     if (actionSuccess) {
       actionSuccess(response);
     }
-    yield put(AppActions.showSuccess("Course is added in favorite course"));
     yield put(AppActions.hideIndicator());
   } catch (error) {
     yield put(UserActions.likeCourseFailure());

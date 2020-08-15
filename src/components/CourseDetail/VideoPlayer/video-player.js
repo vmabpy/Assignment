@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import YoutubePlayer from "react-native-youtube-iframe";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Alert } from "react-native";
 import { Video } from "expo-av";
 import { dimension } from "../../../globals/dimension";
 import { Ionicons } from "@expo/vector-icons";
@@ -47,11 +47,21 @@ const VideoPlayer = (props) => {
           width={dimension.width}
           videoId={getIdInVideo(urlVideo)}
           play={playing}
-          onChangeState={(event) => console.log(event)}
+          // onChangeState={(event) => console.log(event)}
+          onChangeState={(event) => {
+            if (event === "paused") {
+              playerRef.current.getCurrentTime().then((currentTime) => {
+                props.handleUpdateCurrentVideoYoutube(currentTime);
+              });
+            }
+          }}
           onReady={() => console.log("ready")}
-          onError={(e) => console.log(e)}
+          onError={(e) => {
+            console.log(e);
+            Alert.alert("Error");
+          }}
           onPlaybackQualityChange={(q) => console.log(q)}
-          volume={50}
+          volume={25}
           playbackRate={1}
           playerParams={{
             cc_lang_pref: "us",

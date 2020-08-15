@@ -34,6 +34,7 @@ const CourseDetail = (props) => {
     likeCourse,
     joinCourse,
     checkOwnCourse,
+    getCurrentVideo,
   } = props;
   const item = params ? params.item : undefined;
   const id = item ? item.id : undefined;
@@ -57,7 +58,6 @@ const CourseDetail = (props) => {
       alert(error.message);
     }
   };
-  const [visibleWeb, setVisibleWeb] = useState(false);
   props.navigation.setOptions({
     title: item.title ? item.title : item.courseTitle,
     headerRight: () => (
@@ -69,12 +69,14 @@ const CourseDetail = (props) => {
     ),
   });
 
+  const [visibleWeb, setVisibleWeb] = useState(false);
   const [urlVideo, setUrlVideo] = useState(undefined);
   const [dataDetail, setDataDetail] = useState(undefined);
   const [itemLesson, setItemLesson] = useState(undefined);
   const [visibleModalEx, setVisibleModalEx] = useState(false);
   const [visibleModalComment, setVisibleModalComment] = useState(false);
   const [ownCourse, setOwnCourse] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
   useEffect(() => {
     if (id) {
       const params = { id };
@@ -89,7 +91,8 @@ const CourseDetail = (props) => {
         setOwnCourse(res.isUserOwnCourse);
       });
     }
-  }, [id, getCourseDetail, checkOwnCourse, visibleModalComment]);
+  }, [id, getCourseDetail, ownCourse, visibleModalComment]);
+
   const review = [
     {
       id: 0,
@@ -112,6 +115,10 @@ const CourseDetail = (props) => {
     }
   };
 
+  const handleUpdateCurrentVideoYoutube = (time) => {
+    console.log(time);
+  };
+
   const handleOption = (optionItem) => {
     if (optionItem.id === 1) {
       const params = {
@@ -121,17 +128,14 @@ const CourseDetail = (props) => {
     } else if (optionItem.id === 2) {
     } else if (optionItem.id === 3) {
       if (dataDetail.price === 0) {
-        const params = {
-          courseId: item.id,
-        };
         if (ownCourse) {
           Alert.alert("Remind", "Already joining in course!");
         } else {
+          const params = {
+            courseId: item.id,
+          };
           joinCourse(params, () => {
-            const _paramsOwn = {
-              courseId: item.id,
-            };
-            checkOwnCourse(_paramsOwn, (res) => {
+            checkOwnCourse(params, (res) => {
               setOwnCourse(res.isUserOwnCourse);
             });
           });
@@ -169,7 +173,11 @@ const CourseDetail = (props) => {
       {!visibleWeb ? (
         <View style={styles.container}>
           <TouchableOpacity style={styles.buttonBack}></TouchableOpacity>
-          <VideoPlayer dataDetail={dataDetail} urlVideo={urlVideo} />
+          <VideoPlayer
+            dataDetail={dataDetail}
+            urlVideo={urlVideo}
+            handleUpdateCurrentVideoYoutube={handleUpdateCurrentVideoYoutube}
+          />
           <ScrollView>
             <Text style={styles.title}>{`${dataDetail.title}`}</Text>
             <AuthorCourse item={dataDetail} />
@@ -354,5 +362,9 @@ const mapDispatchTopProps = (dispatch) => ({
     dispatch(UserActions.checkOwnCourseRequest(params, actionSuccess)),
   joinCourse: (params, actionSuccess) =>
     dispatch(CourseActions.paymentCourseRequest(params, actionSuccess)),
+  getCurrentVideo: (params, actionSuccess) =>
+    dispatch(CourseActions.getCurrentVideoRequest(params, actionSuccess)),
+  updateCurrentVideo: (params, actionSuccess) =>
+    dispatch(CourseActions.updateCurrentVideoRequest(params, actionSuccess)),
 });
 export default connect(mapStateToProps, mapDispatchTopProps)(CourseDetail);
