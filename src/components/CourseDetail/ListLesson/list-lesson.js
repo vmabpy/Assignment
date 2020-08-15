@@ -14,6 +14,8 @@ const ListLesson = (props) => {
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
     data: item.lesson,
+    sumHours: item.sumHours,
+    sumLessonFinish: item.sumLessonFinish,
   }));
 
   const FlatListItemSeparator = () => {
@@ -33,14 +35,22 @@ const ListLesson = (props) => {
             ownCourse={ownCourse}
           />
         )}
-        renderSectionHeader={({ section: { title, index } }) => {
+        renderSectionHeader={({
+          section: { title, index, sumHours, sumLessonFinish },
+        }) => {
           return (
             <View style={styles.header}>
               <View style={styles.viewNumber}>
                 <Text style={styles.titleNumber}>{index + 1}</Text>
               </View>
-              <View>
+              <View style={styles.restView}>
                 <Text style={styles.titleSection}>{title}</Text>
+                <View style={styles.perView}>
+                  <Text>{sumLessonFinish}/</Text>
+                  <Text style={{ color: "blue", fontWeight: "bold" }}>
+                    {sumHours}
+                  </Text>
+                </View>
               </View>
             </View>
           );
@@ -63,6 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: "gray",
   },
   header: {
+    flex: 1,
     flexDirection: "row",
     margin: 10,
     alignItems: "center",
@@ -79,6 +90,16 @@ const styles = StyleSheet.create({
   titleNumber: {
     alignSelf: "center",
     color: "black",
+  },
+  restView: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  perView: {
+    flexDirection: "row",
+    padding: 10,
   },
   titleSection: {
     margin: 5,
