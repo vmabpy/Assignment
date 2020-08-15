@@ -35,6 +35,7 @@ const CourseDetail = (props) => {
     joinCourse,
     checkOwnCourse,
     getCurrentVideo,
+    updateCurrentVideo,
   } = props;
   const item = params ? params.item : undefined;
   const id = item ? item.id : undefined;
@@ -69,14 +70,20 @@ const CourseDetail = (props) => {
     ),
   });
 
+  const initalVideo = {
+    urlVideo: undefined,
+    currentTime: 0,
+  };
+
+  const [infoVideo, setInfoVideo] = useState(initalVideo);
   const [visibleWeb, setVisibleWeb] = useState(false);
-  const [urlVideo, setUrlVideo] = useState(undefined);
+  // const [urlVideo, setUrlVideo] = useState(undefined);
   const [dataDetail, setDataDetail] = useState(undefined);
   const [itemLesson, setItemLesson] = useState(undefined);
   const [visibleModalEx, setVisibleModalEx] = useState(false);
   const [visibleModalComment, setVisibleModalComment] = useState(false);
   const [ownCourse, setOwnCourse] = useState(false);
-  const [currentTime, setCurrentTime] = useState(undefined);
+  // const [currentTime, setCurrentTime] = useState(0);
   useEffect(() => {
     if (id) {
       const params = { id };
@@ -93,20 +100,23 @@ const CourseDetail = (props) => {
     }
   }, [id, ownCourse, visibleModalComment]);
 
-  useEffect(() => {
-    if (id && ownCourse && itemLesson) {
-      const paramsCurrent = {
-        courseId: id,
-        lessonId: itemLesson.id,
-      };
-      getCurrentVideo(paramsCurrent, (res) => {
-        setUrlVideo(res.videoUrl);
-        if (res.currentTime !== null) {
-          setCurrentTime(res.currentTime);
-        }
-      });
-    }
-  }, [itemLesson]);
+  // useEffect(() => {
+  //   console.log("chon xong thi update", loGet(itemLesson, "id", undefined));
+  //   if (itemLesson !== undefined && id && ownCourse) {
+  //     const paramsCurrent = {
+  //       courseId: id,
+  //       lessonId: itemLesson.id,
+  //     };
+  //     console.log(paramsCurrent, "params");
+  //     getCurrentVideo(paramsCurrent, (res) => {
+  //       console.log("get current video", res);
+  //       setUrlVideo(res.videoUrl);
+  //       if (res.currentTime !== null) {
+  //         setCurrentTime(res.currentTime);
+  //       }
+  //     });
+  //   }
+  // }, [loGet(itemLesson, "id", undefined)]);
 
   const review = [
     {
@@ -122,18 +132,42 @@ const CourseDetail = (props) => {
   ];
 
   const handleClick = (item) => {
+    console.log("chon cai nay", item.id);
     if (item.isPreview || ownCourse) {
-      setUrlVideo(item.videoUrl);
       setItemLesson(item);
+      const paramsCurrent = {
+        courseId: id,
+        lessonId: item.id,
+      };
+      getCurrentVideo(paramsCurrent, (res) => {
+        console.log("get current video", res);
+        // setUrlVideo(res.videoUrl);
+        // if (res.currentTime !== null) {
+        //   setCurrentTime(res.currentTime);
+        // }
+        setInfoVideo({
+          urlVideo: res.videoUrl,
+          currentTime: res.currentTime !== null ? res.currentTime : 0,
+        });
+      });
     } else {
       Alert.alert("Remind", "Joining or payment course to learn more. Please!");
     }
   };
 
-  console.log(currentTime);
-
   const handleUpdateCurrentVideoYoutube = (time) => {
-    setCurrentTime(time);
+    // setCurrentTime(time);
+    setInfoVideo((prevState) => ({
+      ...prevState,
+      currentTime: time,
+    }));
+    if (itemLesson !== undefined && itemLesson.id) {
+      const paramsVideo = {
+        lessonId: itemLesson.id,
+        currentTime: time,
+      };
+      updateCurrentVideo(paramsVideo);
+    }
   };
 
   const handleOption = (optionItem) => {
@@ -192,8 +226,8 @@ const CourseDetail = (props) => {
           <TouchableOpacity style={styles.buttonBack}></TouchableOpacity>
           <VideoPlayer
             dataDetail={dataDetail}
-            urlVideo={urlVideo}
-            currentTime={currentTime}
+            urlVideo={infoVideo.urlVideo}
+            currentTime={infoVideo.currentTime}
             handleUpdateCurrentVideoYoutube={handleUpdateCurrentVideoYoutube}
           />
           <ScrollView>

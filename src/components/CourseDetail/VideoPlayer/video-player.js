@@ -10,11 +10,17 @@ const VideoPlayer = (props) => {
   const playerRef = useRef(null);
   const [playing, setPlaying] = useState(true);
 
-  // useEffect(() => {
-  //   if (currentTime) {
-  //     async () => await playerRef.current.seekTo(currentTime);
-  //   }
-  // }, [currentTime]);
+  useEffect(() => {
+    if (urlVideo !== undefined && urlVideo.includes("youtube")) {
+      if (currentTime !== undefined && playerRef.current !== undefined) {
+        console.log(playing, "PLAY");
+        playerRef.current.seekTo(Number(currentTime), true);
+        // console.log("vao giup");
+        // console.log(playerRef.current);
+        // console.log(typeof playerRef.seekTo);
+      }
+    }
+  }, [urlVideo]);
 
   if (urlVideo === undefined) {
     return (
@@ -48,7 +54,7 @@ const VideoPlayer = (props) => {
     return (
       <View>
         <YoutubePlayer
-          ref={playerRef}
+          ref={(player) => (playerRef.current = player)}
           height={225}
           width={dimension.width}
           videoId={getIdInVideo(urlVideo)}
@@ -56,6 +62,7 @@ const VideoPlayer = (props) => {
           // onChangeState={(event) => console.log(event)}
           onChangeState={(event) => {
             if (event === "paused") {
+              console.log(playerRef.current, "STOP");
               playerRef.current.getCurrentTime().then((time) => {
                 props.handleUpdateCurrentVideoYoutube(time);
               });
