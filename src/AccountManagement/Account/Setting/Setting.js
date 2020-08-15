@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView, Alert } from "react-native";
 import {
   ICONACCOUNT,
   ICONFEEDBACK,
@@ -16,12 +16,16 @@ const Setting = (props) => {
     const id = item.id;
     switch (id) {
       case 0:
+        Alert.alert("Remind", "Comming soon");
         break;
       case 1:
+        Alert.alert("Remind", "Comming soon");
         break;
       case 2:
+        Alert.alert("Remind", "Comming soon");
         break;
       case 3:
+        Alert.alert("Remind", "Comming soon");
         break;
       case 4:
         break;

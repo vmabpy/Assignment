@@ -30,6 +30,8 @@ const SearchCourse = (props) => {
     deleteRecentSearch,
   } = props;
 
+  // console.log(recentSearch.length, "RECENT");
+
   const onPressListItem = (item) => {
     props.navigation.navigate("CourseDetail", { item });
   };
@@ -116,7 +118,9 @@ const SearchCourse = (props) => {
   //   }
   // };
 
-  useEffect(() => {}, [useFor, rencentInSearch]);
+  useEffect(() => {
+    props.rencentInSearch();
+  }, [useFor, rencentInSearch]);
   return (
     <View style={styles.container}>
       <SearchBar

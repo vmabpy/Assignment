@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
+import { Text, View, StyleSheet, Image, ScrollView, Alert } from "react-native";
 import Button from "../../components/Common/button";
 import { connect } from "react-redux";
 import loGet from "lodash/get";
@@ -75,10 +75,13 @@ const Profile = (props) => {
         props.navigation.navigate("Changepassword");
         break;
       case 2:
+        Alert.alert("Remind", "Comming soon");
         break;
       case 3:
+        Alert.alert("Remind", "Comming soon");
         break;
       case 4:
+        Alert.alert("Remind", "Comming soon");
         break;
       default:
         props.logout(() => {});
