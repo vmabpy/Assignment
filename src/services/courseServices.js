@@ -83,5 +83,5 @@ export const updateCurrentVideo = (params) => {
 
 export const getCurrentVideo = (params) => {
   const { courseId, lessonId } = params;
-  return request.get(`​/lesson​/video​/${courseId}​/${lessonId}`);
+  return request.get(`lesson/video/${courseId}/${lessonId}`);
 };

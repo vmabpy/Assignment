@@ -5,10 +5,10 @@ const AuthorCourse = (props) => {
   const { item } = props;
   return (
     <View style={styles.containView}>
-      <TouchableOpacity style={styles.container}>
+      <View style={styles.container}>
         <Image style={styles.image} source={{ uri: item.instructor.avatar }} />
         <Text style={styles.titleAuthor}>{item.instructor.name} </Text>
-      </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -16,7 +16,7 @@ const AuthorCourse = (props) => {
 const styles = StyleSheet.create({
   containView: {
     flexDirection: "row",
-    marginLeft: padding._5,
+    marginLeft: 10,
   },
   container: {
     flexDirection: "row",

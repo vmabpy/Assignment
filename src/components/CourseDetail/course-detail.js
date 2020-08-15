@@ -76,7 +76,7 @@ const CourseDetail = (props) => {
   const [visibleModalEx, setVisibleModalEx] = useState(false);
   const [visibleModalComment, setVisibleModalComment] = useState(false);
   const [ownCourse, setOwnCourse] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
+  const [currentTime, setCurrentTime] = useState(undefined);
   useEffect(() => {
     if (id) {
       const params = { id };
@@ -91,7 +91,22 @@ const CourseDetail = (props) => {
         setOwnCourse(res.isUserOwnCourse);
       });
     }
-  }, [id, getCourseDetail, ownCourse, visibleModalComment]);
+  }, [id, ownCourse, visibleModalComment]);
+
+  useEffect(() => {
+    if (id && ownCourse && itemLesson) {
+      const paramsCurrent = {
+        courseId: id,
+        lessonId: itemLesson.id,
+      };
+      getCurrentVideo(paramsCurrent, (res) => {
+        setUrlVideo(res.videoUrl);
+        if (res.currentTime !== null) {
+          setCurrentTime(res.currentTime);
+        }
+      });
+    }
+  }, [itemLesson]);
 
   const review = [
     {
@@ -115,8 +130,10 @@ const CourseDetail = (props) => {
     }
   };
 
+  console.log(currentTime);
+
   const handleUpdateCurrentVideoYoutube = (time) => {
-    console.log(time);
+    setCurrentTime(time);
   };
 
   const handleOption = (optionItem) => {
@@ -176,6 +193,7 @@ const CourseDetail = (props) => {
           <VideoPlayer
             dataDetail={dataDetail}
             urlVideo={urlVideo}
+            currentTime={currentTime}
             handleUpdateCurrentVideoYoutube={handleUpdateCurrentVideoYoutube}
           />
           <ScrollView>

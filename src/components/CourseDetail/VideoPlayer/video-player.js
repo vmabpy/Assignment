@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import YoutubePlayer from "react-native-youtube-iframe";
 import { View, Text, StyleSheet, Image, Alert } from "react-native";
 import { Video } from "expo-av";
@@ -6,9 +6,15 @@ import { dimension } from "../../../globals/dimension";
 import { Ionicons } from "@expo/vector-icons";
 
 const VideoPlayer = (props) => {
-  const { urlVideo, dataDetail = {} } = props;
+  const { urlVideo, dataDetail = {}, currentTime } = props;
   const playerRef = useRef(null);
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(true);
+
+  // useEffect(() => {
+  //   if (currentTime) {
+  //     async () => await playerRef.current.seekTo(currentTime);
+  //   }
+  // }, [currentTime]);
 
   if (urlVideo === undefined) {
     return (
@@ -50,8 +56,8 @@ const VideoPlayer = (props) => {
           // onChangeState={(event) => console.log(event)}
           onChangeState={(event) => {
             if (event === "paused") {
-              playerRef.current.getCurrentTime().then((currentTime) => {
-                props.handleUpdateCurrentVideoYoutube(currentTime);
+              playerRef.current.getCurrentTime().then((time) => {
+                props.handleUpdateCurrentVideoYoutube(time);
               });
             }
           }}
@@ -82,7 +88,7 @@ const VideoPlayer = (props) => {
         volume={0.9}
         isMuted={false}
         resizeMode="contain"
-        shouldPlay={false}
+        shouldPlay={true}
         isLooping={false}
         useNativeControls
       />

@@ -291,13 +291,14 @@ function* updateCurrentVideo({ params, actionSuccess }) {
 function* getCurrentVideo({ params, actionSuccess }) {
   yield put(AppActions.showIndicator());
   try {
-    const response = yield call(api.getCurrentVideo, params);
-    yield put(CourseActions.getCurrentVideoSuccess(response));
+    const { payload } = yield call(api.getCurrentVideo, params);
+    yield put(CourseActions.getCurrentVideoSuccess(payload));
     if (actionSuccess) {
-      actionSuccess(response);
+      actionSuccess(payload);
     }
     yield put(AppActions.hideIndicator());
   } catch (error) {
+    console.log(error);
     yield put(CourseActions.getCurrentVideoFailure());
     yield put(AppActions.hideIndicator());
     yield put(AppActions.showError(error.message));
