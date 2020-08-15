@@ -11,10 +11,13 @@ const VideoPlayer = (props) => {
   const [playing, setPlaying] = useState(true);
 
   useEffect(() => {
+    const seek = async (time) => {
+      await playerRef.current.seekTo(Int(time));
+    };
     if (urlVideo !== undefined && urlVideo.includes("youtube")) {
       if (currentTime !== undefined && playerRef.current !== undefined) {
-        console.log(playing, "PLAY");
-        playerRef.current.seekTo(Number(currentTime), true);
+        seek(10);
+        //playerRef.current.seekTo(Int(currentTime), true);
         // console.log("vao giup");
         // console.log(playerRef.current);
         // console.log(typeof playerRef.seekTo);
