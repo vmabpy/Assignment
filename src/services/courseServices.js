@@ -73,3 +73,15 @@ export const deleteSearchHistory = (params) => {
   const { id } = params;
   return request.delete(`/course/delete-search-history/${id}`);
 };
+
+export const updateCurrentVideo = (params) => {
+  return request.put(
+    "/lesson/update-current-time-learn-video",
+    queryString.stringify(params)
+  );
+};
+
+export const getCurrentVideo = (params) => {
+  const { courseId, lessonId } = params;
+  return request.get(`​/lesson​/video​/${courseId}​/${lessonId}`);
+};

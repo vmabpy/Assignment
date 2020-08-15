@@ -21,6 +21,11 @@ function* courseRootSaga() {
     yield takeLatest(CourseTypes.COMMENT_COURSE_REQUEST, commentCourse),
     yield takeLatest(CourseTypes.GET_RECENT_SEARCH_REQUEST, getRencentSearch),
     yield takeLatest(CourseTypes.DELETE_SEARCH_REQUEST, deleSearchItem),
+    yield takeLatest(
+      CourseTypes.UPDATE_CURRENT_VIDEO_REQUEST,
+      updateCurrentVideo
+    ),
+    yield takeLatest(CourseTypes.GET_CURRENT_VIDEO_REQUEST, getCurrentVideo),
   ]);
 }
 
@@ -262,6 +267,38 @@ function* deleSearchItem({ params, actionSuccess }) {
     yield put(AppActions.hideIndicator());
   } catch (error) {
     yield put(CourseActions.deleteSearchFailure());
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
+}
+
+function* updateCurrentVideo({ params, actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const response = yield call(api.updateCurrentVideo, params);
+    yield put(CourseActions.updateCurrentVideoSuccess(response));
+    if (actionSuccess) {
+      actionSuccess(response);
+    }
+    yield put(AppActions.hideIndicator());
+  } catch (error) {
+    yield put(CourseActions.updateCurrentVideoFailure());
+    yield put(AppActions.hideIndicator());
+    yield put(AppActions.showError(error.message));
+  }
+}
+
+function* getCurrentVideo({ params, actionSuccess }) {
+  yield put(AppActions.showIndicator());
+  try {
+    const response = yield call(api.getCurrentVideo, params);
+    yield put(CourseActions.getCurrentVideoSuccess(response));
+    if (actionSuccess) {
+      actionSuccess(response);
+    }
+    yield put(AppActions.hideIndicator());
+  } catch (error) {
+    yield put(CourseActions.getCurrentVideoFailure());
     yield put(AppActions.hideIndicator());
     yield put(AppActions.showError(error.message));
   }

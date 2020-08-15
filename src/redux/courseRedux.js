@@ -61,6 +61,14 @@ const { Types, Creators } = createActions({
   deleteSearchRequest: ["params", "actionSuccess"],
   deleteSearchSuccess: null,
   deleteSearchFailure: null,
+
+  updateCurrentVideoRequest: ["params", "actionSuccess"],
+  updateCurrentVideoSuccess: null,
+  updateCurrentVideoFailure: null,
+
+  getCurrentVideoRequest: ["params", "actionSuccess"],
+  getCurrentVideoSuccess: null,
+  getCurrentVideoFailure: null,
 });
 
 export const CourseTypes = Types;
@@ -256,6 +264,31 @@ const deleteSearchSuccess = (state) => {
 const deleteSearchFailure = (state) => {
   return state.merge({});
 };
+
+const updateCurrentVideoRequest = (state) => {
+  return state.merge({});
+};
+
+const updateCurrentVideoSuccess = (state) => {
+  return state.merge({});
+};
+
+const updateCurrentVideoFailure = (state) => {
+  return state.merge({});
+};
+
+const getCurrentVideoRequest = (state) => {
+  return state.merge({});
+};
+
+const getCurrentVideoSuccess = (state) => {
+  return state.merge({});
+};
+
+const getCurrentVideoFailure = (state) => {
+  return state.merge({});
+};
+
 /* ------------- Hookup Reducers To Types ------------- */
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_CATEGORIES_REQUEST]: getCategoriesRequest,
@@ -317,4 +350,12 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.DELETE_SEARCH_REQUEST]: deleteSearchRequest,
   [Types.DELETE_SEARCH_SUCCESS]: deleteSearchSuccess,
   [Types.DELETE_SEARCH_FAILURE]: deleteSearchFailure,
+
+  [Types.UPDATE_CURRENT_VIDEO_REQUEST]: updateCurrentVideoRequest,
+  [Types.UPDATE_CURRENT_VIDEO_SUCCESS]: updateCurrentVideoSuccess,
+  [Types.UPDATE_CURRENT_VIDEO_FAILURE]: updateCurrentVideoFailure,
+
+  [Types.GET_CURRENT_VIDEO_REQUEST]: getCurrentVideoRequest,
+  [Types.GET_CURRENT_VIDEO_SUCCESS]: getCurrentVideoSuccess,
+  [Types.GET_CURRENT_VIDEO_FAILURE]: getCurrentVideoFailure,
 });
