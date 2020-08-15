@@ -18,7 +18,7 @@ import ItemRecentSearch from "./ItemRecentSearch";
 const SearchCourse = (props) => {
   const [page, setPage] = useState(1);
   const [offset, setOffset] = useState(0);
-  const limitItem = 3;
+  const limitItem = 10;
   const [dataSearch, setDataSearch] = useState({});
   const [dataWillShow, setDataWillShow] = useState([]);
   const [useFor, setUseFor] = useState(true);
