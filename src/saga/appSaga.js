@@ -17,7 +17,6 @@ function* appRootSagas() {
 function* startupRequest({ actionSuccess, actionFailure }) {
   try {
     let language = yield AsyncStorage.getItem("languageApp");
-    console.log(language, "My LANguage");
     let user = yield AsyncStorage.getItem("user") || undefined;
     user = JSON.parse(user);
     const token = user.token;
@@ -37,8 +36,9 @@ function* startupRequest({ actionSuccess, actionFailure }) {
 }
 
 function* changeLanguageLocal({ language }) {
+  yield put(AppActions.showIndicator());
   I18n.locale = language;
   yield AsyncStorage.setItem("languageApp", language);
-  // Immediately reload the React Native Bundle
+  yield put(AppActions.hideIndicator());
 }
 export default appRootSagas;

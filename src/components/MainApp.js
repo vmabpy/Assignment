@@ -11,7 +11,6 @@ const MainApp = (props) => {
   const [state, setState] = useState(new Date().getTime());
 
   useEffect(() => {
-    console.log(languageLocal, "HERE LANGUAGE");
     setState(new Date().getTime());
   }, [languageLocal]);
   return (
