@@ -11,18 +11,20 @@ const VideoPlayer = (props) => {
   const [playing, setPlaying] = useState(true);
 
   useEffect(() => {
-    const seek = async (time) => {
-      await playerRef.current.seekTo(Int(time));
-    };
-    if (urlVideo !== undefined && urlVideo.includes("youtube")) {
-      if (currentTime !== undefined && playerRef.current !== undefined) {
-        seek(10);
-        //playerRef.current.seekTo(Int(currentTime), true);
-        // console.log("vao giup");
-        // console.log(playerRef.current);
-        // console.log(typeof playerRef.seekTo);
-      }
-    }
+    // const seek = async (time) => {
+    //   console.log("Vao khong ne");
+    //   await playerRef.current.seekTo(Int(time));
+    // };
+    // if (urlVideo !== undefined && urlVideo.includes("youtube")) {
+    //   if (currentTime !== undefined && playerRef.current !== undefined) {
+    // seek(10);
+    // playerRef.current.seekTo(parseInt(currentTime));
+    // console.log("vao giup");
+    // console.log(playerRef.current);
+    // console.log(typeof playerRef.seekTo);
+    //   }
+    // }
+    setPlaying(true);
   }, [urlVideo]);
 
   if (urlVideo === undefined) {
@@ -65,10 +67,12 @@ const VideoPlayer = (props) => {
           // onChangeState={(event) => console.log(event)}
           onChangeState={(event) => {
             if (event === "paused") {
-              console.log(playerRef.current, "STOP");
+              setPlaying(false);
               playerRef.current.getCurrentTime().then((time) => {
                 props.handleUpdateCurrentVideoYoutube(time);
               });
+            } else if (event === "playing") {
+              setPlaying(true);
             }
           }}
           onReady={() => console.log("ready")}
@@ -79,7 +83,8 @@ const VideoPlayer = (props) => {
           onPlaybackQualityChange={(q) => console.log(q)}
           volume={25}
           playbackRate={1}
-          playerParams={{
+          initialPlayerParams={{
+            start: parseInt(currentTime),
             cc_lang_pref: "us",
             showClosedCaptions: true,
           }}

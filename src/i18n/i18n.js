@@ -1,11 +1,10 @@
-import I18n from "react-native-i18n";
+import I18n from "ex-react-native-i18n";
 
-import en from "./locales/en";
-import vi from "./locales/vi";
-
+I18n.fallbacks = true;
 I18n.translations = {
-  en,
-  vi,
+  en: require("./languages/en.json"),
+  vi: require("./languages/vi.json"),
 };
+// I18n.locale = "vi";
 
 export default I18n;

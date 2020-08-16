@@ -6,6 +6,7 @@ import Changepassword from "../../../AccountManagement/Account/changePassword";
 import UpdateInfoUser from "../../../AccountManagement/Account/updateInfoUser";
 import RelatedCourses from "../../Courses/RelatedCourses/RelatedCourses";
 import Setting from "../../../AccountManagement/Account/Setting/Setting";
+import Language from "../../../AccountManagement/Account/Setting/Language";
 export {
   Categories,
   CourseDetail,
@@ -15,4 +16,5 @@ export {
   Changepassword,
   UpdateInfoUser,
   Setting,
+  Language,
 };

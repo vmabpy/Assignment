@@ -6,7 +6,7 @@ Hướng dẫn để cài đặt và chạy ứng dụng:
 > Đứng tại vị trí đường dẫn chứa project
 # npm install 
 # expo start
-> Khởi động simulator (android hoặc là ios)
+> Khởi động simulator (ios)
 
 ---------------
 

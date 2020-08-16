@@ -9,6 +9,7 @@ import {
   Changepassword,
   UpdateInfoUser,
   Setting,
+  Language,
 } from "../components/Main/Home";
 const Stack = createStackNavigator();
 
@@ -35,6 +36,7 @@ const HomeStackNavigation = () => {
         options={{ title: "Related Courses" }}
       />
       <Stack.Screen name="Setting" component={Setting} />
+      <Stack.Screen name="Language" component={Language} />
     </Stack.Navigator>
   );
 };

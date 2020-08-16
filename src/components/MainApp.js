@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import loGet from "lodash/get";
 import FlashMessage from "react-native-flash-message";
@@ -7,9 +7,15 @@ import { View } from "react-native";
 import MainStackNavigator from "../navigation/";
 
 const MainApp = (props) => {
-  const { isRequesting } = props;
+  const { isRequesting, languageLocal } = props;
+  const [state, setState] = useState(new Date().getTime());
+
+  useEffect(() => {
+    console.log(languageLocal, "HERE LANGUAGE");
+    setState(new Date().getTime());
+  }, [languageLocal]);
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1 }} key={state}>
       <MainStackNavigator />
       {/* <Spinner isLoading={isRequesting} /> */}
       <FlashMessage position="top" />
@@ -19,6 +25,7 @@ const MainApp = (props) => {
 
 const mapStateToProps = (state) => ({
   isRequesting: loGet(state, ["app", "isShowingIndicator"], false),
+  languageLocal: loGet(state, ["app", "language"], "en"),
 });
 const mapDispatchToProps = (dispatch) => ({});
 

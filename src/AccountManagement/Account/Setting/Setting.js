@@ -10,6 +10,7 @@ import {
 import { connect } from "react-redux";
 import loGet from "lodash/get";
 import ProfileItem from "../profileItem";
+import I18n from "ex-react-native-i18n";
 
 const Setting = (props) => {
   const onPressItem = (item) => {
@@ -19,7 +20,7 @@ const Setting = (props) => {
         Alert.alert("Remind", "Comming soon");
         break;
       case 1:
-        Alert.alert("Remind", "Comming soon");
+        props.navigation.navigate("Language");
         break;
       case 2:
         Alert.alert("Remind", "Comming soon");
@@ -42,7 +43,7 @@ const Setting = (props) => {
     {
       id: 1,
       icon: ICONLANGUAGE,
-      title: "Change language",
+      title: I18n.t("key_language"),
     },
     {
       id: 2,
