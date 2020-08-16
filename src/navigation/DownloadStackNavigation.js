@@ -11,7 +11,11 @@ import I18n from "ex-react-native-i18n";
 const DownloadStackNavigation = () => {
   return (
     <Stack.Navigator initialRouteName="Favorite">
-      <Stack.Screen name="Favorite" component={Favorite} />
+      <Stack.Screen
+        name="Favorite"
+        component={Favorite}
+        options={{ title: I18n.t("key_favorite") }}
+      />
       <Stack.Screen name="CourseDetail" component={CourseDetail} />
       <Stack.Screen
         name="RelatedCourses"

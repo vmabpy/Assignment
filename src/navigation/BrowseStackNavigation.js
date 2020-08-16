@@ -22,7 +22,11 @@ const BrowseStackNavigation = () => {
         component={NewRealease}
         options={{ title: I18n.t("key_new") }}
       />
-      <Stack.Screen name="Recommendation" component={Recommendation} />
+      <Stack.Screen
+        name="Recommendation"
+        component={Recommendation}
+        options={{ title: I18n.t("key_new") }}
+      />
       <Stack.Screen
         name="CourseLanguageDetail"
         component={ListLanguageDetail}
