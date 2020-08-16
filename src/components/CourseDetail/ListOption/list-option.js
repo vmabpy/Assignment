@@ -4,59 +4,46 @@ import OptionItem from "./option-item";
 import { connect } from "react-redux";
 import loGet from "lodash/get";
 import UserActions from "../../../redux/userRedux";
+import CourseActions from "../../../redux/courseRedux";
+import {
+  ICONFAVORITE,
+  ICONDOWNLOAD,
+  ICONPAYMENT,
+  ICONCHECKED,
+} from "../../../config/icon";
+import { stringify } from "querystring";
+import I18n from "ex-react-native-i18n";
+
 const ListOption = (props) => {
-  let { item = {}, likeCourse } = props;
+  let { item = {}, ownCourse } = props;
   const options = [
     {
       id: 1,
-      imageRoute: require("../../../../assets/ic_bookmark.png"),
-      title: "Bookmark",
+      imageRoute: ICONFAVORITE,
+      title: I18n.t("key_favorite"),
     },
     {
       id: 2,
-      imageRoute: require("../../../../assets/ic_channel.png"),
-      title: "Add to Channel",
+      imageRoute: ICONDOWNLOAD,
+      title: I18n.t("key_download"),
     },
     {
       id: 3,
-      imageRoute: require("../../../../assets/ic_download.png"),
-      title: "Favorite",
+      imageRoute: ownCourse ? ICONCHECKED : ICONPAYMENT,
+      title:
+        item.price === 0
+          ? ownCourse
+            ? I18n.t("key_joined")
+            : I18n.t("key_joining")
+          : I18n.t("key_paying"),
     },
   ];
 
   return (
-    // <DownLoadContext.Consumer>
-    //     {
-    //         ({ download, setDownload }) => {
-    //             return (
-    //                 <View style={styles.container}>
-    //                     <OptionItem item={options[0]} onPressListItem={(item) => {
-
-    //                     }} />
-    //                     <OptionItem item={options[1]} onPressListItem={(item) => {
-
-    //                     }} />
-    //                     <OptionItem item={options[2]} onPressListItem={(item) => {
-    //                         download.push(value);
-    //                         setDownload(download);
-    //                     }} />
-    //                 </View>
-    //             )
-    //         }
-    //     }
-    // </DownLoadContext.Consumer>
     <View style={styles.container}>
-      <OptionItem item={options[0]} onPressListItem={() => {}} />
-      <OptionItem item={options[1]} onPressListItem={() => {}} />
-      <OptionItem
-        item={options[2]}
-        onPressListItem={() => {
-          const params = {
-            courseId: item.id,
-          };
-          likeCourse(params);
-        }}
-      />
+      <OptionItem optionItem={options[0]} handleOption={props.handleOption} />
+      <OptionItem optionItem={options[1]} handleOption={props.handleOption} />
+      <OptionItem optionItem={options[2]} handleOption={props.handleOption} />
     </View>
   );
 };
@@ -70,8 +57,5 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({});
-const mapDispatchToProps = (dispatch) => ({
-  likeCourse: (params, actionSuccess) =>
-    dispatch(UserActions.likeCourseRequest(params, actionSuccess)),
-});
+const mapDispatchToProps = (dispatch) => ({});
 export default connect(mapStateToProps, mapDispatchToProps)(ListOption);

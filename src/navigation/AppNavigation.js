@@ -6,6 +6,7 @@ import DownloadStackNavigation from "./DownloadStackNavigation";
 import BrowseStackNavigation from "./BrowseStackNavigation";
 import SearchStackNavigation from "./SearchStackNavigation";
 const Tab = createBottomTabNavigator();
+import I18n from "ex-react-native-i18n";
 
 const AppNavigation = () => {
   return (
@@ -18,7 +19,7 @@ const AppNavigation = () => {
             // iconName = focused ? "ios-home" : "ios-home-outline";
             iconName = "ios-home";
           } else if (route.name === "DownloadApp") {
-            iconName = "ios-download";
+            iconName = "ios-bookmark";
           } else if (route.name === "BrowseApp") {
             iconName = "ios-browsers";
           } else if (route.name === "SearchApp") {
@@ -36,23 +37,23 @@ const AppNavigation = () => {
       <Tab.Screen
         name="HomeApp"
         component={HomeStackNavigation}
-        options={{ title: "Home" }}
+        options={{ title: I18n.t("key_home") }}
       />
       <Tab.Screen
         name="DownloadApp"
         component={DownloadStackNavigation}
-        options={{ title: "Favorite" }}
+        options={{ title: I18n.t("key_favorite") }}
       />
       <Tab.Screen
         name="BrowseApp"
         component={BrowseStackNavigation}
-        options={{ title: "Browse" }}
+        options={{ title: I18n.t("key_browse") }}
       />
       <Tab.Screen
         name="SearchApp"
         component={SearchStackNavigation}
         options={{
-          title: "Search",
+          title: I18n.t("key_search"),
         }}
       />
     </Tab.Navigator>

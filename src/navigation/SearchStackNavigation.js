@@ -4,8 +4,10 @@ import {
   SearchCourse,
   CourseDetail,
   RelatedCourses,
+  ListAuthorDetail,
 } from "../components/Main/SearchCourses";
 const Stack = createStackNavigator();
+import I18n from "ex-react-native-i18n";
 
 const SearchStackNavigation = (props) => {
   return (
@@ -21,8 +23,9 @@ const SearchStackNavigation = (props) => {
       <Stack.Screen
         name="RelatedCourses"
         component={RelatedCourses}
-        options={{ title: "Related Courses" }}
+        options={{ title: I18n.t("key_related_course") }}
       />
+      <Stack.Screen name="AuthorDetail" component={ListAuthorDetail} />
     </Stack.Navigator>
   );
 };

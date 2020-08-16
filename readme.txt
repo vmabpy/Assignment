@@ -2,11 +2,10 @@
 Lê Tống Minh Hiếu
 1612203
 
-Hướng dẫn để cài đặt và chạy ứng dụng: 
-> Đứng tại vị trí đường dẫn chứa project
+Install and restart app:
 # npm install 
 # expo start
-> Khởi động simulator (android hoặc là ios)
+> Start app on simulator (iOS simulator)
 
 ---------------
 

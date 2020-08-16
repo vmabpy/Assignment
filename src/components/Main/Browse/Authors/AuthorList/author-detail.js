@@ -5,6 +5,7 @@ import ListCoursesItem from "../../../../Courses/ListCoursesItem/list-courses-it
 import { connect } from "react-redux";
 import loGet from "lodash/get";
 import CourseActions from "../../../../../redux/courseRedux";
+import I18n from "ex-react-native-i18n";
 
 const ListAuthorDetail = (props) => {
   const {
@@ -14,7 +15,7 @@ const ListAuthorDetail = (props) => {
   let item = params ? params.item : {};
   const idTutor = item ? item.id : undefined;
 
-  props.navigation.setOptions({ title: "Author" });
+  props.navigation.setOptions({ title: I18n.t("key_author") });
   const onPressListItem = (item) => {
     props.navigation.navigate("CourseDetail", { item });
   };
@@ -47,7 +48,9 @@ const ListAuthorDetail = (props) => {
       <FlatListItemSeparator />
 
       <View style={{ margin: 5, height: 30, justifyContent: "center" }}>
-        <Text style={{ fontSize: 15, fontWeight: "bold" }}>Courses</Text>
+        <Text style={{ fontSize: 15, fontWeight: "bold" }}>
+          {I18n.t("key_courses")}
+        </Text>
       </View>
       <FlatListItemSeparator />
       <FlatList

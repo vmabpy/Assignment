@@ -1,91 +1,139 @@
-import React, { useContext } from "react";
-import { Text, View, StyleSheet, Image, ScrollView } from "react-native";
-import { AuthenticationContext } from "../../provider/authentication-provider";
+import React, { useContext, useState, useEffect } from "react";
+import { Text, View, StyleSheet, Image, ScrollView, Alert } from "react-native";
 import Button from "../../components/Common/button";
 import { connect } from "react-redux";
 import loGet from "lodash/get";
 import UserActions from "../../redux/userRedux";
+import {
+  ICONPROFILE,
+  ICONPASSWORD,
+  ICONACCOUNT,
+  ICONMAIL,
+  ICONLOGOUT,
+  ICONDOWNLOAD,
+} from "../../config/icon";
+import ListCoursesItem from "../../components/Courses/ListCoursesItem/list-courses-item";
+import ProfileItem from "./profileItem";
+import Constants from "expo-constants";
+import I18n from "ex-react-native-i18n";
 
 const Profile = (props) => {
-  // const item = props.route.params.item;
-  // const { state } = useContext(AuthenticationContext);
+  const { getInfoMe, userMe, user = {}, tokenSave } = props;
+  const [reload, setReload] = useState(true);
 
-  const handleLogout = () => {
-    props.logout(() => {});
+  useEffect(() => {
+    if (reload && tokenSave) {
+      getInfoMe(() => {
+        setReload(false);
+      });
+    }
+  }, [reload]);
+
+  useEffect(() => {
+    setReload(true);
+  }, [user.avatar, user.name, user.phone]);
+
+  const profileItem = [
+    {
+      id: 0,
+      icon: ICONACCOUNT,
+      title: I18n.t("kye_update_profile"),
+    },
+    {
+      id: 1,
+      icon: ICONPASSWORD,
+      title: I18n.t("key_change_password"),
+    },
+    {
+      id: 2,
+      icon: ICONMAIL,
+      title: I18n.t("key_change_email"),
+    },
+    {
+      id: 3,
+      icon: ICONACCOUNT,
+      title: I18n.t("key_term_of_use"),
+    },
+    {
+      id: 4,
+      icon: ICONDOWNLOAD,
+      title: I18n.t("key_download_courses"),
+    },
+    {
+      id: 5,
+      icon: ICONLOGOUT,
+      title: I18n.t("key_log_out"),
+    },
+  ];
+
+  const onPressItem = (item) => {
+    const id = item.id;
+    switch (id) {
+      case 0:
+        props.navigation.navigate("UpdateInfoUser", { user: userMe });
+        break;
+      case 1:
+        props.navigation.navigate("Changepassword");
+        break;
+      case 2:
+        Alert.alert(I18n.t("key_remind"), I18n.t("key_comming_soon"));
+        break;
+      case 3:
+        Alert.alert(I18n.t("key_remind"), I18n.t("key_comming_soon"));
+        break;
+      case 4:
+        Alert.alert(I18n.t("key_remind"), I18n.t("key_comming_soon"));
+        break;
+      default:
+        props.logout(() => {});
+        break;
+    }
   };
-
   return (
-    // <View style={styles.container}>
-    //     {/* <Text>{item.username}</Text>
-    //     <Text>{item.fullName}</Text> */}
-    //     <Text>{authentication.user.username}</Text>
-    //     <Text>{authentication.user.fullName}</Text>
-
-    // </View>
-    <ScrollView>
-      <View style={{ alignItems: "center" }}>
+    <ScrollView style={styles.container}>
+      <View style={styles.viewInfo}>
         <Image
-          source={require("../../../assets/ic_profile.png")}
+          source={userMe.avatar ? { uri: userMe.avatar } : ICONPROFILE}
           style={styles.image}
         />
-        {/* <Text style={styles.name}>{state.userInfo.name}</Text> */}
-        <Text style={styles.name}>Hieu Tong</Text>
+        <View style={styles.viewInfoSub}>
+          <Text style={styles.title}>{userMe.name}</Text>
+          <Text style={styles.subTitle}>{userMe.phone}</Text>
+          <Text style={styles.subTitle}>{userMe.email}</Text>
+        </View>
       </View>
-
-      {/* <Text>{authentication.user.fullName}</Text> */}
-      <View style={styles.view}>
-        <Text style={styles.title}>Activity insights (last 30 days)</Text>
-        <Text style={styles.subTitle}>TOTAL ACTIVE DAYS</Text>
-        <Text style={styles.title}>4 days streak</Text>
-        <Text style={styles.subTitle}>MOST ACTIVE TIME OF DAY</Text>
-        <Text style={styles.title}>14:00</Text>
-        <Text style={styles.subTitle}>MOST VIEW SUBJECT</Text>
-        <Text style={styles.title}>React Native</Text>
-      </View>
-      <View style={styles.buttonLogout}>
-        <Button text="Log out" handlePress={handleLogout} />
+      <View>
+        <ProfileItem item={profileItem[0]} onPressItem={onPressItem} />
+        <ProfileItem item={profileItem[1]} onPressItem={onPressItem} />
+        <ProfileItem item={profileItem[2]} onPressItem={onPressItem} />
+        <ProfileItem item={profileItem[3]} onPressItem={onPressItem} />
+        <ProfileItem item={profileItem[4]} onPressItem={onPressItem} />
+        <ProfileItem item={profileItem[5]} onPressItem={onPressItem} />
       </View>
     </ScrollView>
   );
-  // return (
-  //     <AuthenticationContext.Consumer>
-  //         {
-  //             ({ authentication }) => {
-  //                 console.log('profile authentication: ', authentication)
-  //                 return (
-  //                     <ThemeContext.Consumer>
-  //                         {
-  //                             ({ theme, setTheme }) => {
-  //                                 return (
-  //                                     <View style={{ ...styles.container, backgroundColor: theme.background }}>
-  //                                         {/* <Text>{item.username}</Text>
-  //                                         <Text>{item.fullName}</Text> */}
-  //                                         <Text>{authentication.user.username}</Text>
-  //                                         <Text>{authentication.user.fullName}</Text>
-  //                                     </View>
-  //                                 )
-  //                             }
-  //                         }
-  //                     </ThemeContext.Consumer>
-
-  //                 )
-  //             }
-  //         }
-  //     </AuthenticationContext.Consumer>
-  // )
 };
 
 const styles = StyleSheet.create({
-  image: {
-    marginTop: 50,
-    height: 120,
-    width: 120,
-    borderRadius: 60,
+  container: {
+    flex: 1,
   },
-  name: {
-    marginTop: 10,
-    fontSize: 16,
-    fontWeight: "bold",
+  viewInfo: {
+    flex: 1,
+    flexDirection: "row",
+    backgroundColor: "white",
+    alignItems: "center",
+    marginTop: 20,
+  },
+  image: {
+    margin: 20,
+    height: 50,
+    width: 50,
+    borderRadius: 25,
+  },
+  viewInfoSub: {
+    flex: 1,
+    alignItems: "stretch",
   },
   view: {
     alignItems: "flex-start",
@@ -93,14 +141,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   subTitle: {
-    marginTop: 10,
     fontSize: 14,
     color: "gray",
   },
   title: {
-    marginTop: 10,
     fontSize: 16,
     fontWeight: "bold",
+    color: "#417AF9",
   },
   buttonLogout: {
     marginHorizontal: 40,
@@ -109,10 +156,16 @@ const styles = StyleSheet.create({
 });
 
 //get data
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  userMe: loGet(state, ["user", "userMe"], {}),
+  user: loGet(state, ["user", "userInfo"]),
+  tokenSave: loGet(state, ["user", "token"]),
+});
 
 //call api to get response
 const mapDispatchToProps = (dispatch) => ({
+  getInfoMe: (actionSuccess) =>
+    dispatch(UserActions.getMeRequest(actionSuccess)),
   logout: (actionSuccess) => dispatch(UserActions.logout(actionSuccess)),
 });
 

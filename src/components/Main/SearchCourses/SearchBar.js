@@ -1,45 +1,80 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import debounce from "lodash/debounce";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { GRAY, BLACK } from "../../../config/color";
-import { useNavigation } from "@react-navigation/native";
-import { defaultFormatUtc } from "moment";
+import { Ionicons } from "@expo/vector-icons";
+import { connect } from "react-redux";
+import loGet from "lodash/get";
+import I18n from "ex-react-native-i18n";
 
 const SearchBar = (props) => {
   const [text, setText] = useState("");
   const textInput = useRef(null);
+  const { tokenSave, updateData, useFor, search } = props;
+  const [data, setData] = useState({});
 
   const handleOnPressClearText = () => {
     setText("");
   };
-  const debounceSearchDoctors = debounce(
-    (value) => props.search({ keyword: value, limit: 20, offset: 0 }),
-    500
+  const debounceSearchCourses = debounce(
+    (value) =>
+      search(
+        {
+          token: tokenSave,
+          keyword: value,
+          limit: props.limit,
+          offset: props.offset,
+        },
+        (res) => {
+          setData(res);
+          if (useFor) {
+            updateData(res.courses);
+          } else {
+            updateData(res.instructors);
+          }
+        }
+      ),
+    1000
   );
   const searchCourses = (_text) => {
     setText(_text);
-    debounceSearchDoctors(_text);
+    debounceSearchCourses(_text);
   };
+
+  useEffect(() => {
+    if (useFor) {
+      updateData(data.courses);
+    } else {
+      updateData(data.instructors);
+    }
+  }, [useFor]);
 
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
+        <Ionicons
+          style={{ marginLeft: 10 }}
+          name="ios-search"
+          size="18"
+          color="gray"
+        />
         <TextInput
           ref={textInput}
           style={styles.input}
           onChangeText={searchCourses}
           defaultValue={text}
-          placeholder="Seach course ..."
+          placeholder={I18n.t("key_search")}
+          autoFocus={true}
         />
-        {text !== "" && (
+        {/* {text !== "" && (
           <TouchableOpacity
             style={styles.button}
             onPress={handleOnPressClearText}
           >
-            <MaterialIcons name="clear" size={24} color={BLACK} />
+            <MaterialIcons name="clear" size={18} color="gray" />
           </TouchableOpacity>
-        )}
+        )} */}
       </View>
     </View>
   );
@@ -64,11 +99,23 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 16,
     flex: 1,
-    paddingLeft: 15,
+    paddingLeft: 5,
     paddingRight: 15,
     paddingTop: 7,
     paddingBottom: 7,
   },
+  button: {
+    marginRight: 5,
+  },
 });
 
-export default SearchBar;
+//get data
+const mapStateToProps = (state) => ({
+  tokenSave: loGet(state, ["user", "token"]),
+  searchResults: loGet(state, ["course", "searchResults"], {}),
+});
+
+//call api to get response
+const mapDispatchToProps = (dispatch) => ({});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

@@ -11,10 +11,12 @@ import CategoriesItem from "../CategoriesItem/CategoriesItem";
 import { connect } from "react-redux";
 import loGet from "lodash/get";
 import CourseActions from "../../../../redux/courseRedux";
+import { ICONPROFILE, ICONSETTING } from "../../../../config/icon";
 
 const Categories = (props) => {
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const { userInfo } = props;
 
   props.navigation.setOptions({
     headerRight: () => (
@@ -25,9 +27,20 @@ const Categories = (props) => {
       >
         <View style={{ marginRight: 20 }}>
           <Image
-            source={require("../../../../../assets/ic_profile.png")}
+            source={userInfo.avatar ? { uri: userInfo.avatar } : ICONPROFILE}
             style={styles.image}
           />
+        </View>
+      </TouchableOpacity>
+    ),
+    headerLeft: () => (
+      <TouchableOpacity
+        onPress={() => {
+          props.navigation.navigate("Setting");
+        }}
+      >
+        <View style={{ marginLeft: 20 }}>
+          <Image source={ICONSETTING} style={styles.imageSetting} />
         </View>
       </TouchableOpacity>
     ),
@@ -77,10 +90,15 @@ const styles = StyleSheet.create({
     width: 30,
     borderRadius: 15,
   },
+  imageSetting: {
+    height: 20,
+    width: 20,
+  },
 });
 
 const mapStateToProps = (state) => ({
-  data: loGet(state, ["course", "categories"], []),
+  dataCategories: loGet(state, ["course", "categories"], []),
+  userInfo: loGet(state, ["user", "userInfo"], {}),
 });
 
 const mapDispatchToProps = (dispatch) => ({

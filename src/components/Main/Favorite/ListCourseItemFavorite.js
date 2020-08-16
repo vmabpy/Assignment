@@ -12,7 +12,7 @@ const ListCourseItemFavorite = (props) => {
       }}
     >
       <Image source={{ uri: item.courseImage }} style={styles.image} />
-      <View style={{ margin: 5 }}>
+      <View style={{ margin: 10, flex: 1 }}>
         <Text>{item.courseTitle}</Text>
         <Text style={styles.darkText}>{item.instructorName}</Text>
         {/* <Text style={styles.darkText}>{`${moment(item.updatedAt).format(
@@ -26,9 +26,8 @@ const ListCourseItemFavorite = (props) => {
 const styles = StyleSheet.create({
   item: {
     flexDirection: "row",
-    margin: 5,
+    marginLeft: 10,
     marginVertical: 20,
-    marginLeft: 20,
   },
   image: {
     height: 70,

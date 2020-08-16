@@ -11,6 +11,7 @@ const { Types, Creators } = createActions({
   startupRequest: ["actionSuccess", "actionFailure"],
   startupSuccess: null,
   startupFailure: null,
+  changeLanguage: ["language"],
 });
 
 export const AppTypes = Types;
@@ -21,6 +22,7 @@ export const INITIAL_STATE = Immutable({
   error: "",
   isShowingIndicator: false,
   logedIn: undefined,
+  language: "en",
 });
 
 /* ------------- Reducers ------------- */
@@ -66,6 +68,10 @@ export const startupFailure = (state) => {
   return state.merge({ logedIn: false });
 };
 
+export const changeLanguage = (state, { language }) => {
+  return state.merge({ language });
+};
+
 /* ------------- Hookup Reducers To Types ------------- */
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.STARTUP_REQUEST]: startupRequest,
@@ -74,4 +80,5 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.SHOW_INDICATOR]: showIndicator,
   [Types.SHOW_ERROR]: showError,
   [Types.SHOW_SUCCESS]: showSuccess,
+  [Types.CHANGE_LANGUAGE]: changeLanguage,
 });

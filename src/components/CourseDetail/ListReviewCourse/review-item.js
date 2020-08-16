@@ -4,16 +4,16 @@ import { padding } from "../../../globals/constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const ReviewItem = (props) => {
-  const { itemTitle } = props;
+  const { itemReview } = props;
   return (
     <TouchableOpacity
       style={styles.containerView}
       onPress={() => {
-        props.onPress(props.item);
+        props.handleReviewItem(itemReview);
       }}
     >
-      <Image style={styles.image} source={itemTitle.imageRoute} />
-      <Text style={styles.title}>{itemTitle.title}</Text>
+      <Image style={styles.image} source={itemReview.imageRoute} />
+      <Text style={styles.title}>{itemReview.title}</Text>
     </TouchableOpacity>
   );
 };
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     height: 30,
     borderRadius: 5,
-    backgroundColor: "darkgray",
+    backgroundColor: "#C6C6C6",
   },
   image: {
     height: 20,
@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
   },
   title: {
     marginLeft: padding._5,
-    color: "white",
   },
 });
 

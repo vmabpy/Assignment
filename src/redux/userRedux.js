@@ -11,6 +11,14 @@ const { Types, Creators } = createActions({
   loginFailure: null,
   loginSuccess: ["userInfo", "token"],
 
+  loginGoogleRequest: ["params", "actionSuccess"],
+  loginGoogleFailure: null,
+  loginGoogleSuccess: ["userInfo", "token"],
+
+  forgotPasswordRequest: ["params", "actionSuccess"],
+  forgotPasswordFailure: null,
+  forgotPasswordSuccess: null,
+
   likeCourseRequest: ["params", "actionSuccess"],
   likeCourseFailure: null,
   likeCourseSuccess: null,
@@ -18,6 +26,22 @@ const { Types, Creators } = createActions({
   getFavoriteRequest: ["actionSuccess"],
   getFavoriteFailure: null,
   getFavoriteSuccess: ["favorite"],
+
+  updateInfoRequest: ["params", "actionSuccess"],
+  updateInfoSuccess: ["userInfo"],
+  updateInfoFailure: null,
+
+  changePasswordRequest: ["params", "actionSuccess"],
+  changePasswordSuccess: null,
+  changePasswordFailure: null,
+
+  getMeRequest: ["actionSuccess"],
+  getMeSuccess: ["userMe"],
+  getMeFailure: null,
+
+  checkOwnCourseRequest: ["params", "actionSuccess"],
+  checkOwnCourseSuccess: null,
+  checkOwnCourseFailure: null,
 
   logout: ["actionSuccess"],
 });
@@ -31,6 +55,7 @@ export const INITIAL_STATE = Immutable({
   token: undefined,
   userInfo: undefined,
   error: undefined,
+  userMe: undefined,
 });
 
 /* ------------- Reducers ------------- */
@@ -59,6 +84,30 @@ const loginFailure = (state, { error }) => {
   return state.merge({ error });
 };
 
+const loginGoogleRequest = (state) => {
+  return state.merge({});
+};
+
+const loginGoogleSuccess = (state, { userInfo, token }) => {
+  return state.merge({ userInfo, token });
+};
+
+const loginGoogleFailure = (state, { error }) => {
+  return state.merge({ error });
+};
+
+const forgotPasswordRequest = (state) => {
+  return state.merge({});
+};
+
+const forgotPasswordSuccess = (state) => {
+  return state.merge({});
+};
+
+const forgotPasswordFailure = (state) => {
+  return state.merge({});
+};
+
 const likeCourseRequest = (state) => {
   return state.merge({});
 };
@@ -83,6 +132,54 @@ const getFavoriteFailure = (state) => {
   return state.merge({});
 };
 
+const updateInfoRequest = (state) => {
+  return state.merge({});
+};
+
+const updateInfoSuccess = (state, { userInfo }) => {
+  return state.merge({ userInfo });
+};
+
+const updateInfoFailure = (state) => {
+  return state.merge({});
+};
+
+const changePasswordRequest = (state) => {
+  return state.merge({});
+};
+
+const changePasswordSuccess = (state) => {
+  return state.merge({});
+};
+
+const changePasswordFailure = (state) => {
+  return state.merge({});
+};
+
+const getMeRequest = (state) => {
+  return state.merge({});
+};
+
+const getMeSuccess = (state, { userMe }) => {
+  return state.merge({ userMe });
+};
+
+const getMeFailure = (state) => {
+  return state.merge({});
+};
+
+const checkOwnCourseRequest = (state) => {
+  return state.merge({});
+};
+
+const checkOwnCourseSuccess = (state) => {
+  return state.merge({});
+};
+
+const checkOwnCourseFailure = (state) => {
+  return state.merge({});
+};
+
 const logout = (state) => {
   return INITIAL_STATE;
 };
@@ -97,6 +194,14 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.LOGIN_SUCCESS]: loginSuccess,
   [Types.LOGIN_FAILURE]: loginFailure,
 
+  [Types.LOGIN_GOOGLE_REQUEST]: loginGoogleRequest,
+  [Types.LOGIN_GOOGLE_SUCCESS]: loginGoogleSuccess,
+  [Types.LOGIN_GOOGLE_FAILURE]: loginGoogleFailure,
+
+  [Types.FORGOT_PASSWORD_REQUEST]: forgotPasswordRequest,
+  [Types.FORGOT_PASSWORD_SUCCESS]: forgotPasswordSuccess,
+  [Types.FORGOT_PASSWORD_FAILURE]: forgotPasswordFailure,
+
   [Types.LIKE_COURSE_REQUEST]: likeCourseRequest,
   [Types.LIKE_COURSE_SUCCESS]: likeCourseSuccess,
   [Types.LIKE_COURSE_FAILURE]: likeCourseFailure,
@@ -104,6 +209,22 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_FAVORITE_REQUEST]: getFavoriteRequest,
   [Types.GET_FAVORITE_SUCCESS]: getFavoriteSuccess,
   [Types.GET_FAVORITE_FAILURE]: getFavoriteFailure,
+
+  [Types.UPDATE_INFO_REQUEST]: updateInfoRequest,
+  [Types.UPDATE_INFO_SUCCESS]: updateInfoSuccess,
+  [Types.UPDATE_INFO_FAILURE]: updateInfoFailure,
+
+  [Types.CHANGE_PASSWORD_REQUEST]: changePasswordRequest,
+  [Types.CHANGE_PASSWORD_SUCCESS]: changePasswordSuccess,
+  [Types.CHANGE_PASSWORD_FAILURE]: changePasswordFailure,
+
+  [Types.GET_ME_REQUEST]: getMeRequest,
+  [Types.GET_ME_SUCCESS]: getMeSuccess,
+  [Types.GET_ME_FAILURE]: getMeFailure,
+
+  [Types.CHECK_OWN_COURSE_REQUEST]: checkOwnCourseRequest,
+  [Types.CHECK_OWN_COURSE_SUCCESS]: checkOwnCourseSuccess,
+  [Types.CHECK_OWN_COURSE_FAILURE]: checkOwnCourseFailure,
 
   [Types.LOGOUT]: logout,
 });

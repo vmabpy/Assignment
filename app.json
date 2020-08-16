@@ -1,15 +1,11 @@
 {
   "expo": {
-    "name": "HelloWorld",
+    "name": "Y_Learning",
     "slug": "Assignment",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/ic_app.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -18,11 +14,20 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "host.exp.exponent",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.124182005930-5ornmd19glhm7r4lqm662u9hi4bit65j"
+        }
+      }
+    },
+    "android": {
+      "package": "com.hieutong",
+      "versionCode": 1,
+      "icon": "./assets/ic_app.png"
     }
   }
 }

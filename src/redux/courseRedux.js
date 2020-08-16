@@ -1,7 +1,5 @@
 import { createReducer, createActions } from "reduxsauce";
 import Immutable from "seamless-immutable";
-import { getStoredState } from "redux-persist";
-import { multiply } from "react-native-reanimated";
 /* ------------- Types and Action Creators ------------- */
 const { Types, Creators } = createActions({
   getCategoriesRequest: ["actionSuccess"],
@@ -24,6 +22,10 @@ const { Types, Creators } = createActions({
   getRateSuccess: null,
   getRateFailure: null,
 
+  getRecommendRequest: ["params", "actionSuccess"],
+  getRecommendSuccess: null,
+  getRecommendFailure: null,
+
   getListTutorRequest: ["actionSuccess"],
   getListTutorSuccess: null,
   getListTutorFailure: null,
@@ -35,6 +37,38 @@ const { Types, Creators } = createActions({
   searchCoursesRequest: ["params", "actionSuccess"],
   searchCoursesSuccess: ["searchResults", "inputSearch"],
   searchCoursesFailure: null,
+
+  paymentCourseRequest: ["params", "actionSuccess"],
+  paymentCourseSuccess: null,
+  paymentCourseFailure: null,
+
+  listExercisesLessonRequest: ["params", "actionSuccess"],
+  listExercisesLessonSuccess: null,
+  listExercisesLessonFailure: null,
+
+  exercisesTestRequest: ["params", "actionSuccess"],
+  exercisesTestSuccess: null,
+  exercisesTestFailure: null,
+
+  commentCourseRequest: ["params", "actionSuccess"],
+  commentCourseSuccess: null,
+  commentCourseFailure: null,
+
+  getRecentSearchRequest: ["actionSuccess"],
+  getRecentSearchSuccess: ["recentSearch"],
+  getRecentSearchFailure: null,
+
+  deleteSearchRequest: ["params", "actionSuccess"],
+  deleteSearchSuccess: null,
+  deleteSearchFailure: null,
+
+  updateCurrentVideoRequest: ["params", "actionSuccess"],
+  updateCurrentVideoSuccess: null,
+  updateCurrentVideoFailure: null,
+
+  getCurrentVideoRequest: ["params", "actionSuccess"],
+  getCurrentVideoSuccess: null,
+  getCurrentVideoFailure: null,
 });
 
 export const CourseTypes = Types;
@@ -43,8 +77,10 @@ export default Creators;
 
 export const INITIAL_STATE = Immutable({
   categories: [],
-  searchResults: [],
-  inputSearch: "",
+  inputSearch: undefined,
+  searchResults: undefined,
+  historiesSearch: [],
+  recentSearch: [],
 });
 
 /* ------------- Reducers ------------- */
@@ -109,6 +145,18 @@ const getRateFailure = (state) => {
   return state.merge({});
 };
 
+const getRecommendRequest = (state) => {
+  return state.merge({});
+};
+
+const getRecommendSuccess = (state) => {
+  return state.merge({});
+};
+
+const getRecommendFailure = (state) => {
+  return state.merge({});
+};
+
 const getListTutorRequest = (state) => {
   return state.merge({});
 };
@@ -145,6 +193,102 @@ const searchCoursesFailure = (state) => {
   return state.merge({});
 };
 
+const paymentCourseRequest = (state) => {
+  return state.merge({});
+};
+
+const paymentCourseSuccess = (state) => {
+  return state.merge({});
+};
+
+const paymentCourseFailure = (state) => {
+  return state.merge({});
+};
+
+const listExercisesLessonRequest = (state) => {
+  return state.merge({});
+};
+
+const listExercisesLessonSuccess = (state) => {
+  return state.merge({});
+};
+
+const listExercisesLessonFailure = (state) => {
+  return state.merge({});
+};
+
+const exercisesTestRequest = (state) => {
+  return state.merge({});
+};
+
+const exercisesTestSuccess = (state) => {
+  return state.merge({});
+};
+
+const exercisesTestFailure = (state) => {
+  return state.merge({});
+};
+
+const commentCourseRequest = (state) => {
+  return state.merge({});
+};
+
+const commentCourseSuccess = (state) => {
+  return state.merge({});
+};
+
+const commentCourseFailure = (state) => {
+  return state.merge({});
+};
+
+const getRecentSearchRequest = (state) => {
+  return state.merge({});
+};
+
+const getRecentSearchSuccess = (state, { recentSearch }) => {
+  return state.merge({ recentSearch });
+};
+
+const getRecentSearchFailure = (state) => {
+  return state.merge({});
+};
+
+const deleteSearchRequest = (state) => {
+  return state.merge({});
+};
+
+const deleteSearchSuccess = (state) => {
+  return state.merge({});
+};
+
+const deleteSearchFailure = (state) => {
+  return state.merge({});
+};
+
+const updateCurrentVideoRequest = (state) => {
+  return state.merge({});
+};
+
+const updateCurrentVideoSuccess = (state) => {
+  return state.merge({});
+};
+
+const updateCurrentVideoFailure = (state) => {
+  return state.merge({});
+};
+
+const getCurrentVideoRequest = (state) => {
+  return state.merge({});
+};
+
+const getCurrentVideoSuccess = (state) => {
+  return state.merge({});
+};
+
+const getCurrentVideoFailure = (state) => {
+  return state.merge({});
+};
+
 /* ------------- Hookup Reducers To Types ------------- */
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_CATEGORIES_REQUEST]: getCategoriesRequest,
@@ -167,6 +311,10 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.GET_RATE_SUCCESS]: getRateSuccess,
   [Types.GET_RATE_FAILURE]: getRateFailure,
 
+  [Types.GET_RECOMMEND_REQUEST]: getRecommendRequest,
+  [Types.GET_RECOMMEND_SUCCESS]: getRecommendSuccess,
+  [Types.GET_RECOMMEND_FAILURE]: getRecommendFailure,
+
   [Types.GET_LIST_TUTOR_REQUEST]: getListTutorRequest,
   [Types.GET_LIST_TUTOR_SUCCESS]: getListTutorSuccess,
   [Types.GET_LIST_TUTOR_FAILURE]: getListTutorFailure,
@@ -178,4 +326,36 @@ export const reducer = createReducer(INITIAL_STATE, {
   [Types.SEARCH_COURSES_REQUEST]: searchCoursesRequest,
   [Types.SEARCH_COURSES_SUCCESS]: searchCoursesSuccess,
   [Types.SEARCH_COURSES_FAILURE]: searchCoursesFailure,
+
+  [Types.PAYMENT_COURSE_REQUEST]: paymentCourseRequest,
+  [Types.PAYMENT_COURSE_SUCCESS]: paymentCourseSuccess,
+  [Types.PAYMENT_COURSE_FAILURE]: paymentCourseFailure,
+
+  [Types.LIST_EXERCISES_LESSON_REQUEST]: listExercisesLessonRequest,
+  [Types.LIST_EXERCISES_LESSON_SUCCESS]: listExercisesLessonSuccess,
+  [Types.LIST_EXERCISES_LESSON_FAILURE]: listExercisesLessonFailure,
+
+  [Types.EXERCISES_TEST_REQUEST]: exercisesTestRequest,
+  [Types.EXERCISES_TEST_SUCCESS]: exercisesTestSuccess,
+  [Types.EXERCISES_TEST_FAILURE]: exercisesTestFailure,
+
+  [Types.COMMENT_COURSE_REQUEST]: commentCourseRequest,
+  [Types.COMMENT_COURSE_SUCCESS]: commentCourseSuccess,
+  [Types.COMMENT_COURSE_FAILURE]: commentCourseFailure,
+
+  [Types.GET_RECENT_SEARCH_REQUEST]: getRecentSearchRequest,
+  [Types.GET_RECENT_SEARCH_SUCCESS]: getRecentSearchSuccess,
+  [Types.GET_RECENT_SEARCH_FAILURE]: getRecentSearchFailure,
+
+  [Types.DELETE_SEARCH_REQUEST]: deleteSearchRequest,
+  [Types.DELETE_SEARCH_SUCCESS]: deleteSearchSuccess,
+  [Types.DELETE_SEARCH_FAILURE]: deleteSearchFailure,
+
+  [Types.UPDATE_CURRENT_VIDEO_REQUEST]: updateCurrentVideoRequest,
+  [Types.UPDATE_CURRENT_VIDEO_SUCCESS]: updateCurrentVideoSuccess,
+  [Types.UPDATE_CURRENT_VIDEO_FAILURE]: updateCurrentVideoFailure,
+
+  [Types.GET_CURRENT_VIDEO_REQUEST]: getCurrentVideoRequest,
+  [Types.GET_CURRENT_VIDEO_SUCCESS]: getCurrentVideoSuccess,
+  [Types.GET_CURRENT_VIDEO_FAILURE]: getCurrentVideoFailure,
 });

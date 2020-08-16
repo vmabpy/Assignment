@@ -1,3 +1,4 @@
 import Login from "./Login/login";
 import Register from "./Register/register";
-export { Login, Register };
+import ForgotPassword from "./ForgetPassword/fotgot-password";
+export { Login, Register, ForgotPassword };

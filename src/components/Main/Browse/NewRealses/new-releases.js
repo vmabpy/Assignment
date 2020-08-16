@@ -26,6 +26,7 @@ const NewRealease = (props) => {
             onPressListItem={onPressListItem}
           />
         )}
+        keyExtractor={(item) => item.id}
         ItemSeparatorComponent={FlatListItemSeparator}
       />
     </View>

@@ -1,10 +1,9 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { padding } from "../../../globals/constants";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { ICONPREVIEW } from "../../../config/icon";
 
 const ListLessonItem = (props) => {
-  const { item } = props;
+  const { item, ownCourse } = props;
   return (
     <TouchableOpacity
       style={styles.containerView}
@@ -12,9 +11,17 @@ const ListLessonItem = (props) => {
         props.handleClick(item);
       }}
     >
-      <View style={styles.viewCircle}></View>
-      <Text style={styles.titleItem}>{item.name}</Text>
-      <Text style={styles.titleTime}>{item.hours}</Text>
+      {item.isPreview && !ownCourse ? (
+        <View>
+          <Image source={ICONPREVIEW} style={styles.viewImage} />
+        </View>
+      ) : (
+        <View style={styles.viewCircle}></View>
+      )}
+      <View style={styles.content}>
+        <Text style={styles.title}>{item.name}</Text>
+        <Text style={styles.titleTime}>{item.hours}</Text>
+      </View>
     </TouchableOpacity>
   );
 };
@@ -22,8 +29,8 @@ const ListLessonItem = (props) => {
 const styles = StyleSheet.create({
   containerView: {
     flexDirection: "row",
-    margin: padding._10,
-    height: 40,
+    margin: 10,
+    padding: 5,
     alignItems: "center",
   },
   viewCircle: {
@@ -32,12 +39,19 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "gray",
   },
-  titleItem: {
-    marginLeft: 20,
+  viewImage: {
+    height: 20,
+    width: 20,
   },
+  content: {
+    flex: 1,
+    flexDirection: "row",
+    marginLeft: 5,
+  },
+  title: { flex: 0.9 },
   titleTime: {
-    position: "absolute",
-    right: 0,
+    flex: 0.1,
+    marginRight: 5,
   },
 });
 
