@@ -121,7 +121,7 @@ const SearchCourse = (props) => {
 
   useEffect(() => {
     props.rencentInSearch();
-  }, [useFor, rencentInSearch]);
+  }, [useFor, inputSearch, recentSearch]);
   return (
     <View style={styles.container}>
       <SearchBar

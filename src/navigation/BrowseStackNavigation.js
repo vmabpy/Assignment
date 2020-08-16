@@ -16,7 +16,11 @@ const Stack = createStackNavigator();
 const BrowseStackNavigation = () => {
   return (
     <Stack.Navigator initialRouteName="Browse">
-      <Stack.Screen name="Browse" component={Browse} />
+      <Stack.Screen
+        name="Browse"
+        component={Browse}
+        options={{ title: I18n.t("key_browse") }}
+      />
       <Stack.Screen
         name="NewRealse"
         component={NewRealease}

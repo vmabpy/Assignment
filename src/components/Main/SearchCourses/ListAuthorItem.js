@@ -13,7 +13,7 @@ const ListAuthorItem = (props) => {
       <Image style={styles.image} source={{ uri: item.avatar }} />
       <View style={styles.viewMain}>
         <Text style={styles.name}>{item.name}</Text>
-        <Text style={styles.darkText}>${item.numcourses} courses</Text>
+        <Text style={styles.darkText}>{item.numcourses} courses</Text>
       </View>
     </TouchableOpacity>
   );

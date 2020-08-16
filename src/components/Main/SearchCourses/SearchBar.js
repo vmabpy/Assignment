@@ -6,6 +6,7 @@ import { GRAY, BLACK } from "../../../config/color";
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import loGet from "lodash/get";
+import I18n from "ex-react-native-i18n";
 
 const SearchBar = (props) => {
   const [text, setText] = useState("");
@@ -63,7 +64,7 @@ const SearchBar = (props) => {
           style={styles.input}
           onChangeText={searchCourses}
           defaultValue={text}
-          placeholder="Seach ..."
+          placeholder={I18n.t("key_search")}
           autoFocus={true}
         />
         {/* {text !== "" && (

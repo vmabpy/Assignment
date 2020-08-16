@@ -247,7 +247,6 @@ function* getRencentSearch({ actionSuccess }) {
     if (actionSuccess) {
       actionSuccess(payload);
     }
-    console.log(payload);
     yield put(AppActions.hideIndicator());
   } catch (error) {
     yield put(CourseActions.getRecentSearchFailure());

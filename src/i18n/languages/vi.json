@@ -45,13 +45,17 @@
   "key_courses": "Khoá học",
   "key_author": "Trợ giảng",
   "key_up_new_releases": "MỚI NHẤT",
-  "key_recommend": "GỢI Ý",
+  "key_recommend": "GỢI Ý CHO BẠN",
   "key_top_athors": "Trợ giảng nổi bật",
   "key_popular_skills": "Ngôn ngữ phổ biến",
-  "key_could_not_find": "Không tìm thấy kết qủa nào",
+  "key_could_not_find": "Không tìm thấy kết quả nào",
   "key_recent_searches": "Tìm kiếm gần đây",
   "key_see_all": "Xem tất cả",
   "key_profile": "Cá nhân",
   "key_setting": "Cài đặt",
-  "key_language_title": "Ngôn ngữ"
+  "key_language_title": "Ngôn ngữ",
+  "key_download": "Tải",
+  "key_joined": "Đã tham gia",
+  "key_joining": "Tham gia",
+  "key_paying": "Trả phí"
 }

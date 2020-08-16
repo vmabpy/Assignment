@@ -12,6 +12,7 @@ import {
   ICONCHECKED,
 } from "../../../config/icon";
 import { stringify } from "querystring";
+import I18n from "ex-react-native-i18n";
 
 const ListOption = (props) => {
   let { item = {}, ownCourse } = props;
@@ -19,17 +20,22 @@ const ListOption = (props) => {
     {
       id: 1,
       imageRoute: ICONFAVORITE,
-      title: "Favorite",
+      title: I18n.t("key_favorite"),
     },
     {
       id: 2,
       imageRoute: ICONDOWNLOAD,
-      title: "Download",
+      title: I18n.t("key_download"),
     },
     {
       id: 3,
       imageRoute: ownCourse ? ICONCHECKED : ICONPAYMENT,
-      title: item.price === 0 ? (ownCourse ? "Joined" : "Joining") : "Paying",
+      title:
+        item.price === 0
+          ? ownCourse
+            ? I18n.t("key_joined")
+            : I18n.t("key_joining")
+          : I18n.t("key_paying"),
     },
   ];
 
