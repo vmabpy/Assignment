@@ -24,6 +24,7 @@ const VideoPlayer = (props) => {
     // console.log(typeof playerRef.seekTo);
     //   }
     // }
+    console.log(urlVideo, "URL");
     setPlaying(true);
   }, [urlVideo]);
 

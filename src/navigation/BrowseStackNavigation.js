@@ -11,6 +11,7 @@ import {
   RelatedCourses,
   RatingCourse,
 } from "../components/Main/Browse";
+import I18n from "ex-react-native-i18n";
 const Stack = createStackNavigator();
 const BrowseStackNavigation = () => {
   return (
@@ -19,7 +20,7 @@ const BrowseStackNavigation = () => {
       <Stack.Screen
         name="NewRealse"
         component={NewRealease}
-        options={{ title: "New" }}
+        options={{ title: I18n.t("key_new") }}
       />
       <Stack.Screen name="Recommendation" component={Recommendation} />
       <Stack.Screen
@@ -32,12 +33,12 @@ const BrowseStackNavigation = () => {
       <Stack.Screen
         name="RelatedCourses"
         component={RelatedCourses}
-        options={{ title: "Related Courses" }}
+        options={{ title: I18n.t("key_related_course") }}
       />
       <Stack.Screen
         name="RatingCourse"
         component={RatingCourse}
-        options={{ title: "Rating Courses" }}
+        options={{ title: I18n.t("key_rating") }}
       />
     </Stack.Navigator>
   );

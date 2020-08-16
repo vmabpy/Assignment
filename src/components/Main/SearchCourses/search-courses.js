@@ -14,6 +14,7 @@ import ListCoursesItem from "../../Courses/ListCoursesItem/list-courses-item";
 import { Ionicons } from "@expo/vector-icons";
 import ListAuthorItem from "./ListAuthorItem";
 import ItemRecentSearch from "./ItemRecentSearch";
+import I18n from "ex-react-native-i18n";
 
 const SearchCourse = (props) => {
   const [page, setPage] = useState(1);
@@ -151,7 +152,7 @@ const SearchCourse = (props) => {
                     : styles.titleBtn
                 }
               >
-                Course
+                {I18n.t("key_courses")}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -171,7 +172,7 @@ const SearchCourse = (props) => {
                     : styles.titleBtn
                 }
               >
-                Author
+                {I18n.t("key_author")}
               </Text>
             </TouchableOpacity>
           </View>
@@ -210,14 +211,16 @@ const SearchCourse = (props) => {
               <Ionicons name="ios-search" size="50" color="gray" />
               <Text style={styles.text}>No results</Text>
               <Text style={{ fontSize: 14 }}>
-                We could not find any results for that
+                {I18n.t("key_could_not_find")}
               </Text>
             </View>
           )}
         </View>
       ) : (
         <View style={styles.viewEmpty}>
-          <Text style={styles.titleRecent}>Recent searches</Text>
+          <Text style={styles.titleRecent}>
+            {I18n.t("key_recent_searches")}
+          </Text>
           <FlatList
             data={recentSearch}
             renderItem={({ item }) => (

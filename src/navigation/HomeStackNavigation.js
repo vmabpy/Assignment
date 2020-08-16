@@ -11,6 +11,7 @@ import {
   Setting,
   Language,
 } from "../components/Main/Home";
+import I18n from "ex-react-native-i18n";
 const Stack = createStackNavigator();
 
 const HomeStackNavigation = () => {
@@ -23,7 +24,7 @@ const HomeStackNavigation = () => {
       <Stack.Screen
         name="Changepassword"
         component={Changepassword}
-        options={{ title: "Change password" }}
+        options={{ title: I18n.t("key_change_password") }}
       />
       <Stack.Screen
         name="UpdateInfoUser"
@@ -33,7 +34,7 @@ const HomeStackNavigation = () => {
       <Stack.Screen
         name="RelatedCourses"
         component={RelatedCourses}
-        options={{ title: "Related Courses" }}
+        options={{ title: I18n.t("key_related_course") }}
       />
       <Stack.Screen name="Setting" component={Setting} />
       <Stack.Screen name="Language" component={Language} />

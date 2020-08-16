@@ -15,6 +15,7 @@ import {
 import ListCoursesItem from "../../components/Courses/ListCoursesItem/list-courses-item";
 import ProfileItem from "./profileItem";
 import Constants from "expo-constants";
+import I18n from "ex-react-native-i18n";
 
 const Profile = (props) => {
   const { getInfoMe, userMe, user = {}, tokenSave } = props;
@@ -36,32 +37,32 @@ const Profile = (props) => {
     {
       id: 0,
       icon: ICONACCOUNT,
-      title: "Update profile",
+      title: I18n.t("kye_update_profile"),
     },
     {
       id: 1,
       icon: ICONPASSWORD,
-      title: "Change password",
+      title: I18n.t("key_change_password"),
     },
     {
       id: 2,
       icon: ICONMAIL,
-      title: "Change email",
+      title: I18n.t("key_change_email"),
     },
     {
       id: 3,
       icon: ICONACCOUNT,
-      title: "Term of use",
+      title: I18n.t("key_term_of_use"),
     },
     {
       id: 4,
       icon: ICONDOWNLOAD,
-      title: "Download Courses",
+      title: I18n.t("key_download_courses"),
     },
     {
       id: 5,
       icon: ICONLOGOUT,
-      title: "Log out",
+      title: I18n.t("key_log_out"),
     },
   ];
 
@@ -75,13 +76,13 @@ const Profile = (props) => {
         props.navigation.navigate("Changepassword");
         break;
       case 2:
-        Alert.alert("Remind", "Comming soon");
+        Alert.alert(I18n.t("key_remind"), I18n.t("key_comming_soon"));
         break;
       case 3:
-        Alert.alert("Remind", "Comming soon");
+        Alert.alert(I18n.t("key_remind"), I18n.t("key_comming_soon"));
         break;
       case 4:
-        Alert.alert("Remind", "Comming soon");
+        Alert.alert(I18n.t("key_remind"), I18n.t("key_comming_soon"));
         break;
       default:
         props.logout(() => {});

@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import loGet from "lodash/get";
 import UserActions from "../../../redux/userRedux";
 import { ICONGG } from "../../../config/icon";
+import I18n from "ex-react-native-i18n";
 const screenHeight = Math.round(Dimensions.get("window").height);
 
 const IOS_CLIENT_ID =
@@ -63,10 +64,10 @@ const Login = (props) => {
       <StatusBar barStyle="light-content" />
       <View style={styles.viewBubble}></View>
       <View style={styles.viewBubbleYellow}></View>
-      <Text style={styles.greeting}>{`Hello again\n Welcome back`}</Text>
+      <Text style={styles.greeting}>{I18n.t("key_intro_login")}</Text>
       <View style={styles.form}>
         <View>
-          <Text style={styles.inputTitle}>Email</Text>
+          <Text style={styles.inputTitle}>{I18n.t("key_email")}</Text>
           <TextInput
             style={styles.input}
             autoCapitalize="none"
@@ -75,7 +76,7 @@ const Login = (props) => {
           />
         </View>
         <View style={{ marginTop: 32 }}>
-          <Text style={styles.inputTitle}>Password</Text>
+          <Text style={styles.inputTitle}>{I18n.t("key_password")}</Text>
           <TextInput
             style={styles.input}
             secureTextEntry
@@ -86,25 +87,25 @@ const Login = (props) => {
         </View>
       </View>
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.textLogin}>Sign In</Text>
+        <Text style={styles.textLogin}>{I18n.t("key_signin")}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.buttonGoogle} onPress={handleLoginGoogle}>
         <Image source={ICONGG} style={styles.iconGoogle} />
-        <Text style={styles.textLoginGoogle}>Login with Google</Text>
+        <Text style={styles.textLoginGoogle}>{I18n.t("key_login_google")}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.textSignUp}
         onPress={() => props.navigation.push("Register")}
       >
         <Text style={{ color: "#414959", fontSize: 13 }}>
-          New to App?{" "}
+          {I18n.t("key_new_to_app")}{" "}
           <Text
             style={{
               fontWeight: "500",
               color: "#E9446A",
             }}
           >
-            Sign Up
+            {I18n.t("key_sign_up")}
           </Text>
         </Text>
       </TouchableOpacity>
@@ -118,7 +119,7 @@ const Login = (props) => {
             color: "#E9446A",
           }}
         >
-          Forgot Password?
+          {I18n.t("key_forgor_password")}
         </Text>
       </TouchableOpacity>
     </View>

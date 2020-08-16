@@ -13,6 +13,7 @@ import UserActions from "../../../redux/userRedux";
 import { Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 const screenHeight = Math.round(Dimensions.get("window").height);
+import I18n from "ex-react-native-i18n";
 
 export const Register = (props) => {
   const [name, setName] = useState("");
@@ -40,12 +41,12 @@ export const Register = (props) => {
         style={styles.buttonBack}
         onPress={() => props.navigation.goBack()}
       >
-        <Ionicons name="ios-arrow-round-back" size="32" color="#FFF" />
+        <Ionicons name="ios-arrow-round-back" size={32} color="#FFF" />
       </TouchableOpacity>
-      <Text style={styles.greeting}>{`Hello\n Sign up to get started`}</Text>
+      <Text style={styles.greeting}>{I18n.t("key_intro_register")}</Text>
       <View style={styles.form}>
         <View>
-          <Text style={styles.inputTitle}>Name</Text>
+          <Text style={styles.inputTitle}>{I18n.t("key_fullName")}</Text>
           <TextInput
             style={styles.input}
             autoCapitalize="none"
@@ -54,7 +55,7 @@ export const Register = (props) => {
           />
         </View>
         <View style={{ marginTop: 32 }}>
-          <Text style={styles.inputTitle}>Email</Text>
+          <Text style={styles.inputTitle}>{I18n.t("key_email")}</Text>
           <TextInput
             style={styles.input}
             autoCapitalize="none"
@@ -63,7 +64,7 @@ export const Register = (props) => {
           />
         </View>
         <View style={{ marginTop: 32 }}>
-          <Text style={styles.inputTitle}>Phone</Text>
+          <Text style={styles.inputTitle}>{I18n.t("key_phone")}</Text>
           <TextInput
             style={styles.input}
             autoCapitalize="none"
@@ -72,7 +73,7 @@ export const Register = (props) => {
           />
         </View>
         <View style={{ marginTop: 32 }}>
-          <Text style={styles.inputTitle}>Password</Text>
+          <Text style={styles.inputTitle}>{I18n.t("key_password")}</Text>
           <TextInput
             style={styles.input}
             secureTextEntry
@@ -83,15 +84,17 @@ export const Register = (props) => {
         </View>
       </View>
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.textLogin}>Sign Up</Text>
+        <Text style={styles.textLogin}>{I18n.t("key_sign_up")}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.textSignUp}
         onPress={() => props.navigation.navigate("SignIn")}
       >
         <Text style={{ color: "#414959", fontSize: 13 }}>
-          Having an account?{" "}
-          <Text style={{ fontWeight: "500", color: "#E9446A" }}>Login</Text>
+          {I18n.t("key_having_account")}{" "}
+          <Text style={{ fontWeight: "500", color: "#E9446A" }}>
+            {I18n.t("key_signin")}
+          </Text>
         </Text>
       </TouchableOpacity>
       <View style={styles.viewBubbleBottom}></View>

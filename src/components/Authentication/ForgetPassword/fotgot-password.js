@@ -13,6 +13,7 @@ import loGet from "lodash/get";
 import UserActions from "../../../redux/userRedux";
 import { Ionicons } from "@expo/vector-icons";
 const screenHeight = Math.round(Dimensions.get("window").height);
+import I18n from "ex-react-native-i18n";
 
 const ForgotPassword = (props) => {
   const [email, setEmail] = useState("");
@@ -36,19 +37,17 @@ const ForgotPassword = (props) => {
       >
         <Ionicons name="ios-arrow-round-back" size="32" color="#FFF" />
       </TouchableOpacity>
-      <Text style={styles.greeting}>{`Forgot password\n`}</Text>
-      <Text
-        style={styles.intruction}
-      >{`Enter your email address bellow and we'll send you instructions on how to reset your password\n`}</Text>
+      <Text style={styles.greeting}>{I18n.t("key_forgor_password")}</Text>
+      <Text style={styles.intruction}>{I18n.t("key_intructor_forgot")}</Text>
       <View style={styles.form}>
         <View style={{ marginTop: 32 }}>
-          <Text style={styles.inputTitle}>Email</Text>
+          <Text style={styles.inputTitle}>{I18n.t("key_email")}</Text>
           <TextInput
             style={styles.input}
             autoCapitalize="none"
             onChangeText={(email) => setEmail(email)}
             value={email}
-            placeholder="Type your email"
+            placeholder={I18n.t("key_type_email")}
           />
         </View>
       </View>

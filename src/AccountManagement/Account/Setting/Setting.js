@@ -17,18 +17,19 @@ const Setting = (props) => {
     const id = item.id;
     switch (id) {
       case 0:
-        Alert.alert("Remind", "Comming soon");
+        Alert.alert(I18n.t("key_remind"), I18n.t("key_comming_soon"));
         break;
       case 1:
         props.navigation.navigate("Language");
         break;
       case 2:
-        Alert.alert("Remind", "Comming soon");
+        Alert.alert(I18n.t("key_remind"), I18n.t("key_comming_soon"));
         break;
       case 3:
-        Alert.alert("Remind", "Comming soon");
+        Alert.alert(I18n.t("key_remind"), I18n.t("key_comming_soon"));
         break;
       case 4:
+        Alert.alert(I18n.t("key_remind"), I18n.t("key_comming_soon"));
         break;
       default:
         break;
@@ -48,17 +49,17 @@ const Setting = (props) => {
     {
       id: 2,
       icon: ICONFEEDBACK,
-      title: "Send feedback",
+      title: I18n.t("key_feedback"),
     },
     {
       id: 3,
       icon: ICONACCOUNT,
-      title: "Contact support",
+      title: I18n.t("key_support"),
     },
     {
       id: 4,
       icon: ICONSETTING,
-      title: "App version",
+      title: I18n.t("kye_version"),
       appVersion: "1.0.0",
     },
   ];

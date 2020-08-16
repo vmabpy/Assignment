@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import loGet from "lodash/get";
 import UserActions from "../../redux/userRedux";
 import { ICONPROFILE } from "../../config/icon";
+import I18n from "ex-react-native-i18n";
 
 const UpdateInfoUser = (props) => {
   const { params = { user: {} } } = props.route;
@@ -39,14 +40,14 @@ const UpdateInfoUser = (props) => {
           style={styles.buttonBack}
           onPress={() => props.navigation.goBack()}
         >
-          <Ionicons name="ios-arrow-round-back" size="32" color="#FFF" />
+          <Ionicons name="ios-arrow-round-back" size={32} color="#FFF" />
         </TouchableOpacity>
         <View style={styles.viewProfile}>
           <Image style={styles.image} source={{ uri: user.avatar }} />
         </View>
         <View style={styles.form}>
           <View style={{ marginTop: 32 }}>
-            <Text style={styles.inputTitle}>FullName</Text>
+            <Text style={styles.inputTitle}>{I18n.t("key_fullName")}</Text>
             <TextInput
               style={styles.input}
               autoCapitalize="none"
@@ -56,7 +57,7 @@ const UpdateInfoUser = (props) => {
             />
           </View>
           <View style={{ marginTop: 32 }}>
-            <Text style={styles.inputTitle}>Phone</Text>
+            <Text style={styles.inputTitle}>{I18n.t("key_phone")}</Text>
             <TextInput
               style={styles.input}
               autoCapitalize="none"
@@ -66,7 +67,7 @@ const UpdateInfoUser = (props) => {
             />
           </View>
           <TouchableOpacity style={styles.button} onPress={handleUpdate}>
-            <Text style={styles.textLogin}>Update</Text>
+            <Text style={styles.textLogin}>{I18n.t("key_update")}</Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -14,6 +14,7 @@ import ListCoursesItem from "../../../Courses/ListCoursesItem/list-courses-item"
 import LearningPathItem from "../LearningPath/learning-path-item";
 import { ICONNEXT } from "../../../../config/icon";
 import { BLACK } from "../../../../config/color";
+import I18n from "ex-react-native-i18n";
 
 const LearningPath = (props) => {
   const { ratingData = [] } = props;
@@ -46,7 +47,7 @@ const LearningPath = (props) => {
             props.handleShowRating();
           }}
         >
-          <Text style={styles.titleAll}>See all</Text>
+          <Text style={styles.titleAll}>{I18n.t("key_see_all")}</Text>
           <Image source={ICONNEXT} style={styles.image} />
         </TouchableOpacity>
       </View>

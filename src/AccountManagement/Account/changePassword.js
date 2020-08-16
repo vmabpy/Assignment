@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import loGet from "lodash/get";
 import UserActions from "../../redux/userRedux";
 import { dimension } from "../../globals/dimension";
+import I18n from "ex-react-native-i18n";
 
 const Changepassword = (props) => {
   const { userInfo = {}, changePassword } = props;
@@ -33,7 +34,7 @@ const Changepassword = (props) => {
       <StatusBar barStyle="light-content" />
       <View style={styles.form}>
         <View style={{ marginTop: 32 }}>
-          <Text style={styles.inputTitle}>Old password</Text>
+          <Text style={styles.inputTitle}>{I18n.t("key_old_password")}</Text>
           <TextInput
             style={styles.input}
             autoCapitalize="none"
@@ -43,7 +44,7 @@ const Changepassword = (props) => {
           />
         </View>
         <View style={{ marginTop: 32 }}>
-          <Text style={styles.inputTitle}>New password</Text>
+          <Text style={styles.inputTitle}>{I18n.t("key_new_password")}</Text>
           <TextInput
             style={styles.input}
             autoCapitalize="none"
@@ -53,7 +54,7 @@ const Changepassword = (props) => {
           />
         </View>
         <View style={{ marginTop: 32 }}>
-          <Text style={styles.inputTitle}>Confirm password</Text>
+          <Text style={styles.inputTitle}>{I18n.t("key_confirm")}</Text>
           <TextInput
             style={styles.input}
             autoCapitalize="none"
@@ -65,7 +66,7 @@ const Changepassword = (props) => {
           />
         </View>
         <TouchableOpacity style={styles.button} onPress={handleChangePassword}>
-          <Text style={styles.textLogin}>Change password</Text>
+          <Text style={styles.textLogin}>{I18n.t("key_change_password")}</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

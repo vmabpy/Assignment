@@ -2,6 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Login, Register, ForgotPassword } from "../components/Authentication/";
 const Stack = createStackNavigator();
+import I18n from "ex-react-native-i18n";
 
 const AuthNavigation = () => {
   return (
@@ -9,12 +10,12 @@ const AuthNavigation = () => {
       <Stack.Screen
         name="SignIn"
         component={Login}
-        options={{ title: "Sign In", headerShown: false }}
+        options={{ title: I18n.t("key_signin"), headerShown: false }}
       />
       <Stack.Screen
         name="Register"
         component={Register}
-        options={{ title: "Register", headerShown: false }}
+        options={{ title: I18n.t("key_register"), headerShown: false }}
       />
 
       <Stack.Screen

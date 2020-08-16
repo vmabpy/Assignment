@@ -26,6 +26,7 @@ import { ICONSHARE, ICONEXERCISE, ICONPATH } from "../../config/icon";
 import StarRating from "react-native-star-rating";
 import ModalExercises from "./Exercises/ModalExercises";
 import ModalComments from "./Comments/ModalComments";
+import I18n from "ex-react-native-i18n";
 
 const CourseDetail = (props) => {
   const {
@@ -77,13 +78,11 @@ const CourseDetail = (props) => {
 
   const [infoVideo, setInfoVideo] = useState(initalVideo);
   const [visibleWeb, setVisibleWeb] = useState(false);
-  // const [urlVideo, setUrlVideo] = useState(undefined);
   const [dataDetail, setDataDetail] = useState(undefined);
   const [itemLesson, setItemLesson] = useState(undefined);
   const [visibleModalEx, setVisibleModalEx] = useState(false);
   const [visibleModalComment, setVisibleModalComment] = useState(false);
   const [ownCourse, setOwnCourse] = useState(false);
-  // const [currentTime, setCurrentTime] = useState(0);
   useEffect(() => {
     if (id) {
       const params = { id };
@@ -122,17 +121,16 @@ const CourseDetail = (props) => {
     {
       id: 0,
       imageRoute: ICONEXERCISE,
-      title: "Take exercises with this lesson",
+      title: I18n.t("key_exercises"),
     },
     {
       id: 1,
       imageRoute: ICONPATH,
-      title: "View related path and course",
+      title: I18n.t("key_related_course"),
     },
   ];
 
   const handleClick = (item) => {
-    console.log("chon cai nay", item.id);
     if (item.isPreview || ownCourse) {
       setItemLesson(item);
       const paramsCurrent = {
@@ -140,18 +138,13 @@ const CourseDetail = (props) => {
         lessonId: item.id,
       };
       getCurrentVideo(paramsCurrent, (res) => {
-        console.log("get current video", res);
-        // setUrlVideo(res.videoUrl);
-        // if (res.currentTime !== null) {
-        //   setCurrentTime(res.currentTime);
-        // }
         setInfoVideo({
           urlVideo: res.videoUrl,
           currentTime: res.currentTime !== null ? res.currentTime : 0,
         });
       });
     } else {
-      Alert.alert("Remind", "Joining or payment course to learn more. Please!");
+      Alert.alert(I18n.t("key_remind"), I18n.t("key_remind_joining"));
     }
   };
 
@@ -180,7 +173,7 @@ const CourseDetail = (props) => {
     } else if (optionItem.id === 3) {
       if (dataDetail.price === 0) {
         if (ownCourse) {
-          Alert.alert("Remind", "Already joining in course!");
+          Alert.alert(I18n.t("key_remind"), I18n.t("key_remind_joined"));
         } else {
           const params = {
             courseId: item.id,

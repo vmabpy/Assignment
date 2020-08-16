@@ -8,6 +8,7 @@ import Authors from "./Authors/AuthorList/list-author";
 import loGet from "lodash/get";
 import { connect } from "react-redux";
 import CourseActions from "../../../redux/courseRedux";
+import I18n from "ex-react-native-i18n";
 
 const Browse = (props) => {
   const [newData, setNewData] = useState([]);
@@ -52,22 +53,29 @@ const Browse = (props) => {
 
   return (
     <ScrollView>
-      <ImageButton width="98%" title="NEW RELEASE" onPress={handleNewRelease} />
       <ImageButton
         width="98%"
-        title="RECOMMEND FOR YOU"
+        title={I18n.t("key_up_new_releases")}
+        onPress={handleNewRelease}
+      />
+      <ImageButton
+        width="98%"
+        title={I18n.t("key_recommend")}
         onPress={handleRecommend}
       />
-      <ListLanguage title="Popular skills" navigation={props.navigation} />
+      <ListLanguage
+        title={I18n.t("key_popular_skills")}
+        navigation={props.navigation}
+      />
       {/* <Trending /> */}
       <LearningPath
-        title="Rating"
+        title={I18n.t("key_rating")}
         navigation={props.navigation}
         ratingData={rating}
         handleShowRating={handleShowRating}
       />
       <Authors
-        title="Top Authors"
+        title={I18n.t("key_top_athors")}
         navigation={props.navigation}
         listTutor={listTutor}
       />

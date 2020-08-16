@@ -11,6 +11,7 @@ import AppActions from "../../../redux/appRedux";
 import { connect } from "react-redux";
 import loGet from "lodash/get";
 import { ICONTICK } from "../../../config/icon";
+import I18n from "ex-react-native-i18n";
 
 const Language = (props) => {
   const { changeLanguage, languageCurrent } = props;
@@ -23,7 +24,7 @@ const Language = (props) => {
           changeLanguage("en");
         }}
       >
-        <Text style={styles.text}>English</Text>
+        <Text style={styles.text}>{I18n.t("key_en")}</Text>
         {languageCurrent === "en" && (
           <Image source={ICONTICK} style={styles.image} />
         )}
@@ -35,7 +36,7 @@ const Language = (props) => {
           changeLanguage("vi");
         }}
       >
-        <Text style={styles.text}>Vietnamese</Text>
+        <Text style={styles.text}>{I18n.t("key_vi")}</Text>
         {languageCurrent === "vi" && (
           <Image source={ICONTICK} style={styles.image} />
         )}

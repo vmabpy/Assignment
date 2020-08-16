@@ -48,7 +48,7 @@ const ListLesson = (props) => {
                 <View style={styles.perView}>
                   <Text>{sumLessonFinish}/</Text>
                   <Text style={{ color: "blue", fontWeight: "bold" }}>
-                    {sumHours}
+                    {sumHours.toFixed(2)}
                   </Text>
                 </View>
               </View>
@@ -96,12 +96,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    marginLeft: 10,
   },
   perView: {
+    flex: 0.2,
     flexDirection: "row",
-    padding: 10,
   },
   titleSection: {
+    flex: 0.8,
     margin: 5,
     fontSize: 16,
     fontWeight: "bold",
