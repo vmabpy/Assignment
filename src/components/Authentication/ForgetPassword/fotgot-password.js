@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   Dimensions,
+  ScrollView,
 } from "react-native";
 import { connect } from "react-redux";
 import loGet from "lodash/get";
@@ -27,7 +28,7 @@ const ForgotPassword = (props) => {
   };
 
   return (
-    <View>
+    <ScrollView>
       <StatusBar barStyle="light-content" />
       <View style={styles.viewBubble}></View>
       <View style={styles.viewBubbleYellow}></View>
@@ -54,7 +55,7 @@ const ForgotPassword = (props) => {
       <TouchableOpacity style={styles.button} onPress={handleResetPassword}>
         <Text style={styles.textLogin}>Send</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 

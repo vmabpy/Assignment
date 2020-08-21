@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   StatusBar,
+  ScrollView,
 } from "react-native";
 import { connect } from "react-redux";
 import loGet from "lodash/get";
@@ -33,7 +34,7 @@ export const Register = (props) => {
     register(params);
   };
   return (
-    <View>
+    <ScrollView>
       <StatusBar barStyle="light-content" />
       <View style={styles.viewBubble}></View>
       <View style={styles.viewBubbleYellow}></View>
@@ -99,7 +100,7 @@ export const Register = (props) => {
       </TouchableOpacity>
       <View style={styles.viewBubbleBottom}></View>
       <View style={styles.viewBubbleButtonLeft}></View>
-    </View>
+    </ScrollView>
   );
 };
 

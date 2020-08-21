@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StatusBar,
   Image,
+  ScrollView,
 } from "react-native";
 import * as Google from "expo-google-app-auth";
 import { Dimensions } from "react-native";
@@ -60,7 +61,7 @@ const Login = (props) => {
     }
   };
   return (
-    <View>
+    <ScrollView>
       <StatusBar barStyle="light-content" />
       <View style={styles.viewBubble}></View>
       <View style={styles.viewBubbleYellow}></View>
@@ -122,7 +123,7 @@ const Login = (props) => {
           {I18n.t("key_forgor_password")}
         </Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 
